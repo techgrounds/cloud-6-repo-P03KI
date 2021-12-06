@@ -17,7 +17,7 @@ De term 'native' wil zeggen dat er geen besturingsysteem tussen ligt, hierdoor k
 ## Opdracht
 
 Install a Linux virtual machine on your laptop.
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu1.png)
+![screenshot Desktop](../00_includes/LNX/InstallUbuntu.png)
 ![screenshot Desktop](../00_includes/LNX/InstallUbuntu2.png)
 ![screenshot Desktop](../00_includes/LNX/InstallUbuntu3.png)
 
