@@ -50,14 +50,13 @@ Push je code naar je repository
 
 In VSC (Visual Studio Code) -> Source Control -> Commit
 
-Pull / Clone een repository van je peer.
-
+Pull / Clone een repository van je peer
 
 ## Opdracht 2
 
 Maak een nieuwe repository aan voor je portfolio
 
-- [Account](https://github.com/P03KI/CLOUD101)
+- [Account](https://github.com/techgrounds/cloud-6-repo-P03KI)
 
 Push je notities naar de repository
 
@@ -67,10 +66,11 @@ Deel deze repository met je Learning Coach
 
 - Done
 
-
 ### Gebruikte bronnen
 
-[GitHub](https://docs.github.com/en)
+<https://docs.github.com/en>
+<https://code.visualstudio.com/>
+<https://nl.wikipedia.org/>
 
 ### Ervaren problemen
 

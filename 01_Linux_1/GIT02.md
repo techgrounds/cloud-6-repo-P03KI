@@ -10,6 +10,8 @@ VCS
 
 ## Opdracht
 
+Maak een document met je gekozen editor.
+
 ### Gebruikte bronnen
 
 <https://code.visualstudio.com/>
@@ -17,8 +19,8 @@ VCS
 
 ### Ervaren problemen
 
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+Geen.
 
 ### Resultaat
 
-[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]
+Opdrachten GIT01 en GIT02 voltooid en pushed to Github via VSC.
