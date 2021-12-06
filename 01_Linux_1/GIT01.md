@@ -79,3 +79,4 @@ Kon niet gelijk syncen naar Github. Ging via push request waarbij ik verplichte 
 ### Resultaat
 
 Visual Studio Code aan GitHub gelinked via extension. Pulled repo, .md file aangepast, bewaard. Uitgevonden hoe ik files commit.
+![screenshot Desktop](../00_includes/VSC_Git.png)

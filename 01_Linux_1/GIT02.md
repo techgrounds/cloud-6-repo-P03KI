@@ -1,6 +1,6 @@
 # [Git & Markdown]
 
-[Geef een korte beschrijving van het onderwerp]
+Introductie Markdown met Git.
 
 ## Key-terms
 
@@ -12,7 +12,8 @@ VCS
 
 ### Gebruikte bronnen
 
-[Plaats hier de bronnen die je hebt gebruikt.]
+<https://code.visualstudio.com/>
+<https://nl.wikipedia.org/>
 
 ### Ervaren problemen
 
