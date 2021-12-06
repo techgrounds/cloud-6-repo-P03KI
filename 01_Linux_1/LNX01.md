@@ -10,9 +10,7 @@ WSL(2)
 
 Hyper-V
 
-- Hyper-V is een native hypervisor van Microsoft voor virtualisatie. Met de software kan men virtuele machines creëren op x86-64-systemen, waarop vervolgens Windows kan draaien.
-
-De term 'native' wil zeggen dat er geen besturingsysteem tussen ligt, hierdoor kunnen er meer bronnen, zoals werkgeheugen, aan de virtuele machines toegewezen worden. Dit type hypervisor wordt dan vooral ook gebruikt voor servers.
+- Hyper-V is een native hypervisor van Microsoft voor virtualisatie. Met de software kan men virtuele machines creëren op x86-64-systemen, waarop vervolgens Windows kan draaien. De term 'native' wil zeggen dat er geen besturingsysteem tussen ligt, hierdoor kunnen er meer bronnen, zoals werkgeheugen, aan de virtuele machines toegewezen worden. Dit type hypervisor wordt dan vooral ook gebruikt voor servers.
 
 ## Opdracht
 
@@ -32,6 +30,8 @@ Go to the terminal in your VM and type ‘whoami’. The terminal should show yo
 <https://docs.microsoft.com/en-us/windows/wsl/install>
 
 <https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v>
+
+<https://nl.wikipedia.org/>
 
 ### Ervaren problemen
 
