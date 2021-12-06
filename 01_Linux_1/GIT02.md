@@ -1,0 +1,23 @@
+# [Git & Markdown]
+
+[Geef een korte beschrijving van het onderwerp]
+
+## Key-terms
+
+VCS
+
+- Een versiebeheersysteem of VCS (Engels: Version Control System) is een computerprogramma of een verzameling programma's waarmee men de wijzigingen in documenten, programma's of andere informatie bewaard in computerbestanden kan beheren. Een VCS wordt het meest gebruikt bij de ontwikkeling van software, zodat meerdere mensen wijzigingen kunnen aanbrengen aan dezelfde bestanden. Wijzigingen worden meestal aangeduid met een code, het "revisienummer" of "revisieniveau". Elke wijziging wordt gekoppeld aan een timestamp en aan de persoon die de wijziging maakte. Wijzigingen kunnen vergeleken worden, hersteld en soms samengevoegd.
+
+## Opdracht
+
+### Gebruikte bronnen
+
+[Plaats hier de bronnen die je hebt gebruikt.]
+
+### Ervaren problemen
+
+[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+
+### Resultaat
+
+[Omschrijf hoe je weet dat je opdracht gelukt is (gebruik screenshots waar nodig).]
