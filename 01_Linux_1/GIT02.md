@@ -15,6 +15,7 @@ Maak een document met je gekozen editor.
 ### Gebruikte bronnen
 
 <https://code.visualstudio.com/>
+
 <https://nl.wikipedia.org/>
 
 ### Ervaren problemen

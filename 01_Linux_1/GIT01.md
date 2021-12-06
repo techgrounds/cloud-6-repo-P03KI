@@ -69,7 +69,9 @@ Deel deze repository met je Learning Coach
 ### Gebruikte bronnen
 
 <https://docs.github.com/en>
+
 <https://code.visualstudio.com/>
+
 <https://nl.wikipedia.org/>
 
 ### Ervaren problemen
