@@ -1,16 +1,18 @@
-# [Onderwerp]
+# VM Installeren
 
-[Geef een korte beschrijving van het onderwerp]
+Linux via VM draaien op Windows 11.
 
 ## Key-terms
 
-[Schrijf hier een lijst met belangrijke termen met eventueel een korte uitleg.]
+WSL(2)
+
+- Microsoft introduceerde Windows Subsystem for Linux 2 bij de Windows 10 May 2020 Update van begin dit jaar. Met het subsysteem richt Microsoft zich op ontwikkelaars die bijvoorbeeld Linux-tools binnen Windows willen gebruiken. In plaats van op een relatief eenvoudige compatibiliteitslaag, zoals bij WSL1, is de tweede versie gebaseerd op een virtuele machine waarbinnen een door Microsoft zelf ontwikkelde opensource-Linux-kernel en de usermode van Linux draaien. Microsoft werkt eraan om Linux-bestanden binnen WSL vanuit de Verkenner te kunnen openen.
 
 ## Opdracht
 
 ### Gebruikte bronnen
 
-[Plaats hier de bronnen die je hebt gebruikt.]
+<https://docs.microsoft.com/en-us/windows/wsl/install>
 
 ### Ervaren problemen
 
