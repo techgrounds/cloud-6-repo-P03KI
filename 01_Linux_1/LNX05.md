@@ -10,19 +10,19 @@ Omgaan met gebruikers, groepen en rechten.
 ## Opdracht
 
 - Create a new user in your VM.
-![screenshot Desktop](../00_includes/LNX/LNX05_01.png)
+![screenshot Desktop](../00_includes/LNX/LNX05_1.png)
 
 - The new user should be part of an admin group that also contains the user you created during installation.
-![screenshot Desktop](../00_includes/LNX/LNX05_01.png)
+![screenshot Desktop](../00_includes/LNX/LNX05_1.png)
 
 - The new user should have a password.
-![screenshot Desktop](../00_includes/LNX/LNX05_02.png)
+![screenshot Desktop](../00_includes/LNX/LNX05_2.png)
 
 - The new user should be able to use ‘sudo’
-![screenshot Desktop](../00_includes/LNX/LNX05_04.png)
+![screenshot Desktop](../00_includes/LNX/LNX05_4.png)
 
 - Locate the files that store users, passwords, and groups. See if you can find your newly created user’s data in there.
-![screenshot Desktop](../00_includes/LNX/LNX05_03.png)
+![screenshot Desktop](../00_includes/LNX/LNX05_3.png)
 
 ### Gebruikte bronnen
 
