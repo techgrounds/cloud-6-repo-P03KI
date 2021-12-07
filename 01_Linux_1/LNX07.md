@@ -34,7 +34,7 @@ Omgaan met rechten van bestanden en folders.
 
 ### Ervaren problemen
 
-SSH status report bleef continue updaten zodat ik geen prompt meer kreeg. CTRL-Q en CTRL-X geen effect. OPgezocht hoe dit te stoppen. Antwoord "q".
+SSH status report bleef continue updaten zodat ik geen prompt meer kreeg. CTRL-Q en CTRL-X geen effect. Opgezocht hoe dit te stoppen. Antwoord "q".
 
 ### Resultaat
 
