@@ -10,6 +10,7 @@ Omgaan met gebruikers, groepen en rechten.
 ## Opdracht
 
 - Create a new user in your VM.
+
 ![screenshot Desktop](../00_includes/LNX/LNX05_1.png)
 
 - The new user should be part of an admin group that also contains the user you created during installation.
