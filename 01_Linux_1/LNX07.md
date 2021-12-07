@@ -26,11 +26,15 @@ Omgaan met rechten van bestanden en folders.
 
 <https://cheatography.com/davechild/cheat-sheets/linux-command-line/>
 
-<>
+<https://www.cyberciti.biz/faq/howto-start-stop-ssh-server/>
+
+<https://askubuntu.com/questions/1161579/ssh-server-cannot-be-found-even-though-installed>
+
+<https://askubuntu.com/questions/961025/how-do-i-exit-the-systemctl-status-commands-output>
 
 ### Ervaren problemen
 
-Geen
+SSH status report bleef continue updaten zodat ik geen prompt meer kreeg. CTRL-Q en CTRL-X geen effect. OPgezocht hoe dit te stoppen. Antwoord "q".
 
 ### Resultaat
 
