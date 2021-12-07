@@ -1,6 +1,6 @@
 # Processes
 
-Omgaan met rechten van bestanden en folders.
+Installeren, aanzetten en stopzetten van een SSH server voor remote connections.
 
 ## Key-terms
 
