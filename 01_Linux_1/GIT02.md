@@ -43,4 +43,4 @@ Geen.
 ### Resultaat
 
 Opdrachten GIT01 en GIT02 voltooid en pushed to Github via VSC.
-![screenshot Desktop](../00_includes/VSC_Git.png)
+![screenshot Desktop](../00_includes/LNX/VSC_Git.png)
