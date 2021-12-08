@@ -28,6 +28,7 @@ Cronjobs kunnen worden vergeleken met de taakplanner onder Microsoft Windows en 
 
 - Create a script that writes available disk space to a log file in ‘/var/logs’. Use a cron job so that it runs weekly.
 
+syslog:
 ![screenshot Desktop](../00_includes/LNX/LNX011_7.png)
 ![screenshot Desktop](../00_includes/LNX/LNX011_8.png)
 ![screenshot Desktop](../00_includes/LNX/LNX011_9.png)
