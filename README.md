@@ -8,4 +8,4 @@ Mijn achtergrond is heel divers. Ik heb gereisd en in het buitenland gewerkt en 
 
 Door de corona en verhuizing was het wat moeilijker een baan met groei en uitdaging te vinden. Daardoor heb ik de afgelopen tijd gewerkt bij een kunststof-producent. Ondanks dat het fysieke werk in de werkplaats mij ook wel lag, gaf het mij toch niet genoeg intellectuele uitdaging. Ik heb de directeur op de hoogte gesteld van mijn wensen en hem aangeboden op verschillende vlakken te kunnen ondersteunen bijvoorbeeld met de website, marketing van (neven)activiteiten, administratieve systemen, automatisering en netwerkbeheer. Animo was aanwezig, maar kosten-technisch was het allemaal wat moeilijker. Hierdoor ben ik verder gaan zoeken en kwam de Cloud-opleiding van techgrounds tegen. Na de infodag was ik enthousiast en heb ik mij aangemeld. Na een lang assesment en het combineren met werk, ben ik eindelijk hier, aan het begin van een nieuwe uitdaging.
 
-![screenshot Desktop](https://giphy.com/embed/fpkRv9BRt1LSsM9rkb)
+![screenshot Desktop](../00_includes/etc/vr_gif.gif)
