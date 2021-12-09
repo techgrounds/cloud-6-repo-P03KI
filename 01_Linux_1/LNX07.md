@@ -19,7 +19,7 @@ SSH kan ook voor beveiligde bestandsoverdracht gebruikt worden, door middel van 
 Commando:
 
     sudo apt-get install openssh-server
-    
+
     sudo systemctl start ssh
     sudo systemctl stop ssh
     sudo systemctl status ssh
@@ -52,6 +52,8 @@ Commando:
 <https://nl.wikipedia.org/wiki/Secure_Shell>
 
 <https://en.wikipedia.org/wiki/Process_identifier>
+
+<https://www.digitalocean.com/community/tutorials/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux>
 
 <https://www.cyberciti.biz/faq/howto-start-stop-ssh-server/>
 
