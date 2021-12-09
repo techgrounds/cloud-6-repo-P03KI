@@ -51,11 +51,20 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_2.png)
 
+Na testen werkte scripts niet vanuit een andere folder, waarbij alles wel correct stond. Na enig zoeken en testen kwam ik erachter dat het aan het script lag waarbij er geen relatief pad in stond. Dus het werkte wel, maar het script dus niet goed genoeg :)
+
+![screenshot Desktop](../00_includes/LNX/LNX010_18.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_19.png)
+
 - Create a script that appends a line of text to a text file whenever it is executed.
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_4.png)
 ![screenshot Desktop](../00_includes/LNX/LNX010_3.png)
+Dit was mijn eerste versie van het script:
 ![screenshot Desktop](../00_includes/LNX/LNX010_5.png)
+
+UPD: Na enig testen is deze versie beter aangezien het pad voor .txt nu correct gedefineerd is:
+![screenshot Desktop](../00_includes/LNX/LNX010_20.png)
 
 - Create a script that installs the httpd package, activates httpd, and enables httpd. Finally, your script should print the status of httpd in the terminal.
 
@@ -67,7 +76,7 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 - Create a script that generates a random number between 1 and 10, stores it in a variable, and then appends the number to a text file.
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_8.png)
-![screenshot Desktop](../00_includes/LNX/LNX010_9.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_21.png)
 
 ## Opdracht 3
 
@@ -75,7 +84,7 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_10.png)
 ![screenshot Desktop](../00_includes/LNX/LNX010_11.png)
-![screenshot Desktop](../00_includes/LNX/LNX010_12.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_22.png)
 
 ### Gebruikte bronnen
 
@@ -101,7 +110,9 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 
 ### Ervaren problemen
 
-Even moeten uitzoeken wat de comparison syntax was in BASH. Syntax is uiteraard anders dan ik gewend ben, maar de structuur is duidelijk. Omdat ik de volgende dag verder ben gegaan met deze opdracht, werkte mijn scripts niet meer vanwege $PATH. Als ik tijd over heb, zal ik deze in mijn profile toevoegen zodat dit geen issue meer is.
+Even moeten uitzoeken wat de comparison syntax was in BASH. Syntax is uiteraard anders dan ik gewend ben, maar de structuur is duidelijk. Omdat ik de volgende dag verder ben gegaan met deze opdracht, werkte mijn scripts niet meer vanwege $PATH. Als ik tijd over heb, zal ik deze in mijn .bashrc toevoegen zodat dit geen issue meer is.
+
+Update: Chris gaf aan geen scripts te kunnen runnen vanaf andere folder dan scripts. Na een test werkte dat bij mij ook niet. Samen met Matias en Chris gezocht wat de reden kon zijn. Kwam erachter dat het aan het script lag waarbij paden niet goed gedefineerd waren. Scripts updated.
 
 ### Resultaat
 
