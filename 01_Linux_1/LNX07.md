@@ -4,6 +4,12 @@ Installeren, aanzetten en stopzetten van een SSH server voor remote connections.
 
 ## Key-terms
 
+- Processes
+
+Op een UNIX systeem, zoals Ubuntu Linux, zijn er twee grote entiteiten. Enerzijds heb je bestanden. Alle soorten objecten op het systeem, zoals gewone bestanden, mappen, links, speciale bestanden om met randapparatuur te communiceren enzovoorts, worden zo veel mogelijk behandeld onder de algemene noemer “bestand”. Bestanden op zichzelf doen niets, ze staan gewoon op de harde schijf of op een ander opslagmedium. We hebben processen nodig om de bestanden te manipuleren, zodat we een werkbare omgeving krijgen.
+
+Processen zijn altijd uitvoerbare bestanden, die in het geheugen geladen worden en daar instructies doorgeven naar de processor. Uitvoerbare bestanden hebben een “x” in minstens één van de groepen “user”, “group” of “other”.
+
 - SSH
 
 Secure Shell (kortweg: SSH) is een protocol uit de toepassingslaag van de TCP/IP-protocolgroep. De term ssh werd gemakshalve ook gebruikt voor het clientprogramma dat het protocol toepast (het serverprogramma heet sshd, 'Secure Shell daemon'). SSH vervangt oudere protocollen zoals telnet, rlogin, en rsh/rexec door een beveiligbare variant daarvan. De standaard poort van SSH is 22.
@@ -48,6 +54,8 @@ Commando:
 ![screenshot Desktop](../00_includes/LNX/LNX07_3.png)
 
 ### Gebruikte bronnen
+
+<https://nl.wikibooks.org/wiki/Ubuntu:_Linux_voor_mensen/Processen/Wat_is_een_proces%3F>
 
 <https://nl.wikipedia.org/wiki/Secure_Shell>
 
