@@ -51,6 +51,10 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_2.png)
 
+Na testen werkte scripts niet vanuit een andere folder, waarbij alles wel correct stond. Na enig zoeken en testen kwam ik erachter dat het aan het script lag waarbij er geen relatief pad in stond. Dus het werkte wel, maar het script dus niet goed genoeg :)
+
+![screenshot Desktop](../00_includes/LNX/LNX010_18.png)
+
 - Create a script that appends a line of text to a text file whenever it is executed.
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_4.png)
