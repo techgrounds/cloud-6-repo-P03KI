@@ -23,17 +23,27 @@ Enkele van de meest voorkomende logbestanden zijn:
 Systeemlogboeken
 
 *Autorisatielogboek
+
 *Daemon Log
+
 *Foutopsporingslogboek
+
 *Kernel Log
+
 *Kernel Rig Buffer
+
 *Systeem log
+
 *Applicatielogboeken
 
 *Apache HTTP Server Logs
+
 *CUPS Print System Logs
+
 *Rootkit jagerslogboek
+
 *Samba SMB Server Logs
+
 *X11-serverlogboe
 
 CLI:
