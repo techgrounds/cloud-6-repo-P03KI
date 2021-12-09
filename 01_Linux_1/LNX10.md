@@ -54,12 +54,17 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 Na testen werkte scripts niet vanuit een andere folder, waarbij alles wel correct stond. Na enig zoeken en testen kwam ik erachter dat het aan het script lag waarbij er geen relatief pad in stond. Dus het werkte wel, maar het script dus niet goed genoeg :)
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_18.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_19.png)
 
 - Create a script that appends a line of text to a text file whenever it is executed.
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_4.png)
 ![screenshot Desktop](../00_includes/LNX/LNX010_3.png)
+Dit was mijn eerste versie van het script:
 ![screenshot Desktop](../00_includes/LNX/LNX010_5.png)
+
+UPD: Na enig testen is deze versie beter aangezien het pad voor .txt nu correct gedefineerd is:
+![screenshot Desktop](../00_includes/LNX/LNX010_20.png)
 
 - Create a script that installs the httpd package, activates httpd, and enables httpd. Finally, your script should print the status of httpd in the terminal.
 
