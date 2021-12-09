@@ -16,6 +16,14 @@ SSH heeft ook de mogelijkheid om een X11-verbinding en TCP/IP-poorten door te st
 
 SSH kan ook voor beveiligde bestandsoverdracht gebruikt worden, door middel van de programma's SCP (Secure Copy, vervanger van het oudere rcp, remote copy) en sftp (secure file transfer protocol, vervanger van FTP).
 
+Commando:
+
+    sudo apt-get install openssh-server
+    
+    sudo systemctl start ssh
+    sudo systemctl stop ssh
+    sudo systemctl status ssh
+
 - PID
 
 In computing, the process identifier (a.k.a. process ID or PID) is a number used by most operating system kernels—such as those of Unix, macOS and Windows—to uniquely identify an active process. This number may be used as a parameter in various function calls, allowing processes to be manipulated, such as adjusting the process's priority or killing it altogether.
