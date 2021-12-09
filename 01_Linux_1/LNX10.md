@@ -110,7 +110,9 @@ UPD: Na enig testen is deze versie beter aangezien het pad voor .txt nu correct 
 
 ### Ervaren problemen
 
-Even moeten uitzoeken wat de comparison syntax was in BASH. Syntax is uiteraard anders dan ik gewend ben, maar de structuur is duidelijk. Omdat ik de volgende dag verder ben gegaan met deze opdracht, werkte mijn scripts niet meer vanwege $PATH. Als ik tijd over heb, zal ik deze in mijn profile toevoegen zodat dit geen issue meer is.
+Even moeten uitzoeken wat de comparison syntax was in BASH. Syntax is uiteraard anders dan ik gewend ben, maar de structuur is duidelijk. Omdat ik de volgende dag verder ben gegaan met deze opdracht, werkte mijn scripts niet meer vanwege $PATH. Als ik tijd over heb, zal ik deze in mijn .bashrc toevoegen zodat dit geen issue meer is.
+
+Update: Chris gaf aan geen scripts te kunnen runnen vanaf andere folder dan scripts. Na een test werkte dat bij mij ook niet. Samen met Matias en Chris gezocht wat de reden kon zijn. Kwam erachter dat het aan het script lag waarbij paden niet goed gedefineerd waren. Scripts updated.
 
 ### Resultaat
 
