@@ -12,9 +12,34 @@ De naam is een woordgrapje op de naam van de originele shell, die voluit Bourne 
 
 Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash ingewikkelde opdrachtregels uit te voeren. Deze opdrachten kunnen worden opgeslagen in afzonderlijke bestanden (meestal omwille van hun lengte) en vormen dan scripts.
 
-- 
+- Operators
 
+    - Arithmetic Operators
 
+        ![screenshot Desktop](../00_includes/LNX/LNX010_13.png)
+    - Relational Operators
+
+         ![screenshot Desktop](../00_includes/LNX/LNX010_14.png)
+
+    - Boolean Operators
+
+        ![screenshot Desktop](../00_includes/LNX/LNX010_15.png)
+
+    - String Operators
+
+         ![screenshot Desktop](../00_includes/LNX/LNX010_16.png)
+
+    - File Test Operators
+
+        ![screenshot Desktop](../00_includes/LNX/LNX010_13.png)
+
+    - C Shell Operators
+
+        [Link](https://www.tutorialspoint.com/unix/unix-c-shell-operators.htm)
+
+    - Korn Operators
+
+        [Link](https://www.tutorialspoint.com/unix/unix-korn-shell-operators.htm)
 
 ## Opdracht 1
 
@@ -55,6 +80,8 @@ Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash inge
 ### Gebruikte bronnen
 
 <https://nl.wikipedia.org/wiki/Bash>
+
+<https://linuxize.com/post/bash-if-else-statement/>
 
 <https://www.howtogeek.com/658904/how-to-add-a-directory-to-your-path-in-linux/>
 
