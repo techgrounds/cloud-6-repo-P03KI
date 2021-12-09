@@ -4,8 +4,21 @@ Installeren, aanzetten en stopzetten van een SSH server voor remote connections.
 
 ## Key-terms
 
-- Cheat-sheet CLI commands
-![screenshot Desktop](../00_includes/LNX/LNX02_00.png)
+- SSH
+
+Secure Shell (kortweg: SSH) is een protocol uit de toepassingslaag van de TCP/IP-protocolgroep. De term ssh werd gemakshalve ook gebruikt voor het clientprogramma dat het protocol toepast (het serverprogramma heet sshd, 'Secure Shell daemon'). SSH vervangt oudere protocollen zoals telnet, rlogin, en rsh/rexec door een beveiligbare variant daarvan. De standaard poort van SSH is 22.
+
+SSH maakt het mogelijk om op een versleutelde manier in te loggen op een andere computer, en op afstand commando's op de andere computer uit te voeren via een shell. Omdat ssh met encryptie werkt, is het voor eventuele afluisteraars, die de (internet)verbinding aftappen, zo goed als onmogelijk om wachtwoorden of commando's te achterhalen.
+
+Een groot voordeel van SSH is dat ook authenticatie met een publiek/geheim sleutelpaar (public/private key) mogelijk is. Hierdoor is het mogelijk om SSH-toepassingen geautomatiseerd te gebruiken zonder dat er een wachtwoord in de code hoeft te staan. Ook kan op elk systeem dat de publieke sleutel kent, aangemeld worden door het gebruik van de geheime sleutel. Als de eigenaar van de geheime sleutel het wachtwoord van die sleutel wijzigt, heeft dit geen gevolgen voor het sleutelpaar.
+
+SSH heeft ook de mogelijkheid om een X11-verbinding en TCP/IP-poorten door te sturen (forwarding). Het doorsturen van X11 maakt het mogelijk om veilig met een grafisch programma te werken dat op een andere computer draait dan waar de gebruiker achter zit.
+
+SSH kan ook voor beveiligde bestandsoverdracht gebruikt worden, door middel van de programma's SCP (Secure Copy, vervanger van het oudere rcp, remote copy) en sftp (secure file transfer protocol, vervanger van FTP).
+
+- PID
+
+In computing, the process identifier (a.k.a. process ID or PID) is a number used by most operating system kernels—such as those of Unix, macOS and Windows—to uniquely identify an active process. This number may be used as a parameter in various function calls, allowing processes to be manipulated, such as adjusting the process's priority or killing it altogether.
 
 ## Opdracht
 
@@ -24,7 +37,9 @@ Installeren, aanzetten en stopzetten van een SSH server voor remote connections.
 
 ### Gebruikte bronnen
 
-<https://cheatography.com/davechild/cheat-sheets/linux-command-line/>
+<https://nl.wikipedia.org/wiki/Secure_Shell>
+
+<https://en.wikipedia.org/wiki/Process_identifier>
 
 <https://www.cyberciti.biz/faq/howto-start-stop-ssh-server/>
 

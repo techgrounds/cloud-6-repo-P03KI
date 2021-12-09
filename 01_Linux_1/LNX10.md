@@ -4,6 +4,18 @@ Start met scripting in BASH.
 
 ## Key-terms
 
+- BASH
+
+Bash, wat staat voor Bourne Again Shell, is een shell voor POSIX-systemen en wordt onder andere gebruikt op Linux en macOS. Het is geschreven door GNU en is sterk geïnspireerd op sh (afgeleid van de eerste twee letters van shell (Engels voor omhulsel)), het opdrachtregelprogramma van Unix.
+
+De naam is een woordgrapje op de naam van de originele shell, die voluit Bourne shell heet, naar de auteur (Stephen Bourne). Bourne again wordt in het Engels hetzelfde uitgesproken als born again, hetgeen wedergeboren betekent. Bash streeft 100% achterwaartse compatibiliteit met sh na.
+
+Vanwege de rijke syntaxismogelijkheden van bash is het ook mogelijk in bash ingewikkelde opdrachtregels uit te voeren. Deze opdrachten kunnen worden opgeslagen in afzonderlijke bestanden (meestal omwille van hun lengte) en vormen dan scripts.
+
+- 
+
+
+
 ## Opdracht 1
 
 - Create a directory called ‘scripts’. Place all the scripts you make in this directory.
@@ -41,6 +53,8 @@ Start met scripting in BASH.
 ![screenshot Desktop](../00_includes/LNX/LNX010_12.png)
 
 ### Gebruikte bronnen
+
+<https://nl.wikipedia.org/wiki/Bash>
 
 <https://www.howtogeek.com/658904/how-to-add-a-directory-to-your-path-in-linux/>
 
