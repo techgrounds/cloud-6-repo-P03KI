@@ -20,8 +20,7 @@ Logbestanden zijn erg handig wanneer u probeert een probleem met het systeem op 
 
 Enkele van de meest voorkomende logbestanden zijn:
 
-Systeemlogboeken
-
+    *Systeemlogboeken
     *Autorisatielogboek
     *Daemon Log
     *Foutopsporingslogboek
