@@ -21,6 +21,8 @@ Write permission : Bij een gewoon bestand betekent dit dat je de inhoud kunt wij
 
 Execute permission :  In het geval van een gewoon bestand betekent dit dat je het kunt uitvoeren als een programma of shell script. Bij een map laat de "execute permission" je toe bestanden in die map te benaderen en te  openen ( met het "cd" commando bv.)  maar je kunt geen lijst maken van de bestanden in die map, tenzij je de "read permission" hebt voor die map.
 
+Commando:
+
     ls -l
 
 ## Opdracht

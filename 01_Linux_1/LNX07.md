@@ -20,6 +20,10 @@ SSH kan ook voor beveiligde bestandsoverdracht gebruikt worden, door middel van 
 
 In computing, the process identifier (a.k.a. process ID or PID) is a number used by most operating system kernels—such as those of Unix, macOS and Windows—to uniquely identify an active process. This number may be used as a parameter in various function calls, allowing processes to be manipulated, such as adjusting the process's priority or killing it altogether.
 
+Commando:
+
+    pgrep [process]
+
 ## Opdracht
 
 - Start the ssh daemon.
