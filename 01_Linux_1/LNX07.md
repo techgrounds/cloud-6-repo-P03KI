@@ -6,7 +6,22 @@ Installeren, aanzetten en stopzetten van een SSH server voor remote connections.
 
 - Processes
 
-Op een UNIX systeem, zoals Ubuntu Linux, zijn er twee grote entiteiten. Enerzijds heb je bestanden. Alle soorten objecten op het systeem, zoals gewone bestanden, mappen, links, speciale bestanden om met randapparatuur te communiceren enzovoorts, worden zo veel mogelijk behandeld onder de algemene noemer “bestand”. Bestanden op zichzelf doen niets, ze staan gewoon op de harde schijf of op een ander opslagmedium. We hebben processen nodig om de bestanden te manipuleren, zodat we een werkbare omgeving krijgen.
+Alles wat op een Linux-systeem gebeurt, is in de vorm van een proces; een taak die door het besturingssysteem gestart wordt en processorcapaciteit claimt.
+
+Er kunnen in principe 2 soorten processen actief zijn:
+
+   1. De processen die door de computer tijdens het opstarten geactiveerd worden zoals init, syslogd, etc. Deze automatisch bij het opstarten geactiveerde processen noemen we deamons.
+   2. De tweede soort zijn de interactieve processen die door de gebruikers opgestart worden door een commando in te typen. Elk commando veroorzaakt een proces, het is de enige manier om systeembronnen van de kernel te vragen.
+
+Alle processen hebben een Proces-ID waarmee het bij de kernel bekend is. Ook om procesbeheer, zoals het uitschakelen, uit te voeren moet gebruik gemaakt worden van dit PID. Dit nummer wordt toegekend in de volgorde van opstarten.
+PID 1 is altijd het proces 'init', de moeder van alle processen, elk ander proces komt namelijk voort uit 'init'.
+Voor een overzicht van alle active processen is het commando:
+
+    $ ps aux 
+
+of voor een continue update
+
+    $ top
 
 Processen zijn altijd uitvoerbare bestanden, die in het geheugen geladen worden en daar instructies doorgeven naar de processor. Uitvoerbare bestanden hebben een “x” in minstens één van de groepen “user”, “group” of “other”.
 
@@ -29,14 +44,6 @@ Commando:
     sudo systemctl start ssh
     sudo systemctl stop ssh
     sudo systemctl status ssh
-
-- PID
-
-In computing, the process identifier (a.k.a. process ID or PID) is a number used by most operating system kernels—such as those of Unix, macOS and Windows—to uniquely identify an active process. This number may be used as a parameter in various function calls, allowing processes to be manipulated, such as adjusting the process's priority or killing it altogether.
-
-Commando:
-
-    pgrep [process]
 
 ## Opdracht
 
