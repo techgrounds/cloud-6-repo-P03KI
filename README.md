@@ -1,11 +1,67 @@
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6530879&assignment_repo_type=AssignmentRepo)
+# Example Cloud
+Een voorbeeld repository voor de Cloud Opleiding van TechGrounds.  
+Je kan een voorbeeld uitwerking van een opdracht vinden in [sprint_2 over S3](./sprint_2/S3.md) dat gebruik maakt van [de template](./templates/opdracht.md).
 
-# Wie ben ik?
+Deze README.md is uiteindelijk ook voor jou. Vervang deze tekst met een introductie over jezelf.
 
-Mijn naam is Suheri Koes, 39 jaar oud en woonachtig te Leiden.
-Door de corona uitbraak ben ik gaan samenwonen met mijn vriendin Marleen gezien ik in Brabant (Breda) woonde. Er waren geruchten dat de regering misschien de gehele provincie Brabant wilde isoleren. Zij woonde in Den Haag (niet mijn stad) en wilde graag in de randstad blijven vanwege haar ouders in Amsterdam. Leiden werd het compromis, gezien ik niet in een (te) grote stad wilde wonen en zij toch dichtbij haar ouders. Met een beetje geluk (lees: dedicatie en de mogelijkheid) wonen wij nu in een leuk huis in het centrum van Leiden aan een grachtje. Nu sparen voor een sloep :)
+## Organization is Key
+Je repository zal uiteindelijk de plek zijn waar je al je uitgewerkte opdrachten en opgedane kennis in plaatst. Zorg ervoor dat je een consistente folder structuur aanmaakt. Hiermee help je ons, jezelf, en je collega's, om elkaars werk te controleren en feedback te geven.
 
-Mijn achtergrond is heel divers. Ik heb gereisd en in het buitenland gewerkt en gewoond. Verschillende studies getracht waaronder Game Design & Development aan de HKU, Animatronics (ook HKU) en Animatie op het st. Joost. Daarna aan de slag gegaan als interactieve vormgever bij SD&P in Breda waar ik Flash games ontwierp en programmeerde. Ook heb ik bij verschillende tech-helpdesks gewerkt. ZZP-projecten gedaan varierend van flyers, posters, websites en een app. Later ben ik de marketing ingerold via een oud-collega en mijzelf opgewerkt tot marketing manager.
+```
+root
+ |- 00_includes < Plaats hier al je screenshots
+ |- 00_templates < Hier vind je de templates
+ |
+ |- 01_Linux_1
+ |
+ |- 02_Cloud_1
+ |- 02_Cloud_2
+ |- 02_Cloud_⋮
+ |- 02_Cloud_6
+ |
+ |- 03_Project
+ |  |- Code
+ |  |- Documentatie
+ |  |- Log
+ |
+ |- beschrijvingen < Mocht je snippets aan informatie willen opslaan zoals in het voorbeeld aangegeven
+```
 
-Door de corona en verhuizing was het wat moeilijker een baan met groei en uitdaging te vinden. Daardoor heb ik de afgelopen tijd gewerkt bij een kunststof-producent. Ondanks dat het fysieke werk in de werkplaats mij ook wel lag, gaf het mij toch niet genoeg intellectuele uitdaging. Ik heb de directeur op de hoogte gesteld van mijn wensen en hem aangeboden op verschillende vlakken te kunnen ondersteunen bijvoorbeeld met de website, marketing van (neven)activiteiten, administratieve systemen, automatisering en netwerkbeheer. Animo was aanwezig, maar kosten-technisch was het allemaal wat moeilijker. Hierdoor ben ik verder gaan zoeken en kwam de Cloud-opleiding van techgrounds tegen. Na de infodag was ik enthousiast en heb ik mij aangemeld. Na een lang assesment en het combineren met werk, ben ik eindelijk hier, aan het begin van een nieuwe uitdaging.
+Zoals je kan zien zijn de eerste mappen al aangemaakt.
 
-![screenshot Desktop](00_includes/etc/vr_gif.gif)
+## MarkDown Tips
+**Een volledige cheatsheet vind je [hier](https://devhints.io/markdown)**.
+
+### Wat daar niet op staat:
+Maar wel handig is om te weten:  
+```
+Als·je·een·regel·schrijft·en·je·gebruikt·één·enter.↩
+Dan·plaatst·GitHub/MarkDown·je·tekst·op·één·regel.
+```
+Als je een regel schrijft en je gebruikt één enter.
+Dan plaatst GitHub/MarkDown je tekst op één regel.
+
+Gebruikt dubbel enter om een nieuwe paragraaf te beginnen.
+```
+paragraaf·1↩
+↩
+paragraaf·2
+```
+Voor alleen een regelbreuk plaats je twee spaties aan het einde van de regel voor de enter.
+```
+regel·1··↩
+regel·2
+```
+### Opmaak shortlist
+`[text](link)` is de manier om een link te maken. Als je naar andere bestanden in je repostiory verwijst, zorg dat de links relatief zijn.
+
+`#·text` geeft een titel opmaak
+
+`##·text` geeft een kop level 1 opmaak
+
+```
+Text in `backquotes` worden geformateerd als code
+```
+
+Kijk ook anders even naar de source van deze readme!
