@@ -76,7 +76,7 @@ UPD: Na enig testen is deze versie beter aangezien het pad voor .txt nu correct 
 - Create a script that generates a random number between 1 and 10, stores it in a variable, and then appends the number to a text file.
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_8.png)
-![screenshot Desktop](../00_includes/LNX/LNX010_9.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_21.png)
 
 ## Opdracht 3
 
@@ -84,7 +84,7 @@ UPD: Na enig testen is deze versie beter aangezien het pad voor .txt nu correct 
 
 ![screenshot Desktop](../00_includes/LNX/LNX010_10.png)
 ![screenshot Desktop](../00_includes/LNX/LNX010_11.png)
-![screenshot Desktop](../00_includes/LNX/LNX010_12.png)
+![screenshot Desktop](../00_includes/LNX/LNX010_22.png)
 
 ### Gebruikte bronnen
 
