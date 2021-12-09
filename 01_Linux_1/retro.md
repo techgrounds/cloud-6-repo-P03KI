@@ -1,4 +1,4 @@
-# Retro van 3 van week 1
+# Retro van Groep 3 [Suheri, Quelan en Ahmed] van week 1
 
 Scrum master: Geef iedereen 10 minuten om zijn antwoorden op deze vragen te bedenken. Schrijf daarna de antwoorden op.
 
