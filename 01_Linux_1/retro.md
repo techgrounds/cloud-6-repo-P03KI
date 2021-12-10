@@ -14,6 +14,10 @@ Achteraf: Plaats een kopie van de retro in je eigen repository.
 
     - Helaas moest Quelan wachten op de laptop van Techgrounds waardoor ze op haar eigen 'potato' aan de slag moest. Hierdoor kwam er wel iets van achterstand, maar onze groep stond open voor hulp waar nodig.
 
+    - Presentatie beter voorbereiden.
+
 ## Wat kunnen wij doen om het te verbeteren?
 
     - Hardware proberen eerder te verschaffen aan deelnemers?
+
+    - Meer tijd nemen om presentatie te maken.
