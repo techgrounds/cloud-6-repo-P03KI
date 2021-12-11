@@ -1,7 +1,7 @@
 
-# Even voorstellen
+# Suheri
 
-Mijn naam is Suheri Koes, 39 jaar oud en woonachtig te Leiden.
+is mijn naam, 39 jaar oud en woonachtig te Leiden.
 Door de corona uitbraak ben ik gaan samenwonen met mijn vriendin Marleen gezien ik in Brabant ( het bourgondische Breda ) woonde. Er waren geruchten dat de regering misschien de gehele provincie Brabant wilde isoleren. Zij woonde in Den Haag (niet mijn stad) en wilde graag in de randstad blijven vanwege haar ouders in Amsterdam. Leiden werd het compromis, gezien ik niet in een (te) drukke stad wilde wonen en zij toch dichtbij haar ouders. Met een beetje geluk (lees: dedicatie en de mogelijkheid) wonen wij nu in een leuk huis in het centrum van Leiden aan een grachtje.
 
 
