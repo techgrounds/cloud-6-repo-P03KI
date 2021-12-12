@@ -1,37 +1,31 @@
-# VM Installeren
+# Azure Global Infrastructure
 
-Linux via VM draaien op Windows 11.
+Alles in de cloud, van servers tot networking, is virtualized. Als klant van een cloud provider hoef je je geen zorgen te maken over de onderliggende fysieke infrastructuur. De fysieke locatie van je applicatie of data kan echter wel belangrijk zijn.
+
+De global infrastructure van Azure bestaat uit de volgende componenten:
+1. Regions
+2. Availability Zones
+3. Region Pairs
+
+Je hebt zelf controle over welke regio je gebruikt, maar niet elke service is beschikbaar in elke regio. Sommige services zijn ook niet gebonden aan een specifieke regio. Denk hierbij bijvoorbeeld aan Azure Subscriptions.
 
 ## Key-terms
 
-WSL(2)
+- Virtualization
 
-- Microsoft introduceerde Windows Subsystem for Linux 2 bij de Windows 10 May 2020 Update van begin dit jaar. Met het subsysteem richt Microsoft zich op ontwikkelaars die bijvoorbeeld Linux-tools binnen Windows willen gebruiken. In plaats van op een relatief eenvoudige compatibiliteitslaag, zoals bij WSL1, is de tweede versie gebaseerd op een virtuele machine waarbinnen een door Microsoft zelf ontwikkelde opensource-Linux-kernel en de usermode van Linux draaien. Microsoft werkt eraan om Linux-bestanden binnen WSL vanuit de Verkenner te kunnen openen.
-
-Hyper-V
-
-- Hyper-V is een native hypervisor van Microsoft voor virtualisatie. Met de software kan men virtuele machines creëren op x86-64-systemen, waarop vervolgens Windows kan draaien. De term 'native' wil zeggen dat er geen besturingsysteem tussen ligt, hierdoor kunnen er meer bronnen, zoals werkgeheugen, aan de virtuele machines toegewezen worden. Dit type hypervisor wordt dan vooral ook gebruikt voor servers.
+- Azure Infrastructure
+    - Regions
+    - Availability Zones
+    - Region Pairs
 
 ## Opdracht
 
-Install a Linux virtual machine on your laptop.
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu.png)
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu2.png)
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu3.png)
-
-Once installation and setup are complete, take a snapshot of the VM. This will act as a checkpoint in case you break the machine on accident (or on purpose).
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu5.png)
-
-Go to the terminal in your VM and type ‘whoami’. The terminal should show your username
-![screenshot Desktop](../00_includes/LNX/InstallUbuntu4.png)
+- Wat is een Azure Region?
+- Wat is een Azure Availability Zone?
+- Wat is een Azure Region Pair?
+- Waarom zou je een regio boven een andere verkiezen?
 
 ### Gebruikte bronnen
-
-<https://docs.microsoft.com/en-us/windows/wsl/install>
-
-<https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v>
-
-<https://nl.wikipedia.org/>
 
 ### Ervaren problemen
 
@@ -39,4 +33,10 @@ Geen
 
 ### Resultaat
 
-Zie screenshots bij Opdracht.
+- Wat is een Azure Region?
+
+    - ffdfd
+
+- Wat is een Azure Availability Zone?
+- Wat is een Azure Region Pair?
+- Waarom zou je een regio boven een andere verkiezen?
