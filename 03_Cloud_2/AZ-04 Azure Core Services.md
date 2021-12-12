@@ -1,18 +1,39 @@
-# Advantages of the cloud
+# Azure Core Services
 
-Azure noemt 6 voordelen van cloud computing. Dit zijn basiseigenschappen die de cloud interessant maken voor bedrijven. Houd er rekening mee dat dit gelijk ook een marketing tool is om Azure te introduceren aan nieuwe klanten. Daarom is het ook een belangrijk onderdeel van het AZ-900 examen.
+Je kan dit document zien als een soort gids naar je AZ-900 certificering. Hierin staan de services die je in wat meer detail moet kennen. Ook beschrijft dit document hoe je moet omgaan met de andere services die je in het (oefen)examen tegen kan komen.
 
-De zes voordelen van cloud computing zijn:
-High Availability
-Afhankelijk van de service-level agreement (SLA)
-Scalability
-Zowel verticaal als horizontaal
-Elasticity
-Agility
-Geo-distribution
-Disaster recovery
+Er zijn veel services in Azure, maar sommige zijn belangrijker dan andere. Azure noemt de volgende architectural components en services  waarvan je redelijk in-depth van moet weten wat ze doen:
+Regions and Region Pairs
+Availability Zones
+Resource Groups
+Subscriptions
+Management Groups
+Azure Resource Manager
+Virtual Machines
+Azure App Services
+Azure Container Instances (ACI)
+Azure Kubernetes Service (AKS)
+Azure Virtual Desktop
+Virtual Networks
+VPN Gateway
+Virtual Network Peering
+ExpressRoute
+Container (Blob) Storage
+Disk Storage
+File Storage
+Storage Tiers
+Cosmos DB
+Azure SQL Database
+Azure Database for MySQL
+Azure Database for PostgreSQL
+SQL Managed Instance
+Azure Marketplace
 
-Azure maakt gebruik van een consumption-based model. Dat wil zeggen dat je alleen betaalt voor de resources die je gebruikt. Hierdoor wordt Capital Expenditure (CapEx) vervangen voor Operational Expenditure (OpEx).
+Natuurlijk zijn er veel meer services die mogelijk op je examen komen. Voor deze services is het genoeg om bekend te zijn met de product page (zie hier een voorbeeld van een Azure product page)
+
+
+
+Naast de services kan je ook vragen verwachten over verschillende cloud concepten, zoals High Availability, het consumption-based pricing model en het shared responsibility model.
 
 
 
@@ -23,8 +44,8 @@ Azure maakt gebruik van een consumption-based model. Dat wil zeggen dat je allee
 
 ## Opdracht
 
-De 6 advantages of the cloud
-Het consumption-based model
+Het Skills Measured document voor Microsoft Azure Fundamentals (AZ-900_)
+<https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE3VwUY>
 
 ### Gebruikte bronnen
 
