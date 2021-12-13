@@ -17,17 +17,30 @@ Azure maakt gebruik van een consumption-based model. Dat wil zeggen dat je allee
 ## Key-terms
 
 De 6 advantages of the cloud
-    1. High Availability
-        - Afhankelijk van de service-level agreement (SLA)
-    2. Scalability
-        - Zowel verticaal als horizontaal
-    3. Elasticity
-    4. Agility
-    5. Geo-distribution
+    1. Hoge beschikbaarheid
+        - Afhankelijk van de service-level agreement (SLA (Service Level Agreement)) 
+    2. Schaalbaarheid
+        - Zowel verticaal (+CPU/RAM) als horizontaal (+VM's)
+    3. Elasticiteit
+        - Cloud-apps met automatische schaalaanpassing
+    4. Flexibiliteit
+        - Snelle implementatie en configuratie van apps en gegevens
+    5. Geo-distributie
+        - Implementatie regionale datacentra Wereldwijd
     6. Disaster recovery
+        - Gegevens veilig door cloud-backup, gegevens replicatie en geo-distributie.
 
 Het consumption-based model
+
+    - Geen kosten vooraf
+    - Geen aanschaf dure infrastructuur wat mogelijk niet wordt gebruikt
+    - Mogelijkheid om voor aanvullende resources te betalen indien nodig
+    - Mogelijkheid met betalen van overbodige resources
 
 ### Gebruikte bronnen
 
 <https://www.sirrus.nl/over-azure/>
+
+<https://docs.microsoft.com/en-us/learn/modules/fundamental-azure-concepts/benefits-of-cloud-computing>
+
+<>

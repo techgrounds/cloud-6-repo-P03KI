@@ -10,8 +10,18 @@ Veel IaaS en PaaS services van Azure maken ook gebruik van Azure Storage Account
 
 ## Key-terms
 
+- Blob
+    Een BLOB is een - potentieel groot - gegevenselement in een database dat bestaat uit bytes waaraan in de database geen tekencodering of andere interpretatie is verbonden (dit in tegenstelling tot de CLOB). Het woord is gevormd als verwijzing naar het Engelse woord "blob": een vormeloze, onduidelijke substantie, en in het bijzonder zoals gebruikt in de filmklassieker The Blob uit 1958.[1] Later is er de betekenis binary large object) aan gegeven.
 
+    In de praktijk is een BLOB bijvoorbeeld een afbeelding (foto) of een stuk muziek. In feite wordt dan niet het bestand in de database opgenomen maar een verwijzing (pointer) naar dat bestand. Voor de gebruiker is dan de BLOB opgenomen in de database.
 
+    Een BLOB is het database-equivalent van een binair bestand. Opslaan in een database heeft voor- en nadelen ten opzichte van opslaan in het bestandssysteem.
+
+- IaaS
+    Internet as a Service
+
+- PaaS
+    Platform as a Service
 
 ## Opdracht
 
@@ -20,6 +30,8 @@ Plaats data in een storage service naar keuze via de console (bijvoorbeeld een k
 Haal de data op naar je eigen computer door middel van de Azure Storage Explorer.
 
 ### Gebruikte bronnen
+
+<https://nl.wikipedia.org/wiki/BLOB_(informatica)>
 
 ### Ervaren problemen
 

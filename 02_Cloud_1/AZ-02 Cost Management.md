@@ -58,3 +58,6 @@ Begrijp de opties die Azure aanbiedt om je uitgaven in te zien.
 Geen
 
 ### Resultaat
+
+Alert aangemaakt volgens opdracht:
+![screenshot Desktop](../00_includes/AZ/AZ02_01.png)

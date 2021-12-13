@@ -59,6 +59,5 @@ Geen
 
 2. Begrijp wie bepaalt welke protocols wij gebruiken en wat je zelf moet doen om een  nieuw protocol te introduceren.
     
-
 3. Identificeer op zijn minst één protocol per OSI-laag.
 Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
