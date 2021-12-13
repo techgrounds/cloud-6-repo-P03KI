@@ -39,18 +39,6 @@ Naast de services kan je ook vragen verwachten over verschillende cloud concepte
 
 ## Key-terms
 
-
-
-
-## Opdracht
-
-Het Skills Measured document voor Microsoft Azure Fundamentals (AZ-900_)
-<https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE3VwUY>
+[Het Skills Measured document voor Microsoft Azure Fundamentals (AZ-900_)](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE3VwUY)
 
 ### Gebruikte bronnen
-
-### Ervaren problemen
-
-Geen
-
-### Resultaat

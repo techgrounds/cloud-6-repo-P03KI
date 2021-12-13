@@ -1,6 +1,6 @@
 # Cost Management + Billing
 
-AEen veelgenoemd voordeel van de cloud is dat je alleen betaalt voor wat je gebruikt. Het gaat hier om OPEX in plaats van CAPEX uitgaven. De “Cost Management + Billing” tool geeft inzicht in je uitgaven in Azure en stelt je in staat je subscriptions te beheren.
+Een veelgenoemd voordeel van de cloud is dat je alleen betaalt voor wat je gebruikt. Het gaat hier om OPEX in plaats van CAPEX uitgaven. De “Cost Management + Billing” tool geeft inzicht in je uitgaven in Azure en stelt je in staat je subscriptions te beheren.
 
 Wanneer je een `Free Account` of een `Student Account` aanmaakt krijg je een bedrag van Microsoft cadeau om in Azure mee te experimenteren. Houd er rekening mee dat na 30 dagen je subscription automatisch stop wordt gezet, waardoor al je nog draaiende diensten uitgezet worden.
 
@@ -18,18 +18,40 @@ De Total Cost of Ownership (TCO) wordt gebruikt om te berekenen hoeveel een infr
 
 ## Key-terms
 
-De Azure principes voor kostenmanagement
-De voorwaarden van de `Free subscription`
-Het verschil tussen CAPEX en OPEX.
-De TCO-calculator
+- OPEX
+    
+    Operating Expenditures (OPEX). Day-to-day kosten om het bedrijf operationeel te houden. 
 
+- CAPEX
+    
+    Capital expenditures (CAPEX). Grote investeringen voor de lange termijn. 
+
+- De [Azure principes voor kostenmanagement](https://docs.microsoft.com/nl-nl/azure/architecture/framework/cost/principles)
+    
+    - Binnen de kostenbeperkingen blijven
+    - Streven naar schaalbare kosten
+    - Betalen voor verbruik
+    - Juiste resources, juiste grootte
+    - Bewaken en optimaliseren
+
+De voorwaarden van de `[Free subscription](https://azure.microsoft.com/nl-nl/free/)`
+    
+    - 12 maanden toegang tot VM's met Windows en Linux, SQL database, Blob storage.
+
+De [TCO-calculator](https://azure.microsoft.com/nl-nl/pricing/tco/calculator/)
+    
+    - Total Cost of Ownership
 
 ## Opdracht
 
 Maak een alert aan waarmee je eigen Cloud Pass kan monitoren.
-Begrijp de opties die Azure aanbiedt om je uitgaven in te zien
+Begrijp de opties die Azure aanbiedt om je uitgaven in te zien.
 
 ### Gebruikte bronnen
+
+<https://www.investopedia.com/ask/answers/112814/whats-difference-between-capital-expenditures-capex-and-operational-expenditures-opex.asp>
+
+<https://docs.microsoft.com/nl-nl/azure/architecture/framework/cost/principles>
 
 ### Ervaren problemen
 
