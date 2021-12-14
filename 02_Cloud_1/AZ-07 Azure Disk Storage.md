@@ -35,6 +35,7 @@ Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
 ![screenshot Desktop](../00_includes/AZ/AZ-07_02.png)
 
 Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
+![screenshot Desktop](../00_includes/AZ/AZ-07_03.png)
 
 Kijk op de tweede machine of je het bestand kan lezen.
 ![screenshot Desktop](../00_includes/AZ/AZ-07_001.png)
