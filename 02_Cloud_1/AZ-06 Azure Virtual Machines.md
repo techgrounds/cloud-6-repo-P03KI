@@ -21,9 +21,6 @@ Spot instances zijn over het algemeen het goedkoopst, maar de availability hangt
 
 ## Key-terms
 
-
-
-
 ## Opdracht
 
 Log in bij je Azure Console.
@@ -48,10 +45,14 @@ Maak een VM met de volgende vereisten:
 Controleer of je server werkt.
 Let op! Vergeet na de opdracht niet alles weer weg te gooien. Je kan elk onderdeel individueel verwijderen, of je kan in 1 keer de resource group verwijderen.
 
-### Gebruikte bronnen
-
 ### Ervaren problemen
 
 Geen
 
 ### Resultaat
+
+![screenshot Desktop](../00_includes/AZ/AZ-06_01.png)
+
+![screenshot Desktop](../00_includes/AZ/AZ-06_02.png)
+
+![screenshot Desktop](../00_includes/AZ/AZ-06_03.png)

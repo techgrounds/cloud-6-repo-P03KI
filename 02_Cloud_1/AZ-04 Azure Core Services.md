@@ -38,30 +38,30 @@ Naast de services kan je ook vragen verwachten over verschillende cloud concepte
 
 [Het Skills Measured document voor Microsoft Azure Fundamentals (AZ-900_)](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE3VwUY)
 
-    [Regions and Region Pairs](02_Cloud_1/AZ-01 Global Infrastructure.md)
-    [Availability Zones](02_Cloud_1/AZ-01 Global Infrastructure.md)
-    Resource Groups
-    Subscriptions
-    Management Groups
-    Azure Resource Manager
-    Virtual Machines
-    Azure App Services
-    Azure Container Instances (ACI)
-    Azure Kubernetes Service (AKS)
-    Azure Virtual Desktop
-    Virtual Networks
-    VPN Gateway
-    Virtual Network Peering
-    ExpressRoute
-    Container (Blob) Storage
-    Disk Storage
-    File Storage
-    Storage Tiers
-    Cosmos DB
-    Azure SQL Database
-    Azure Database for MySQL
-    Azure Database for PostgreSQL
-    SQL Managed Instance
-    Azure Marketplace
+[Regions and Region Pairs](02_Cloud_1/AZ-01 Global Infrastructure.md)
+[Availability Zones](02_Cloud_1/AZ-01 Global Infrastructure.md)
+Resource Groups
+Subscriptions
+Management Groups
+Azure Resource Manager
+Virtual Machines
+Azure App Services
+Azure Container Instances (ACI)
+Azure Kubernetes Service (AKS)
+Azure Virtual Desktop
+Virtual Networks
+VPN Gateway
+Virtual Network Peering
+ExpressRoute
+Container (Blob) Storage
+Disk Storage
+File Storage
+Storage Tiers
+Cosmos DB
+Azure SQL Database
+Azure Database for MySQL
+Azure Database for PostgreSQL
+SQL Managed Instance
+Azure Marketplace
 
 ### Gebruikte bronnen
