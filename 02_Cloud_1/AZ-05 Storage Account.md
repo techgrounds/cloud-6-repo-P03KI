@@ -30,6 +30,10 @@ Maak een Azure Storage Account. Zorg dat alleen jij toegang hebt tot de data.
 ![screenshot Desktop](../00_includes/AZ/AZ05_01.png)
 ![screenshot Desktop](../00_includes/AZ/AZ05_06.png)
 
+Getest via een andere computer
+
+![screenshot Desktop](../00_includes/AZ/SS_Access_Failure.png)
+
 Plaats data in een storage service naar keuze via de console (bijvoorbeeld een kattenfoto in Blob storage).
 
 ![screenshot Desktop](../00_includes/AZ/AZ-05_02.png)
