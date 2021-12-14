@@ -60,4 +60,4 @@ Geen
 ### Resultaat
 
 Alert aangemaakt volgens opdracht:
-![screenshot Desktop](../00_includes/AZ/A-Z02_01.png)
+![screenshot Desktop](../00_includes/AZ/AZ-02_01.png)
