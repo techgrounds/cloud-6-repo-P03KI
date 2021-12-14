@@ -51,5 +51,3 @@ Haal de data op naar je eigen computer door middel van de Azure Storage Explorer
 ### Ervaren problemen
 
 Geen
-
-### Resultaat

@@ -13,14 +13,13 @@ bron: https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types
 
 ## Opdracht
 
-Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
-Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
-Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
-Kijk op de tweede machine of je het bestand kan lezen.
-Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken
-Mount deze nieuwe Disk en bekijk het bestand. 
-
 ### Gebruikte bronnen
+
+<https://unix.stackexchange.com/questions/264434/mount-doesnt-give-write-permission-to-user>
+
+<https://phoenixnap.com/kb/linux-format-disk>
+
+<https://docs.microsoft.com/nl-nl/azure/virtual-machines/linux/attach-disk-portal>
 
 ### Ervaren problemen
 
