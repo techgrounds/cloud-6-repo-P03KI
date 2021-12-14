@@ -11,15 +11,21 @@ Github is een Git hosting service in de cloud van Microsoft. Github laat je Git 
 ## Opdracht
 
 Maak een GitHub account als je er nog geen hebt
+
 Maak een repository op je GitHub account voor je portfolio
+
 Geef permissies aan je teamgenoten om de repository te gebruiken
+
 Push je code naar je repository
+
 Pull / Clone een repository van je peer.
 
 ## Opdracht 2
 
 Maak een nieuwe repository aan voor je portfolio
+
 Push je notities naar de repository
+
 Deel deze repository met je Learning Coach
 
 ### Gebruikte bronnen
