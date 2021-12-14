@@ -75,7 +75,7 @@ Geen
 3. Identificeer op zijn minst één protocol per OSI-laag.
 Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
 
-![OSI]](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-7-layers.jpg.webp)
+![OSI](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-7-layers.jpg.webp)
 
     - Laag 7 Applicatielaag
          Ontvangt informatie rechtstreeks van gebruikers en geeft binnenkomende gegevens weer aan de gebruiker.
