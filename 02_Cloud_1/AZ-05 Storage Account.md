@@ -26,8 +26,18 @@ Veel IaaS en PaaS services van Azure maken ook gebruik van Azure Storage Account
 ## Opdracht
 
 Maak een Azure Storage Account. Zorg dat alleen jij toegang hebt tot de data.
+
+![screenshot Desktop](../00_includes/AZ/AZ05_01.png)
+
 Plaats data in een storage service naar keuze via de console (bijvoorbeeld een kattenfoto in Blob storage).
+
+![screenshot Desktop](../00_includes/AZ/AZ05_02.png)
+![screenshot Desktop](../00_includes/AZ/AZ05_03.png)
+
 Haal de data op naar je eigen computer door middel van de Azure Storage Explorer.
+
+![screenshot Desktop](../00_includes/AZ/AZ05_04.png)
+![screenshot Desktop](../00_includes/AZ/AZ05_05.png)
 
 ### Gebruikte bronnen
 
