@@ -59,6 +59,8 @@ Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
 
 <https://www.guru99.com/layers-of-osi-model.html>
 
+<https://androidworld.nl/nieuws/wat-veroorzaakte-de-grote-facebook-storing-bgp-routing-uitgelegd>
+
 ### Ervaren problemen
 
 Geen
@@ -70,7 +72,7 @@ Geen
 
 2. Begrijp wie bepaalt welke protocols wij gebruiken en wat je zelf moet doen om een nieuw protocol te introduceren.
 
-    De Internet Engineering Steering Group (IESG) is verantwoordelijk voor het technisch beheer van IETF-activiteiten en het internetstandaardenproces. RFC's (Request for Comments) zijn een groep documenten die de internetprotocollen en hun vereisten definiëren.
+- De Internet Engineering Steering Group (IESG) is verantwoordelijk voor het technisch beheer van IETF-activiteiten en het internetstandaardenproces. RFC's (Request for Comments) zijn een groep documenten die de internetprotocollen en hun vereisten definiëren.
     
 3. Identificeer op zijn minst één protocol per OSI-laag.
 
@@ -98,4 +100,7 @@ Geen
      Elektrische en fysieke representatie van het systeem. RS232, 100BaseTX, ISDN, 11.
 
 4. Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
+
+- BGP(Border Gateway Protocol). 
+    Uit een [verklaring van Facebook-ingenieurs](https://engineering.fb.com/2021/10/04/networking-traffic/outage/) bleek dat een wijziging in de configuratie van het BGP de problemen heeft veroorzaakt. Door een wijziging achter de schermen ontstond er een probleem met de interne communicatie van Facebooks datacenters, waardoor de werking van de hele netwerkinfrastructuur overkop ging. Of anders gezegd: Facebook heeft per ongeluk in één klap wereldwijd al zijn wegwijzers weggenomen.
 
