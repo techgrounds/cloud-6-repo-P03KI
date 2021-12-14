@@ -73,28 +73,29 @@ Geen
     De Internet Engineering Steering Group (IESG) is verantwoordelijk voor het technisch beheer van IETF-activiteiten en het internetstandaardenproces. RFC's (Request for Comments) zijn een groep documenten die de internetprotocollen en hun vereisten definiëren.
     
 3. Identificeer op zijn minst één protocol per OSI-laag.
-Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
 
 ![OSI](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-7-layers.jpg.webp)
 
     - Laag 7 Applicatielaag
-         Ontvangt informatie rechtstreeks van gebruikers en geeft binnenkomende gegevens weer aan de gebruiker.
-         HTTP (Hypertext Transfer Protocol), FTP (File Transfer Protocol), POP (Post Office Protocol), SMTP (Simple Mail Transfer Protocol) en DNS (Domain Name System)
+     Ontvangt informatie rechtstreeks van gebruikers en geeft binnenkomende gegevens weer aan de gebruiker. HTTP (Hypertext Transfer Protocol), FTP (File Transfer Protocol), POP (Post Office Protocol), SMTP (Simple Mail Transfer Protocol) en DNS (Domain Name System)
 
     - Laag 6 Presentatielaag
-         Versleuteling en decodering van gegevens voor veilige overdracht. MPEG, ASCH, SSL, TLS
+     Versleuteling en decodering van gegevens voor veilige overdracht. MPEG, ASCH, SSL, TLS
 
     - Laag 5 Sessielaag
-         Installatie, coördinatie (hoe lang moet een systeem wachten op een reactie, bijvoorbeeld) en beëindiging tussen de applicaties aan elk einde van de sessie. NetBIOS, SAP
+     Installatie, coördinatie (hoe lang moet een systeem wachten op een reactie, bijvoorbeeld) en beëindiging tussen de applicaties aan elk einde van de sessie. NetBIOS, SAP
 
     - Laag 4 Transportlaag
-         Transmission Control Protocol (TCP), dat bovenop het Internet Protocol (IP) is gebouwd, beter bekend als TCP/IP. TCP- en UDP-poortnummers werken bijvoorbeeld ook op Laag 4.
+     Transmission Control Protocol (TCP), dat bovenop het Internet Protocol (IP) is gebouwd, beter bekend als TCP/IP. TCP- en UDP-poortnummers werken bijvoorbeeld ook op Laag 4.
 
     - Laag 3 Netwerklaag
-         Het doorsturen van pakketten, inclusief routering via verschillende routers. IPV5, IPV6, ICMP, IPSEC, ARP, MPLS
+     Het doorsturen van pakketten, inclusief routering via verschillende routers. IPV5, IPV6, ICMP, IPSEC, ARP, MPLS
 
     - Laag 2 Data Link-laag
-         Gegevensoverdracht van knooppunt naar knooppunt (tussen twee rechtstreeks verbonden knooppunten) en verwerkt ook foutcorrectie van de fysieke laag. Hier bestaan ook twee sublagen: de MAC-laag (Media Access Control) en de LLC-laag (Logical Link Control). RAPA, PPP, Frame Relay, ATM, Fiber Cable, etc.
+      Gegevensoverdracht van knooppunt naar knooppunt (tussen twee rechtstreeks verbonden knooppunten) en verwerkt ook foutcorrectie van de fysieke laag. Hier bestaan ook twee sublagen: de MAC-laag (Media Access Control) en de LLC-laag (Logical Link Control). RAPA, PPP, Frame Relay, ATM, Fiber Cable, etc.
 
     - Laag 1 Fysieke laag
-         Elektrische en fysieke representatie van het systeem. RS232, 100BaseTX, ISDN, 11.
+     Elektrische en fysieke representatie van het systeem. RS232, 100BaseTX, ISDN, 11.
+
+4. Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
+
