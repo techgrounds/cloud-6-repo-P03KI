@@ -44,7 +44,7 @@ Geen
 
 - Wat is een Azure Region?
 
-    - Een regio is een set datacenters die is geïmplementeerd in een op basis van latentie gedefinieerde perimeter en verbonden via een toegewezen regionaal netwerk. 
+    Een regio is een set datacenters die is geïmplementeerd in een op basis van latentie gedefinieerde perimeter en verbonden via een toegewezen regionaal netwerk. 
 
 - Wat is een Azure Availability Zone?
 
@@ -68,6 +68,6 @@ Geen
 
 - Waarom zou je een regio boven een andere verkiezen?
 
-    1. Naleving en gegevenslocatie
-    2. Beschikbaarheid van services
-    3. Prijs
+    - Naleving en gegevenslocatie
+    - Beschikbaarheid van services
+    - Prijs
