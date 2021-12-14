@@ -56,3 +56,5 @@ Geen
 ![screenshot Desktop](../00_includes/AZ/AZ-06_02.png)
 
 ![screenshot Desktop](../00_includes/AZ/AZ-06_03.png)
+
+![screenshot Desktop](../00_includes/AZ/AZ-06_04.png)
