@@ -70,10 +70,12 @@ Geen
 1. Begrijp hoe een HTTPS TCP/IP-pakket opgebouwd is
     TCP staat voor Transmission Control Protocol en wordt het meeste gebruikt; als je bijvoorbeeld vanaf je eigen computer op een link op een webpagina klikt, stuurt je browser TCP packets over het internet naar de server die de website host, en de betreffende server stuurt TCP packets terug.
 
+
 2. Begrijp wie bepaalt welke protocols wij gebruiken en wat je zelf moet doen om een nieuw protocol te introduceren.
 
 - De Internet Engineering Steering Group (IESG) is verantwoordelijk voor het technisch beheer van IETF-activiteiten en het internetstandaardenproces. RFC's (Request for Comments) zijn een groep documenten die de internetprotocollen en hun vereisten definiëren.
-    
+
+
 3. Identificeer op zijn minst één protocol per OSI-laag.
 
 ![OSI](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-7-layers.jpg.webp)
@@ -98,6 +100,7 @@ Geen
 
 - Laag 1 Fysieke laag
      Elektrische en fysieke representatie van het systeem. RS232, 100BaseTX, ISDN, 11.
+
 
 4. Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
 
