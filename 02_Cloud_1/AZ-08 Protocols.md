@@ -104,5 +104,5 @@ Geen
 
 4. Facebook was recent een lange tijd niet beschikbaar. Ontdek waarom. Tip: BGP.
 
-        - BGP(Border Gateway Protocol) dient als een soort van wegwijzer in het verkeer die de andere protocollen aanstuurt. Uit een [verklaring van Facebook-ingenieurs](https://engineering.fb.com/2021/10/04/networking-traffic/outage/) bleek dat een wijziging in de configuratie van het BGP de problemen heeft veroorzaakt. Door een wijziging achter de schermen ontstond er een probleem met de interne communicatie van Facebooks datacenters, waardoor de werking van de hele netwerkinfrastructuur overkop ging. Of anders gezegd: Facebook heeft per ongeluk in één klap wereldwijd al zijn wegwijzers weggenomen.
+    - BGP(Border Gateway Protocol) dient als een soort van wegwijzer in het verkeer die de andere protocollen aanstuurt. Uit een [verklaring van Facebook-ingenieurs](https://engineering.fb.com/2021/10/04/networking-traffic/outage/) bleek dat een wijziging in de configuratie van het BGP de problemen heeft veroorzaakt. Door een wijziging achter de schermen ontstond er een probleem met de interne communicatie van Facebooks datacenters, waardoor de werking van de hele netwerkinfrastructuur overkop ging. Of anders gezegd: Facebook heeft per ongeluk in één klap wereldwijd al zijn wegwijzers weggenomen.
 
