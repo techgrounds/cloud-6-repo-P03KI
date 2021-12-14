@@ -27,3 +27,20 @@ Mount deze nieuwe Disk en bekijk het bestand.
 Geen
 
 ### Resultaat
+
+Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
+![screenshot Desktop](../00_includes/AZ/AZ-07_07.png)
+
+Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
+![screenshot Desktop](../00_includes/AZ/AZ-07_02.png)
+
+Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
+
+Kijk op de tweede machine of je het bestand kan lezen.
+![screenshot Desktop](../00_includes/AZ/AZ-07_001.png)
+
+Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken
+![screenshot Desktop](../00_includes/AZ/AZ-07_001.png)
+
+Mount deze nieuwe Disk en bekijk het bestand. 
+![screenshot Desktop](../00_includes/AZ/AZ-07_11.png)
