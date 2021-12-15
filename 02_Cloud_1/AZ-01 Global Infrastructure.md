@@ -62,12 +62,20 @@ Elke Azure-regio is altijd gekoppeld aan een andere regio binnen hetzelfde geogr
 
 - **Waarom zou je een regio boven een andere verkiezen?**
 
-    - Naleving en gegevenslocatie. 
+    - Gegevenslocatie.
+       
+        - Hoe korter de fysieke afstand tussen de user(base) en de Azure resources, des te lagere [latentie](https://nl.wikipedia.org/wiki/Latentie) men zal ervaren. Niemand houdt van '*lag*'.
+
+    - Naleving
         
         Bijvoorbeeld:
         - US DoD Central, US Gov Virginia, US Gov Iowa en meer: Deze regio's zijn fysiek en logisch van netwerken afgeschermde instanties van Azure voor de Amerikaanse overheid en haar partners. Deze datacentra worden bediend door gecontroleerde Amerikaanse staatsburgers en bevatten aanvullende nalevingscertificeringen.
         - China - oost, China - noord en meer: Deze regio's zijn beschikbaar via een unieke samenwerking tussen Microsoft en 21Vianet, waarbij Microsoft niet rechtstreeks de datacentra onderhoudt.
+
+    - Beschikbaarheid van services. 
         
-    - Beschikbaarheid van services. Niet elke regio biedt bijvoorbeeld [ondersteuning voor beschikbaarheidszones](https://docs.microsoft.com/nl-nl/azure/availability-zones/az-region).
+        - Niet elke regio biedt bijvoorbeeld [ondersteuning voor beschikbaarheidszones](https://docs.microsoft.com/nl-nl/azure/availability-zones/az-region).
 
     - Prijs
+
+        - De [prijs](https://azureprice.net/regions) per regio kan verschillen.
