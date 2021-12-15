@@ -1,4 +1,4 @@
-# Azure Virtual Machines
+# **Azure Virtual Machines**
 
 De Service waarmee je VMs kan maken in Azure heet (zeer toepasselijk) Azure Virtual Machines. Je kan deze VMs gebruiken voor alles waar je een fysieke server voor zou gebruiken. Omdat ze in een datacenter van Microsoft staan, kan je er alleen verbinding mee maken via het internet. Verbinding met een remote Linux-machine maak je met het Secure Shell (ssh) protocol. Voor een verbinding met Windows machines gebruik je het Remote Desktop Protocol (RDP).
 
@@ -13,43 +13,57 @@ Je kan optioneel je VM beveiligen met een NIC network security group. Het wordt 
 Met Custom Data kan je een cloud-init script, config file of andere data meegeven tijdens het opstarten van de VM. Hiermee kan je automatisch servers configureren zonder zelf in te loggen.
 User data is een nieuwe versie van Custom data. Het grootste verschil is dat user data beschikbaar blijft gedurende de hele levensduur van de VM.
 
-
 De prijs van een Azure VM hangt af van de size, de image, de regio waar hij in staat, het aantal minuten dat hij aan staat, en het type betaling dat je doet.
 Pay-as-you-go is de duurste optie, maar ook het meest flexibel.
 Reserved Instances zijn goedkoper, maar je zit vast aan een reservatie van 1 of 3 jaar.
 Spot instances zijn over het algemeen het goedkoopst, maar de availability hangt af van de vraag naar VMs op dat moment, dus ze zijn niet altijd betrouwbaar.
 
-## Key-terms
+## **Key-terms**
 
-## Opdracht
+- **SSH**
 
-Log in bij je Azure Console.
-Maak een VM met de volgende vereisten:
-    Ubuntu Server 20.04 LTS - Gen1
-    Size: Standard_B1ls
-    Allowed inbound ports:
-    HTTP (80)
-    SSH (22)
-    OS Disk type: Standard SSD
-    Networking: defaults
-    Boot diagnostics zijn niet nodig
-    Custom data: 
-        #!/bin/bash
-        sudo su
-        apt update
-        apt install apache2 -y
-        ufw allow 'Apache'
-        systemctl enable apache2
-        systemctl restart apache2
+    Secure Shell (kortweg: SSH) is een protocol uit de toepassingslaag van de TCP/IP-protocolgroep. De term ssh werd gemakshalve ook gebruikt voor het clientprogramma dat het protocol toepast (het serverprogramma heet sshd, 'Secure Shell daemon'). SSH vervangt oudere protocollen zoals telnet, rlogin, en rsh/rexec door een beveiligbare variant daarvan. De standaard poort van SSH is 22.
 
-Controleer of je server werkt.
-Let op! Vergeet na de opdracht niet alles weer weg te gooien. Je kan elk onderdeel individueel verwijderen, of je kan in 1 keer de resource group verwijderen.
+- **NIC**
 
-### Ervaren problemen
+    Een netwerkkaart is een hardware-onderdeel in een computer, nodig om die computer deel te laten uitmaken van een computernetwerk. Soms is de netwerkkaart een aparte insteekkaart, maar tegenwoordig maakt de techniek meestal standaard deel uit van het moederbord van de computer (onboard) en is er geen sprake meer van een aparte netwerkkaart. Doorgaans wordt een netwerkkaart aangegeven met de afkorting NIC (Network Interface Card).
+
+## **Opdracht**
+
+- Log in bij je Azure Console.
+
+- Maak een VM met de volgende vereisten:
+
+        Ubuntu Server 20.04 LTS - Gen1
+        Size: Standard_B1ls
+        Allowed inbound ports:
+        HTTP (80)
+        SSH (22)
+        OS Disk type: Standard SSD
+        Networking: defaults
+        Boot diagnostics zijn niet nodig
+        Custom data: 
+            #!/bin/bash
+            sudo su
+            apt update
+            apt install apache2 -y
+            ufw allow 'Apache'
+            systemctl enable apache2
+            systemctl restart apache2
+
+- Controleer of je server werkt.
+
+### **Gebruikte bronnen**
+
+*<https://nl.wikipedia.org/wiki/Netwerkkaart>*
+
+*<https://nl.wikipedia.org/wiki/Secure_Shell>*
+
+### **Ervaren problemen**
 
 Geen
 
-### Resultaat
+### **Resultaat**
 
 ![screenshot Desktop](../00_includes/AZ/AZ-06_01.png)
 
