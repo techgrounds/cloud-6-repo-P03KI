@@ -41,27 +41,27 @@ Geen
 
 - Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_001.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_001.png)
 
 - Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_002.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_002.png)
 
 - Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_003.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_003.png)
 
 - Kijk op de tweede machine of je het bestand kan lezen.
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_004.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_004.png)
 
 - Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken.
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_005.png)
-![screenshot Desktop](../00_includes/AZ/AZ-07_006.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_005.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_006.png)
 
 - Mount deze nieuwe Disk en bekijk het bestand.
 
-![screenshot Desktop](../00_includes/AZ/AZ-07_007.png)
-![screenshot Desktop](../00_includes/AZ/AZ-07_008.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_007.png)
+![screenshot Desktop](../00_includes/AZ/AZ07_008.png)
 NB. Ik moest de oude disk unmounten voor ik de snapshot kon mounten. Waarschijnlijk komt het door het UUID wat overeenkomt?
