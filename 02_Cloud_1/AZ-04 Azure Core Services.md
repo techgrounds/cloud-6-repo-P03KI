@@ -4,7 +4,7 @@ Je kan dit document zien als een soort gids naar je AZ-900 certificering. Hierin
 
 Er zijn veel services in Azure, maar sommige zijn belangrijker dan andere. Azure noemt de volgende architectural components en services  waarvan je redelijk in-depth van moet weten wat ze doen:
 
-    Regions and Region Pairs
+    [Regions and Region Pairs](02_Cloud_1/AZ-01 Global Infrastructure.md)
     Availability Zones
     Resource Groups
     Subscriptions

@@ -26,15 +26,15 @@ Door meerdere resources vanaf één computer of server te maken, kunnen dankzij 
 
 ### **Gebruikte bronnen**
 
-<*https://azure.microsoft.com/nl-nl/overview/what-is-virtualization/*>
+*<https://azure.microsoft.com/nl-nl/overview/what-is-virtualization/>*
 
-<*https://www.dataweb.nl/waar-staan-de-microsoft-azure-datacenters/*>
+*<https://www.dataweb.nl/waar-staan-de-microsoft-azure-datacenters/>*
 
-<*https://scct.nl/azure-availability-zones-uitgelegd/*>
+*<https://scct.nl/azure-availability-zones-uitgelegd/>*
 
-<*https://build5nines.com/azure-region-pairs-explained/*>
+*<https://build5nines.com/azure-region-pairs-explained/>*
 
-<*https://azure.microsoft.com/nl-nl/global-infrastructure/geographies/#geographies*>
+*<https://azure.microsoft.com/nl-nl/global-infrastructure/geographies/#geographies>*
 
 ### **Ervaren problemen**
 
