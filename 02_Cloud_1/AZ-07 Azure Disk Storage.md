@@ -11,6 +11,12 @@ bron: https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types
 
 ## Key-terms
 
+Determine Drive Information
+
+        sudo lshw -C disk
+
+To determine the path that your system has assigned to the new hard drive, open a terminal and run.
+
 ## Opdracht
 
 ### Gebruikte bronnen
