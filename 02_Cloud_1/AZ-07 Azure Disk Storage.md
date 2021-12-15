@@ -64,4 +64,5 @@ Geen
 
 ![screenshot Desktop](../00_includes/AZ/AZ07_007.png)
 ![screenshot Desktop](../00_includes/AZ/AZ07_008.png)
-NB. Ik moest de oude disk unmounten voor ik de snapshot kon mounten. Waarschijnlijk komt het door het UUID wat overeenkomt?
+
+NB. *Ik moest de oude disk unmounten voor ik de snapshot kon mounten. Waarschijnlijk komt het door het UUID wat overeenkomt?*
