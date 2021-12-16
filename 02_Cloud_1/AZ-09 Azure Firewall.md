@@ -8,6 +8,19 @@ Zoals je eerder geleerd hebt zijn er twee soorten firewalls: stateless, en state
 
 ## **Key-terms**
 
+- **NSG**
+    
+    - Network Security Group
+
+- **RBAC**
+    
+    - Roll Based Access Control
+
+- **Statefull/Stateless**
+    
+    - Stateful firewalls filteren pakketten op basis van de volledige context van een bepaalde netwerkverbinding.
+    Stateless firewalls filteren pakketten op basis van de individuele pakketten zelf.
+
 - **Het verschil tussen Basic en Premium Firewall**
 
     - **Azure Firewall (Basic)**
@@ -19,9 +32,9 @@ Zoals je eerder geleerd hebt zijn er twee soorten firewalls: stateless, en state
         - Hoge beschikbaarheid
         - Beschikbaarheidszones
         - Filterregels voor netwerkverkeer
-        - FQDN-tags
+        - FQDN-tags (*Fully Qualified Domain Name - bijv. bol.com*)
         - Servicetags
-        - Onbeperkte cloudschaalbaarheid Toepassing
+        - Onbeperkte schaling
         - FQDN-filterregels
         - Bedreigingsinformatie
         - Meerdere openbare IP-adressen
@@ -89,6 +102,9 @@ Geen
 
 - Zet een webserver aan. Zorg dat de poorten voor zowel SSH als HTTP geopend zijn.
 
-![screenshot Desktop](../00_includes/AZ/AZ09_01.png)
+![screenshot Desktop](../00_includes/AZ/AZ09_04.png)
+![screenshot Desktop](../00_includes/AZ/AZ09_03.png)
 
-Maak een Azure Firewall in VNET. Zorg ervoor dat je webserver nog steeds bereikbaar is via HTTP, maar dat SSH geblokkeerd wordt.
+- Maak een Azure Firewall in VNET. Zorg ervoor dat je webserver nog steeds bereikbaar is via HTTP, maar dat SSH geblokkeerd wordt.
+
+![screenshot Desktop](../00_includes/AZ/AZ09_05.png)
