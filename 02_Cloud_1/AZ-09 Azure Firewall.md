@@ -96,15 +96,15 @@ Zoals je eerder geleerd hebt zijn er twee soorten firewalls: stateless, en state
 
 ### **Ervaren problemen**
 
-Geen
+- De verwoording van de opdracht was neit helemaal correct wat ik al dacht. Gezien er eerst een VM moest worden aangemaakt en daara de netwerk-rules aan te passen (wat wordt aangemaakt via NSG (Network Security Group)) om daar dan een Azure Firewall aan te koppelen was niet makkelijk. De firewall heeft een specifiek subnet nodig om te werken. Ik heb verschillende set-up's geprobeerd maar de Azure Firewall bleef ook de http-poort blokkeren wanneer ik de SSH-poort blokkeerde. Even gekeken naar de opdracht van de AWS collega's waarbij zij alleen de Security Groups moesten onderzoeken. Een Azure Firewall opzetten is een stuk geavanceerder gezien het netwerk vrij precies op moet worden gezet. Dit is wel een ding wat ik zelf verder ga onderzoeken. Security vind ik zelf erg interessant en wil er zelf achterkomen waarom het niet lukte met de LINUX-VM.
 
 ### **Resultaat**
 
 - Zet een webserver aan. Zorg dat de poorten voor zowel SSH als HTTP geopend zijn.
 
-![screenshot Desktop](../00_includes/AZ/AZ09_04.png)
-![screenshot Desktop](../00_includes/AZ/AZ09_03.png)
+![screenshot Desktop](../00_includes/AZ/AZ09_05.png)
 
 - Maak een Azure Firewall in VNET. Zorg ervoor dat je webserver nog steeds bereikbaar is via HTTP, maar dat SSH geblokkeerd wordt.
 
-![screenshot Desktop](../00_includes/AZ/AZ09_05.png)
+![screenshot Desktop](../00_includes/AZ/AZ09_06.png)
+![screenshot Desktop](../00_includes/AZ/AZ09_07.png)
