@@ -1,12 +1,3 @@
----
-name: Feedback Request
-about: Een verzoek om feedback te krijgen over een opdracht.
-title: Feedback request [SUBJECT]
-labels: ''
-assignees: ''
-​
----
-​
 # Feedback Request [SUBJECT]
 Permalink naar bestand: [LINK]
 ​
