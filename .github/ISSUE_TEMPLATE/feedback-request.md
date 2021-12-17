@@ -31,4 +31,3 @@ Template voor reviewers:
 - Is het resultaat correct?
 - Zijn de ervaren problemen en oplossingen goed beschreven?
 ```
-Deel de link van de issue met je groepsgenoten.
