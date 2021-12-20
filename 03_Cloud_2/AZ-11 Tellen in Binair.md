@@ -7,53 +7,34 @@
 - Het binaire talstelsel is een positiestelsel, waarin iedere positie overeenkomt met een macht van 2. Bijvoorbeeld het getal 0101 in het binaire talstelsel representeert het getal 5 (1 + 0 + 4 + 0) in het decimale stelsel.
 
 ## **Key-terms**
-
-
+<br>
+*NVT*
 
 ## **Opdracht**
+<br>
+- Vertaal de decimalen in binair:
 
-Vertaal de decimalen in binair:
+| **Decimaal** | **Binair** |
+| :--------:| :----: |
+| 16  | **10000** |
+| 128 | **10000000** |
+| 228 |  **11100100**
+| 112 | **1110000**
+| 73 | **1001001**
 
-|  Decimaal  |  Binair  |
-| 16  |  :-:  |
+<br>
+- Vertaal de volgende bytes in decimalen:
 
-
-128
-
-
-228
-
-
-112
-
-
-73
-
-
-
-
-Vertaal de volgende bytes in decimalen:
-Binair
-Decimaal
-1010 1010
-
-
-1111 0000
-
-
-1101 1011
-
-
-1010 0000
-
-
-0011 1010
-
-
-
-
+| **Binair** | **Decimaal** |
+| :-: | :-: |
+| 1010 1010 | **170** |
+| 1111 0000 | **240** |
+| 1101 1011 | **219** |
+| 1010 0000 | **160** |
+| 0011 1010 | **58** |
 
 ### **Gebruikte bronnen**
+<br>
 
 *<https://nl.wikipedia.org/wiki/Binair>*
 *<https://nl.wikihow.com/Binair-tellen>*
@@ -61,6 +42,11 @@ Decimaal
 ### **Ervaren problemen**
 
 *Geen*
+<br>
 
 ### **Resultaat**
+<br>
 
+Mijn handmatige berekeningen:
+
+![image](../00_includes/AZ2/AZ11_01.JPG)
