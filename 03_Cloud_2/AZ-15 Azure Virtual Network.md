@@ -1,20 +1,20 @@
-# Shared Responsibility Model
+# **Shared Responsibility Model**
 
 
 
-## Key-terms
+## **Key-terms**
 
 
 
-## Opdracht
+## **Opdracht**
 
 
 
-### Gebruikte bronnen
+### **Gebruikte bronnen**
 
-### Ervaren problemen
+### **Ervaren problemen**
 
-Geen
+*Geen*
 
-### Resultaat
+### **Resultaat**
 
