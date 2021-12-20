@@ -8,11 +8,14 @@
 
 ## **Key-terms**
 <br>
+
 *NVT*
 
 ## **Opdracht**
 <br>
+
 - Vertaal de decimalen in binair:
+<br>
 
 | **Decimaal** | **Binair** |
 | :--------:| :----: |
@@ -23,7 +26,9 @@
 | 73 | **1001001**
 
 <br>
+
 - Vertaal de volgende bytes in decimalen:
+<br>
 
 | **Binair** | **Decimaal** |
 | :-: | :-: |
@@ -40,9 +45,9 @@
 *<https://nl.wikihow.com/Binair-tellen>*
 
 ### **Ervaren problemen**
+<br>
 
 *Geen*
-<br>
 
 ### **Resultaat**
 <br>
