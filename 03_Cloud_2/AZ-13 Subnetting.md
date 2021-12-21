@@ -38,11 +38,11 @@ Om dit alles leesbaar te maken voor mensen maken we gebruik van CIDR notation.
 
 *<https://nl.wikipedia.org/wiki/Netmask>*
 
-*<>*
+*<https://www.site24x7.com/nl/tools/ipv4-subnet-rekenmachine.html>*
 
 ### **Ervaren problemen**
 
-*Geen*
+draw.io is NIET mijn programma. Ik heb veel verschillende programma's gebruikt in het verleden waaronder Adobe en Autodesk. UI is mij veels te simpel en werkt niet fijn. Indien er daadwerkelijk meerdere schema's getekend dienen te worden zal ik mij tot Visio/Illustrator wenden.
 
 ### **Resultaat**
 
