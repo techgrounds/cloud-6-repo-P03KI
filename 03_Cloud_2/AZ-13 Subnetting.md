@@ -46,3 +46,15 @@ Om dit alles leesbaar te maken voor mensen maken we gebruik van CIDR notation.
 
 ### **Resultaat**
 
+Ik dacht in plaats van een schema het gelijk in de praktijk te brengen middels de Azure portal :)
+Tot nu toe alles goed geconfigureerd behalve dat ik de NAT gateway beter moet instellen zodat subnet 2 toegang heeft tot internet. Dit zal ik later verder uit gaan zoeken. 
+
+![image](../00_includes/AZ2/AZ13_01.png)
+
+![image](../00_includes/AZ2/AZ13_02.png)
+
+![image](../00_includes/AZ2/AZ13_03.png)
+
+![image](../00_includes/AZ2/AZ13_04.png)
+
+![image](../00_includes/AZ2/AZ13_05.png)
