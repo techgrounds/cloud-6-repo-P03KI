@@ -95,7 +95,7 @@
     - **VPN**
 
     Een Virtueel Particulier Netwerk of Virtueel Privénetwerk (Engels: Virtual Private Network), (VPN) is een manier om een local area network (LAN) over een bestaande verbinding, een wide area network (WAN), zoals het internet, uit te bouwen met behoud van vertrouwelijkheid.
-    Via een VPN is het mogelijk via een bestaand netwerk, zoals het internet, gegevens te delen tussen fysiek gescheiden netwerken. Zo kan een werknemer thuis via VPN inloggen op het netwerk van de werkgever. Het bekendste en meest gangbare protocol is IPsec.[bron?] Al wordt tegenwoordig, vooral door moderne VPN's, ook veelvuldig van het protocol OpenVPN gebruik gemaakt.
+    Via een VPN is het mogelijk via een bestaand netwerk, zoals het internet, gegevens te delen tussen fysiek gescheiden netwerken. Zo kan een werknemer thuis via VPN inloggen op het netwerk van de werkgever.
 
     - **PAN**
 
