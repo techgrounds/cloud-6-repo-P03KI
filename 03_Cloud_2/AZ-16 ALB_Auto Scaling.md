@@ -42,15 +42,31 @@ In een traditionele architectuur maakt een client verbinding met een enkele serv
         Voeg een VM toe bij 75% CPU gebruik
         Verwijder een VM bij 30% CPU gebruik
 
+![image](../00_includes/AZ2/AZ16_01.png)        
+
 **Opdracht 2:**
 
 - Controleer of je via het endpoint van je load balancer bij de webserver kan komen.
 
+![image](../00_includes/AZ2/AZ16_03.png) 
+
 - Voer een load test uit op je server(s) om auto scaling the activeren. Er kan een delay zitten in het creëren van nieuwe VMs, afhankelijk van de settings in je VM Scale Set.
 
+![image](../00_includes/AZ2/AZ16_05.png) 
+![image](../00_includes/AZ2/AZ16_09.png) 
+
+![image](../00_includes/AZ2/AZ16_08.png) 
+![image](../00_includes/AZ2/AZ16_07.png) 
+![image](../00_includes/AZ2/AZ16_06.png) 
+![image](../00_includes/AZ2/AZ16_10.png)
 
 ### **Gebruikte bronnen**
 
+*<https://wiki.ubuntu.com/Kernel/Reference/stress-ng>*
+
+*<https://www.cyberciti.biz/faq/stress-test-linux-unix-server-with-stress-ng/>*
+
+*<>*
 ### **Ervaren problemen**
 
 *Geen*
