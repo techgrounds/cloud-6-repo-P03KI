@@ -11,7 +11,16 @@ In een traditionele architectuur maakt een client verbinding met een enkele serv
 
 ## **Key-terms**
 
+- Azure Load Balancer
+    De Azure Load Balancer werkt op laag 4 van het OSI-model (Open Systems Interconnection). Het is het enige contactpunt voor klanten. De Load balancer distribueert inkomende stromen die aan de frontend binnenkomen naar de back-end pool-instances. Deze stromen zijn afhankelijk van geconfigureerde regels voor taakverdeling en statussondes. De backend pool-exemplaren kunnen Azure Virtual Machines of instances in een virtuele machineschaalset zijn.
 
+    - Een **Public Load Balancer** kan uitgaande verbindingen bieden voor virtuele machines (VM's) in uw virtuele netwerk. Deze verbindingen worden uitgevoerd door hun prive IP-adressen te vertalen naar openbare IP-adressen. Public load balancers worden gebruikt om het verkeer te verdelen over de VM's.
+
+    - Een interne (of pprive) Load Balancer wordt gebruikt wanneer er alleen privé-IP's nodig zijn bij de frontend. Interne Load Balancers worden gebruikt om het verkeer in een virtueel netwerk te verdelen. De frontend van de load balancer kan worden benaderd vanuit een on-premises netwerk in een hybride scenario.
+
+- **Azure Virtual Machine Scale Sets**
+
+    Een Azure Virtual Machine scale set kan automatisch het aantal VM-exemplaren dat uw toepassing uitvoeren, verhogen of verlagen. Dit geautomatiseerde en elastische gedrag vermindert de beheer-overhead om de prestaties van uw toepassing te controleren en te optimaliseren. Er kunnen regels gemaakt worden die de acceptabele prestaties definiëren voor een positieve klantervaring. Wanneer aan deze gedefinieerde drempelwaarden wordt voldaan, worden automatisch schalingsregels ingesteld om de capaciteit van de Scale Sset aan te passen. U kunt ook gebeurtenissen plannen om de capaciteit van uw schaalset op vaste tijden automatisch te verhogen of te verlagen. In dit artikel wordt een overzicht gegeven van de prestatiemetrische gegevens die beschikbaar zijn en welke acties automatisch kunnen worden geschaald.
 
 ## **Opdracht**
 
@@ -53,11 +62,15 @@ In een traditionele architectuur maakt een client verbinding met een enkele serv
 - Voer een load test uit op je server(s) om auto scaling the activeren. Er kan een delay zitten in het creëren van nieuwe VMs, afhankelijk van de settings in je VM Scale Set.
 
 ![image](../00_includes/AZ2/AZ16_05.png) 
+
 ![image](../00_includes/AZ2/AZ16_09.png) 
 
 ![image](../00_includes/AZ2/AZ16_08.png) 
+
 ![image](../00_includes/AZ2/AZ16_07.png) 
+
 ![image](../00_includes/AZ2/AZ16_06.png) 
+
 ![image](../00_includes/AZ2/AZ16_10.png)
 
 ### **Gebruikte bronnen**
@@ -66,7 +79,10 @@ In een traditionele architectuur maakt een client verbinding met een enkele serv
 
 *<https://www.cyberciti.biz/faq/stress-test-linux-unix-server-with-stress-ng/>*
 
-*<>*
+*<https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview>*
+
+*<https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview>*
+
 ### **Ervaren problemen**
 
 *Geen*
