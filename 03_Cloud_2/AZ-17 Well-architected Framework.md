@@ -39,5 +39,3 @@ Het Well-Architected Framework van Azure en AWS lijken veel op elkaar. Ze zijn g
 ### **Gebruikte bronnen**
 
 *<https://docs.microsoft.com/nl-nl/azure/architecture/framework/>*
-
-*<>*
