@@ -21,15 +21,15 @@ Door meerdere resources vanaf één computer of server te maken, kunnen dankzij 
 
     Hierbij worden afzonderlijke desktops door één centrale server voorzien en beheerd.
 
-2. **Netwerkvirtualisatie.** 
+2. **Netwerk-virtualisatie.** 
 
     Ontworpen om de netwerkbandbreedte te splitsen in onafhankelijke kanalen die vervolgens worden toegewezen aan specifieke servers of apparaten.
 
- 3. **Softwarevirtualisatie.**
+ 3. **Software-virtualisatie.**
  
     Hierbij zijn de toepassingen gescheiden van de hardware en het besturingssysteem.
 
-4. **Opslagvirtualisatie** 
+4. **Opslag-virtualisatie** 
 
     Hier worden meerdere netwerkopslagresources tot één opslagapparaat worden gecombineerd, waartoe meerdere gebruikers toegang hebben.
 
@@ -60,13 +60,13 @@ Geen
 
 - **Wat is een Azure Region?**
 
-    Een regio is een geografisch gebied op deze planeet met ten minste één, maar mogelijk meerdere datacentra die zich dichtbij en in hetzelfde netwerk bevinden als een netwerk met lage latentie. Resources worden in elke regio op intelligente wijze met Azure toegewezen en beheerd om ervoor te zorgen dat workloads passend worden verdeeld.
+    Een regio is een geografisch gebied met ten minste één, maar mogelijk meerdere datacentra die zich dichtbij en in hetzelfde netwerk bevinden als een netwerk met lage latentie. Resources worden in elke regio op intelligente wijze met Azure toegewezen en beheerd om ervoor te zorgen dat workloads passend worden verdeeld.
 
     ![Region](https://docs.microsoft.com/nl-nl/learn/azure-fundamentals/azure-architecture-fundamentals/media/regions-small-be724495.png)
 
 - **Wat is een Azure Availability Zone?**
 
-    Beschikbaarheidszones zijn een fysiek afgescheiden datacentrum binnen een Azure-regio. Elke beschikbaarheidszone bestaat uit een of meer datacenters die zijn uitgerust met onafhankelijke voeding, koeling en netwerken. Een beschikbaarheidszone is ingesteld als een isolatiegrens. Als één beschikbaarheidszone uitvalt, blijven de andere werken. Beschikbaarheidszones zijn verbonden via zeer snelle, private glasvezelnetwerken.
+    Beschikbaarheidszones zijn fysiek afgescheiden datacentra binnen een Azure-regio. Elke beschikbaarheidszone bestaat uit een of meer datacenters die zijn uitgerust met onafhankelijke voeding, koeling en netwerken. Een beschikbaarheidszone is ingesteld als een isolatiegrens. Als één beschikbaarheidszone uitvalt, blijven de andere werken. Beschikbaarheidszones zijn verbonden via zeer snelle, private glasvezelnetwerken.
 
     ![AzureRegion](https://docs.microsoft.com/nl-nl/learn/azure-fundamentals/azure-architecture-fundamentals/media/availability-zones-5c3c490c.png)
 
