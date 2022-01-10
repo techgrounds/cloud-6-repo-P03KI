@@ -28,10 +28,28 @@ App Service voegt niet alleen de kracht van Microsoft Azure aan uw toepassing to
 
 Met App Service betaalt u voor de Azure-rekenresources die u gebruikt. De rekenresources die u gebruikt, zijn vastgesteld door het App Service-plan waarmee u uw apps uitvoert. Met App Service kunt u de meeste algemene app-servicestijlen hosten, zoals de volgende:
 
-- Web apps
-- API apps
-- WebJobs
-- Mobile apps
+- **Web apps**
+
+    App Service biedt volledige ondersteuning voor het hosten van web-apps met behulp van ASP.NET, ASP.NET Core, Java, Ruby, Node.js, PHP en Python. U kunt Windows of Linux gebruiken als hostbesturingssysteem.
+
+- **API apps**
+
+    Net als bij het hosten van een website kunt u op [REST](https://www.uptrends.nl/wat-is/rest-api) gebaseerde web-API's maken in een taal en framework naar keuze. U profiteert van volledige Swagger-ondersteuning en de mogelijkheid om van uw API een pakket te maken en de API te publiceren in Azure Marketplace. De gemaakte apps kunnen worden gebruikt op elke op HTTP of HTTPS gebaseerde client.
+
+- **WebJobs**
+
+    U kunt de functie WebJobs gebruiken om een programma (.exe, Java, PHP, Python of Node.js) of een script (.cmd, .bat, PowerShell of Bash) uit te voeren in dezelfde context als een web-app, API-app of mobiele app. U kunt deze programma's of scripts plannen of uitvoeren op basis van een trigger. WebJobs worden vaak gebruikt om achtergrondtaken uit te voeren als onderdeel van uw toepassingslogica.
+
+- **Mobile apps**
+
+    Gebruik de functie Mobile Apps van App Service om snel een back-end voor iOS- en Android-apps te maken. Met slechts enkele klikken in Azure Portal kunt u het volgende doen:
+
+    - Gegevens van mobiele apps opslaan in een SQL-database in de cloud.
+    - Klanten verifiëren op basis van socialemediaservices zoals MSA, Google, Twitter en Facebook.
+    - Pushmeldingen verzenden.
+    - Aangepaste back-endlogica uitvoeren in C # of Node.js.
+
+Voor de mobiele app is SDK-ondersteuning beschikbaar voor systeemeigen iOS- en Android-apps, Xamarin-apps en systeemeigen React-apps.
 
 Met App Service kunnen de meeste infrastructuurbeslissingen worden afgehandeld die u moet nemen bij het hosten van via internet toegankelijke apps:
 
