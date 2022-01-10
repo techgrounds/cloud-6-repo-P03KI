@@ -1,10 +1,44 @@
 # **App Service**
 
-Azure App Service is een op HTTP gebaseerde service voor het hosten van webtoepassingen, REST API's en mobiele back-ends. U kunt er in uw favoriete taal programmeren, of het nu .NET, .NET Core, Java, Ruby, Node.js, PHP of Python is. Toepassingen kunnen eenvoudig worden uitgevoerd en geschaald in op Windows en Linux gebaseerde omgevingen.
+Azure Compute is een service voor on-demand computing om cloudtoepassingen uit te voeren. Deze service biedt rekenresources zoals schijven, processors, geheugen, netwerken en besturingssystemen. De resources zijn op aanvraag beschikbaar en kunnen doorgaans in een paar minuten of zelfs seconden worden gebruikt. U betaalt alleen voor de resources die u gebruikt en alleen voor zolang u ze gebruikt.
+
+Azure ondersteunt een breed scala aan rekenoplossingen voor ontwikkelen en testen, het uitvoeren van toepassingen en het uitbreiden van uw datacentrum. De service ondersteunt Linux, Windows Server, SQL Server, Oracle, IBM en SAP. Azure heeft ook veel services waarmee virtuele machines (VM's) kunnen worden uitgevoerd. Elke service biedt verschillende opties, afhankelijk van uw vereisten. Enkele van de bekendste services zijn:
+
+- **Azure Virtual Machines**
+
+    Virtuele machines zijn software-emulaties van fysieke computers. Ze bevatten een virtuele processor, geheugen, opslag en netwerkresources. VM's hosten een besturingssysteem en u kunt er software op installeren en uitvoeren zoals op een fysieke computer. Wanneer u een extern-bureaubladclient gebruikt, kunt u de VM gebruiken en aansturen alsof u er fysiek achter zit.
+
+- **Azure Container Instances**
+
+    Container Instances en Azure Kubernetes Service zijn Azure-rekenresources die u kunt gebruiken om containers te implementeren en te beheren. Containers zijn lichte, gevirtualiseerde toepassingsomgevingen. Ze zijn ontworpen om snel dynamisch te kunnen worden gemaakt, uitgebreid en gestopt. U kunt meerdere exemplaren van een containertoepassing op één hostcomputer uitvoeren.
+
+- **Azure App Service**
+
+    Met Azure App Service kunt u snel web-, mobiele en API-apps op ondernemingsniveau voor elk platform bouwen implementeren en schalen. U kunt voldoen aan strenge vereisten op het gebied van prestaties, schaalbaarheid, beveiliging en naleving met gebruik van een volledig beheerd platform voor onderhoud van infrastructuur. App Service is een PaaS-aanbieding (platform as a service).
+
+- **Azure Functions (of serverloze computing)**
+
+    Functions is ideaal als het u alleen gaat om de code waarmee uw service wordt uitgevoerd en niet om het onderliggende platform of de onderliggende infrastructuur. Het wordt over het algemeen gebruikt als er werk moet worden uitgevoerd als reactie op een gebeurtenis (vaak via een REST-aanvraag), timer of bericht van een andere Azure-service, en als dat werk binnen enkele seconden of sneller kan worden voltooid.
+    
+<br>
+
+**Azure App Service** is een op HTTP gebaseerde service voor het hosten van webtoepassingen, REST API's en mobiele back-ends. U kunt er in uw favoriete taal programmeren, of het nu .NET, .NET Core, Java, Ruby, Node.js, PHP of Python is. Toepassingen kunnen eenvoudig worden uitgevoerd en geschaald in op Windows en Linux gebaseerde omgevingen.
 
 App Service voegt niet alleen de kracht van Microsoft Azure aan uw toepassing toe, zoals beveiliging, taakverdeling, automatisch schalen en geautomatiseerd beheer. U kunt ook profiteren van de DevOps-mogelijkheden, zoals continue implementatie van Azure DevOps, GitHub, Docker Hub en andere bronnen, pakketbeheer, faseringsomgevingen, aangepast domein en TLS/SSL-certificaten.
 
-Met App Service betaalt u voor de Azure-rekenresources die u gebruikt. De rekenresources die u gebruikt, zijn vastgesteld door het App Service-plan waarmee u uw apps uitvoert.
+Met App Service betaalt u voor de Azure-rekenresources die u gebruikt. De rekenresources die u gebruikt, zijn vastgesteld door het App Service-plan waarmee u uw apps uitvoert. Met App Service kunt u de meeste algemene app-servicestijlen hosten, zoals de volgende:
+
+- Web apps
+- API apps
+- WebJobs
+- Mobile apps
+
+Met App Service kunnen de meeste infrastructuurbeslissingen worden afgehandeld die u moet nemen bij het hosten van via internet toegankelijke apps:
+
+- Implementatie en beheer zijn geïntegreerd in het platform.
+- Eindpunten kunnen worden beveiligd.
+- Sites kunnen snel worden geschaald om hoge verkeersbelastingen te verwerken.
+- De ingebouwde taakverdeling en Traffic Manager bieden hoge beschikbaarheid.
 
 <br>
 
