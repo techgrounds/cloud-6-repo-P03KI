@@ -1,4 +1,4 @@
-# **Shared Responsibility Model**
+# **Content Delivery Network**
 
 Openbare cloudservices hebben het model met gedeelde verantwoordelijkheid. Dit geeft aan welke beveiligingstaken worden verwerkt door de cloudprovider en welke taken door de klant worden afgehandeld. De verantwoordelijkheden van de workload variëren afhankelijk van of de workload wordt gehost op SaaS (Software as a Service), PaaS (Platform as a Service), Infrastructure as a Service (IaaS) of in een on-premises datacenter
 
