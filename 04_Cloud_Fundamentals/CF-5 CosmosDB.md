@@ -1,11 +1,11 @@
 # **CosmosDB**
 
-
+Azure Cosmos DB is een volledig beheerde NoSQL-databaseservice voor de ontwikkeling van moderne apps met een hoge responstijd, automatische instant schaling, SLA beschikbaarheid van 99,999% en serverloos.
 
 ## **Key-terms**
 
-
-
+**NoSQL**
+- NoSQL is een breed gamma aan databasemanagementsystemen die op aanmerkelijke wijze verschillen van het klassieke relationele databasemanagementsysteem (RDBMS). De datasystemen behoeven niet altijd vaste databaseschema's, ze vermijden gewoonlijk de JOIN-operaties en sommige schalen horizontaal. Academici en publicaties verwijzen er meestal naar als "gestructureerde storage", waarvan de klassieke relationele databases een deelverzameling zouden zijn. Ook wordt er soms naar verwezen als niet-relationele databases.
 
 ## **Opdracht**
 
@@ -14,9 +14,10 @@
 ### **Gebruikte bronnen**
 
 *<https://docs.microsoft.com/en-us/azure/cosmos-db/>*
+
 *<https://docs.microsoft.com/en-us/azure/cosmos-db/introduction>*
 
-
+*<https://nl.wikipedia.org/wiki/NoSQL>*
 
 ### **Ervaren problemen**
 
@@ -24,22 +25,21 @@
 
 ### **Resultaat**
 
-*Waar is Azure Files voor?*
+*Waar is CosmosDB voor?*
 
-    Hosting-service voor DNS-domeinen geintegreerd in de Azure-omgeving.
+    Azure CosmosDB is een volledig beheerde NoSQL-database voor moderne app-ontwikkeling.
 
-*Hoe vervangt Azure Files in een klassieke setting?*
+*Hoe vervangt CosmosDB in een klassieke setting?*
 
-    Gebaseert op Azure resource Manager, dus functies als Azure RBAC, activity-logs en resource-locks wat niet mogelijk zou zijn met een extern DNS.
+    Geen on-premis database meer nodig. Fully mamanged in de cloud. 
 
-*Hoe kan ik Azure Files combineren met andere diensten?*
+*Hoe kan ik CosmosDB combineren met andere diensten?*
 
-    Door de integratie werkt het goed samen met andere Azure-diensten zoals bijv. Azure RBAC voor specifieke toegang. Zelfde contract en factuur. Azure DNS kan ook DNS leveren voor externe bronnen.
+    Ondersteuning voor open source API's en SDK's voor populaire talen. Hybride platform voor Cassandra-gegevens. Real-time analyse middels Azure Synapse Link.
 
-*Wat is het verschil tussen Azure Files en andere gelijksoortige diensten?*
+*Wat is het verschil tussen CosmosDB en andere gelijksoortige diensten?*
 
-    Facturering is gebaseerd op het aantal DNS-zones dat wordt gehost en het aantal DNS-query's.
-    Ook mogelijk persoonlijk DNS domein aan te maken.(Aangepaste domeinnamen in persoonlijk virtueel netwerk) Via aliasrecordsets mogelijk te verwijzen naar een openbaar ip van een Azure resource. Wanneer het IP wijzigt, wordt de aliasrecordset automatisch bijgewerkt. 
+    Serverloos, dus makkelijk te schalen. Pay-as-you-go.  
 
 *Waar kan ik deze dienst vinden in de console?*
 
