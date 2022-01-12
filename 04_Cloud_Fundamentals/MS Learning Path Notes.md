@@ -1,4 +1,4 @@
-# **MS Learning Path Notes**
+# **MS Learning Path Summary - Module 2**
 
 ## **Azure Functions**
 
@@ -158,3 +158,23 @@ Type: policy or route-based
     - Biedt ondersteuning voor IKEv2
     - Maakt gebruik van any-to-any-verkeerselectors (jokertekens)
     - Kan dynamische routeringsprotocollen gebruiken, waarbij routerings-/doorstovertabellen verkeer naar verschillende IPSec-tunnels leiden In dit geval worden de bron- en doelnetwerken niet statisch gedefinieerd omdat ze zich in op beleid gebaseerde VPN's of zelfs in op route gebaseerde VPN's met statische routering. In plaats daarvan worden gegevenspakketten versleuteld op basis van netwerkrouteringstabellen die dynamisch worden gemaakt met behulp van routeringsprotocollen, zoals BGP (Border Gateway Protocol).
+
+    ![IMG](https://docs.microsoft.com/en-us/learn/azure-fundamentals/azure-networking-fundamentals/media/resource-requirements-for-vpn-gateway-2518703e.png)
+
+*<https://docs.microsoft.com/en-us/learn/modules/azure-networking-fundamentals/azure-vpn-gateway-fundamentals>*
+
+## **Azure ExpressRoute**
+
+Met ExpressRoute kunt u uw on-premises netwerken in de Microsoft Cloud uitbreiden via een persoonlijke verbinding met de hulp van een connectiviteitsprovider. Met ExpressRoute kunt u verbindingen tot stand brengen met Microsoft-cloudservices, zoals Microsoft Azure en Microsoft 365. Via een connectiviteitsprovider in een colocatiefaciliteit is connectiviteit mogelijk vanuit een any-to-any (IP VPN) netwerk, een point-to-point Ethernet-netwerk of een virtuele overlappende verbinding. ExpressRoute-verbindingen gaan niet via het openbare internet. Daardoor zijn ExpressRoute-verbindingen betrouwbaarder en sneller, en hebben ze consistente wachttijden en betere beveiliging dan gewone verbindingen via internet.
+
+![IMG](https://docs.microsoft.com/nl-nl/learn/azure-fundamentals/azure-networking-fundamentals/media/azure-expressroute-overview-5520731d.png)
+
+Er zijn verschillende voordelen van het gebruik van ExpressRoute als verbindingsservice tussen Azure en on-premises netwerken.
+
+- Laag-3-connectiviteit tussen uw on-premises netwerk en de Microsoft Cloud via een connectiviteitsprovider. Connectiviteit is mogelijk van een any-to-any (IPVPN) netwerk, een point-to-point Ethernet-verbinding of langs een virtuele overlappende verbinding via een Ethernet-exchange.
+- Connectiviteit met Microsoft Cloud-services tussen alle gebieden in de geopolitieke regio.
+- Globale connectiviteit met Microsoft-services tussen alle regio's met de ExpressRoute Premium-invoegtoepassing.
+- Dynamische routering tussen uw netwerk en Microsoft via BGP.
+- Ingebouwde redundantie op elke peeringlocatie voor hogere betrouwbaarheid.
+- SLA voor verbindingsbedrijfstijd.
+- QoS-ondersteuning voor Skype voor Bedrijven.
