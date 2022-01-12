@@ -1,21 +1,22 @@
-# **Azure Files**
+# **CosmosDB**
 
-Azure FIles biedt fully managed file shares aan in de cloud die toegankelijk zijn via het Server Message Block (SMB) protocol of het Network File System (NFS) protocol.
+
 
 ## **Key-terms**
 
-SMB
 
-NFS
 
 
 ## **Opdracht**
 
-- Bestudeer Azure Files
+- Bestudeer CosmosDB
 
 ### **Gebruikte bronnen**
 
-*<https://docs.microsoft.com/nl-nl/azure/storage/files/storage-files-introduction>*
+*<https://docs.microsoft.com/en-us/azure/cosmos-db/>*
+*<https://docs.microsoft.com/en-us/azure/cosmos-db/introduction>*
+
+
 
 ### **Ervaren problemen**
 

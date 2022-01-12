@@ -1,16 +1,16 @@
 # **Azure Files**
 
-Azure FIles biedt fully managed file shares aan in de cloud die toegankelijk zijn via het Server Message Block (SMB) protocol of het Network File System (NFS) protocol.
+Azure Files biedt fully managed file shares aan in de cloud die toegankelijk zijn via het Server Message Block (SMB) protocol of het Network File System (NFS) protocol.
 
 ## **Key-terms**
 
 [**SMB**](https://nl.wikipedia.org/wiki/Server_Message_Block)
 
-    Server Message Block (SMB), ook bekend als Common Internet File System (CIFS), is het netwerkprotocol dat gebruikt wordt om in Microsoft Windows bestandsuitwisseling tussen meerdere computers mogelijk te maken.
+Server Message Block (SMB), ook bekend als Common Internet File System (CIFS), is het netwerkprotocol dat gebruikt wordt om in Microsoft Windows bestandsuitwisseling tussen meerdere computers mogelijk te maken.
 
 [**NFS**](https://nl.wikipedia.org/wiki/Network_File_System)
 
-    Het Network File System, of kortweg NFS, is een netwerkbestandssysteem dat oorspronkelijk werd ontworpen door Sun Microsystems in 1984 voor hun eigen Unix-werkstations. NFS maakt het mogelijk om bestanden op te vragen over het netwerk op dezelfde manier als men dit zou doen voor bestanden op de lokale schijf.
+Het Network File System, of kortweg NFS, is een netwerkbestandssysteem dat oorspronkelijk werd ontworpen door Sun Microsystems in 1984 voor hun eigen Unix-werkstations. NFS maakt het mogelijk om bestanden op te vragen over het netwerk op dezelfde manier als men dit zou doen voor bestanden op de lokale schijf.
 
 ## **Opdracht**
 
@@ -52,9 +52,16 @@ Azure FIles biedt fully managed file shares aan in de cloud die toegankelijk zij
 *Waar kan ik deze dienst vinden in de console?*
 
     Onder Storage Account.
-    ![image](../00_includes/CF01/CF4-01.png)     
+![image](../00_includes/CF01/CF4-01.png)     
 
 *Hoe zet ik deze dienst aan?*
 
+    Onder storage Account -> File Share
+
+![image](../00_includes/CF01/CF4-02.png)
 
 *Hoe kan ik deze dienst koppelen aan andere resources?*
+
+    Mountable op Windows, Linux en macOS.
+
+![image](../00_includes/CF01/CF4-03.png)
