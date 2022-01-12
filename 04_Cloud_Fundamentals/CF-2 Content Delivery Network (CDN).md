@@ -31,7 +31,7 @@ Elk Azure-abonnement kent standaardlimieten voor de volgende resources:
 
 ## **Opdracht**
 
-- Bestudeer het Shared Responsibility Model
+- Bestudeer Azure Content Delivery Network
 
 ### **Gebruikte bronnen**
 
