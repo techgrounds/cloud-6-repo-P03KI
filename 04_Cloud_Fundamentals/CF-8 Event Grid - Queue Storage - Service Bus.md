@@ -99,25 +99,44 @@ Een naamruimte kan worden vergeleken met een server in de terminologie van ander
 
 ### **Resultaat**
 
-*Waar is Azure Database voor?*
+*Waar is X voor?*
 
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
+*Hoe vervangt X in een klassieke setting?*
 
-*Hoe vervangt Azure Database in een klassieke setting?*
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
+*Hoe kan ik X combineren met andere diensten?*
 
-*Hoe kan ik Azure Database combineren met andere diensten?*
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
+*Wat is het verschil tussen X en andere gelijksoortige diensten?*
 
-
-*Wat is het verschil tussen Azure Database en andere gelijksoortige diensten?*
-
-
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
 *Waar kan ik deze dienst vinden in de console?*
 
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
 *Hoe zet ik deze dienst aan?*
 
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
 
 *Hoe kan ik deze dienst koppelen aan andere resources?*
+
+- Event Grid --> 
+- Queue Storage -->
+- Service Bus -->
