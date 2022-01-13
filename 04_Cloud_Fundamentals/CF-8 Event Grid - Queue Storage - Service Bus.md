@@ -78,8 +78,6 @@ U kunt regels definiëren voor een abonnement. Een abonnementsregel bevat een fi
 Een **naamruimte** is een container voor alle berichtenonderdelen (wachtrijen en onderwerpen). Er kunnen zich meerdere wachtrijen en onderwerpen in één naamruimte bevinden, en naamruimten fungeren vaak als toepassingscontainers.
 
 Een naamruimte kan worden vergeleken met een server in de terminologie van andere brokers, maar de concepten zijn niet direct gelijkwaardig. Een Service Bus-naamruimte is uw eigen capaciteitssegment van een groot cluster dat uit tientallen allemaal actieve virtuele machines bestaat. Deze kan eventueel drie Azure-beschikbaarheidszones omvatten. Daarom krijgt u alle voordelen van beschikbaarheid en robuustheid van het uitvoeren van de berichtenbroker op een enorme schaal. En u hoeft zich geen zorgen te maken over de onderliggende complexiteiten. Service Bus is serverloze berichten.
-## **Key-terms**
-
 
 ## **Opdracht**
 
