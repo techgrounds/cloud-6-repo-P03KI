@@ -69,9 +69,6 @@ Zie hierboven :)
 
 *<https://docs.microsoft.com/nl-nl/azure/azure-sql/database/sql-database-paas-overview>*
 
-*<>*
-
-
 ### **Ervaren problemen**
 
 *Geen*
