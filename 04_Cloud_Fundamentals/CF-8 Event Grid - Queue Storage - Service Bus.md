@@ -99,42 +99,12 @@ Een naamruimte kan worden vergeleken met een server in de terminologie van ander
 
 *Waar is X voor?*
 
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
-
-*Hoe vervangt X in een klassieke setting?*
-
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
+- Event Grid --> Event Grid verbindt gegevensbronnen en gebeurtenis-handlers.
+- Queue Storage --> Een service voor het opslaan van grote aantallen berichten.
+- Service Bus -->  Volledig beheerde berichtenbroker voor ondernemingen met berichtenwachtrijen en onderwerpen.
 
 *Hoe kan ik X combineren met andere diensten?*
 
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
-
-*Wat is het verschil tussen X en andere gelijksoortige diensten?*
-
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
-
-*Waar kan ik deze dienst vinden in de console?*
-
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
-
-*Hoe zet ik deze dienst aan?*
-
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
-
-*Hoe kan ik deze dienst koppelen aan andere resources?*
-
-- Event Grid --> 
-- Queue Storage -->
-- Service Bus -->
+- Event Grid --> Ja, werkt met veel Azure services. bijvoorbeeld met Event Grid een melding sturen naar Azure Automation wanneer er een virtuele machine of database in Azure SQL wordt gemaakt.
+- Queue Storage --> Opgeslagen in Storage Account
+- Service Bus --> Ondersteuning voor JSON, XML, Apache Avro, tekst zonder opmaak
