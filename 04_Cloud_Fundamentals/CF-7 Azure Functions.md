@@ -15,7 +15,7 @@ Azure Functions is een serverloze oplossing waarmee minder code nodig is, minder
 
 |   | AZ Functions  | AZ Logic Apps  |
 |---|---|---|
-| Staat  | Normaal staatloos, maar stateful is mogelijk met Durable Functions.  |  Stateful |
+| Staat  | Normaal stateless, maar stateful is mogelijk met Durable Functions.  |  Stateful |
 | Ontwikkeling  |  Code-first (imperatief) | Designer-first (declaratief)  |
 |  Connectiviteit |  Circa tien ingebouwde bindingstypen. Schrijf code voor aangepaste bindingen. | Grote verzameling connectors. Enterprise Integration Pack voor B2B-scenario's. Bouw aangepaste connectors.  |
 | Acties  | Elke activiteit is een Azure-functie. Schrijf code voor de activiteitsfuncties  | Grote verzameling kant-en-klare acties  |
