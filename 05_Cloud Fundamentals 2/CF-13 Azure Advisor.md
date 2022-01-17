@@ -26,3 +26,18 @@
 
 ### **Resultaat**
 
+*Waar is Azure Functions voor?*
+
+- xxxxxxxxxxxxxxx
+
+*Hoe vervangt Azure Functions in een klassieke setting?*
+
+- xxxxxxxxxxxxx
+
+*Hoe kan ik Azure Functions combineren met andere diensten?*
+
+- xxxxxxxxxxxxx
+
+*Wat is het verschil tussen Azure Functions en andere gelijksoortige diensten?*
+
+- xxxxxxxxxxxxxxxx
