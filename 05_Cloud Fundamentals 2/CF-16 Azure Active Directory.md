@@ -129,4 +129,5 @@ Eén tenant	Azure-tenants die toegang hebben tot andere services in een toegewez
 *Hoe kan ik deze dienst koppelen aan andere resources?*
 
 ![image](../00_includes/CF01/CF16-2.png)
+
 ![image](../00_includes/CF01/CF16-3.png)
