@@ -22,6 +22,18 @@ Proactieve hulp|	X|	X|	X	|Via een pool met ProDirect-leveringsbeheerders|
 
 [Bron](https://azure.microsoft.com/nl-nl/support/plans/)
 
+Inbegrepen voor alle Azure-klanten en -partners
+- Support provided in nine languages: English, Spanish, French, German, Italian, Portuguese, Traditional Chinese, Korean, and Japanese.
+- Unlimited subscription management (e.g., billing, quota adjustments, account transfers).
+- Two Azure online forum options: Microsoft Q&A and Stack Overflow. Microsoft Q&A is a Microsoft online property. Stack Overflow is not associated or affiliated with Microsoft.
+- Twitter @AzureSupport
+- Azure service dashboard
+
+**Aankoopopties**
+Azure.com only accepts payments by credit and debit cards unless invoicing has been arranged. Azure Prepayment dollars can’t be applied to support plans. Cancellation of support plans won’t result in a prorated refund.
+
+You’ll be billed monthly for your Azure support plan, which will be automatically renewed. You’ll receive an email notification when your plan’s term is about to renew, and you may disable auto-renewal at any time.
+
 <br>
 
 ## **Key-terms**
@@ -35,6 +47,8 @@ Proactieve hulp|	X|	X|	X	|Via een pool met ProDirect-leveringsbeheerders|
 ### **Gebruikte bronnen**
 
 *<https://azure.microsoft.com/nl-nl/support/plans/>*
+
+*<https://azure.microsoft.com/nl-nl/support/plans/standard/>*
 
 ### **Ervaren problemen**
 
