@@ -47,10 +47,10 @@ Rapporten en controle	|Krijg inzicht in de beveiliging en gebruikspatronen in uw
 
 ## **Key-terms**
 
-**Identiteit	**
+**Identiteit**
 - Een ding dat kan worden geverifieerd. Een identiteit kan een gebruiker met een gebruikersnaam en wachtwoord zijn. Identiteiten omvatten ook toepassingen of andere servers die mogelijk moeten worden geverifieerd via geheime sleutels of certificaten.
 
-**Account	**
+**Account**
 - Een identiteit waaraan gegevens zijn gekoppeld. U kunt geen account hebben zonder een identiteit.
 
 **Azure AD-account**	
