@@ -22,10 +22,6 @@ Met Advisor kunt u het volgende doen:
 
 - **Operationele uitmuntendheid**:om u te helpen efficiëntie van processen en werkstromen, beheerbaarheid van resources en best practices voor implementatie te bereiken.
 
-- **xxxxxxxxxxxx**
-
-    xxxxxxxxxxxxx
-    
 <br>
 
 ## **Key-terms**
