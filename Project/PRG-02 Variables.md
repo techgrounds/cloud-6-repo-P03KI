@@ -10,7 +10,7 @@
 
 ![SS](../00_includes/PRG/02.01.png)
 
-*<https://github.com/P03KI/repo-suheri-AZ900/blob/8c5d24603ee8a22cae5251d7063dbddff83d1990/Python/01%20Variables%201.py>*
+[Code](../Python/01 Variables 1.py)
 
 ## **Opdracht 2**
 
