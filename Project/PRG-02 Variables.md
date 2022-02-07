@@ -10,7 +10,9 @@
 
 ![SS](../00_includes/PRG/02.01.png)
 
-[Code](../Python/01 Variables 1.py)
+```python:../Python/01 Variables 1.py
+
+```
 
 ## **Opdracht 2**
 
