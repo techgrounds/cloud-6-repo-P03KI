@@ -1,11 +1,18 @@
 # initial vars
-
 a = 'int'
 b = 7
 c = False
 d = "18.5"
 
 # print vartypes met type()
+print(type(a))
+print(type(b))
+print(type(c))
+print(type(a))
 
-print("a=" + type(a) + " b=" + type(b) + " c=" + type(c) + " d=" + type(d))
+#definieer x. float() -> b + d 
+x = float(b) + float(d)
+
+#print float
+print(x)
 

@@ -12,9 +12,9 @@
     Make a new variable x and give it the value b + d. Print the value of x. This will raise an error. Fix it so that print(x) prints a float.
     Write a comment above every line of code that tells the reader what is going on in your script.
 
-![SS](../00_includes/PRG/02.01.png)
+![SS](../00_includes/PRG/03.01.png)
 
-[Code](../Python/Scripts/02Variables1.py)
+[Code](../Python/Scripts/03Datatypes1.py)
 
 ## **Opdracht 2**
 
@@ -22,10 +22,13 @@
     Use the input() function to get input from the user. Store that input in a variable.
     Find out what data type the output of input() is. See if it is different for different kinds of input (numbers, words, etc.).
 
-![SS](../00_includes/PRG/02.02.png)
+    --> input() slaat alles op in een string 
 
-[Code](../Python/Scripts/02Variables2.py)
+![SS](../00_includes/PRG/03.02.png)
+
+[Code](../Python/Scripts/03Datatypes2.py)
 
 ### **Gebruikte bronnen**
 
 *<https://www.w3schools.com/python/python_variables.asp>*
+*<https://www.w3schools.com/python/ref_func_input.asp>*
