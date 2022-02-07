@@ -1,4 +1,4 @@
-# **Variables**
+# **DataTypes & Comments**
 
 ## **Opdracht 1**
 
@@ -9,10 +9,7 @@
     Print the value of z.
 
 ![SS](../00_includes/PRG/02.01.png)
-
-```python:../Python/01 Variables 1.py
-
-```
+[Code](../Python/01Variables1.py)
 
 ## **Opdracht 2**
 
@@ -21,8 +18,7 @@
     Print the text “Hello, <your name here>!”. Use name in the print statement.
 
 ![SS](../00_includes/PRG/02.02.png)
-
-*<https://github.com/P03KI/repo-suheri-AZ900/blob/8c5d24603ee8a22cae5251d7063dbddff83d1990/Python/01%20Variables%202.py>*
+[Code](../Python/01Variables2.py)
 
 ## **Opdracht 3**
 
@@ -35,8 +31,7 @@
     Print the text “Value 3: <value 3 here>”.
 
 ![SS](../00_includes/PRG/02.03.png)
-
-*<https://github.com/P03KI/repo-suheri-AZ900/blob/8c5d24603ee8a22cae5251d7063dbddff83d1990/Python/01%20Variables%203.py>*
+[Code](../Python/01Variables3.py)
 
 ### **Gebruikte bronnen**
 
