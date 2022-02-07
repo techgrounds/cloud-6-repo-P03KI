@@ -31,4 +31,5 @@
 ### **Gebruikte bronnen**
 
 *<https://www.w3schools.com/python/python_variables.asp>*
+
 *<https://www.w3schools.com/python/ref_func_input.asp>*
