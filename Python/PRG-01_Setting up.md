@@ -1,8 +1,8 @@
 # **Setting up**
 
-Hello world print
-
 ## **Opdracht**
+
+    Set up VSC + Python and print Hello World
 
 ![SS](../00_includes/PRG/01.01.png)
 

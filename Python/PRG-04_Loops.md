@@ -4,7 +4,9 @@
 
     Create a new script.
     Create a variable x and give it the value 0.
-    Use a while loop to print the value of x in every iteration of the loop. After printing, the value of x should increase by 1. The loop should run as long as x is smaller than or equal to 10.
+    Use a while loop to print the value of x in every iteration of the loop. 
+    After printing, the value of x should increase by 1. 
+    The loop should run as long as x is smaller than or equal to 10.
 
 
 ![SS](../00_includes/PRG/04.01.png)
@@ -17,7 +19,9 @@
     Copy the code below into your script.
     for i in range(10):
         # do something here
-    Print the value of i in the for loop. You did not manually assign a value to i. Figure out how its value is determined.
+    Print the value of i in the for loop. 
+    You did not manually assign a value to i. 
+    Figure out how its value is determined.
 
 ![SS](../00_includes/PRG/04.02.png)
 
