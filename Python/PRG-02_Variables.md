@@ -9,6 +9,7 @@
     Print the value of z.
 
 ![SS](../00_includes/PRG/02.01.png)
+
 [Code](../Python/Scripts/02Variables1.py)
 
 ## **Opdracht 2**
@@ -18,6 +19,7 @@
     Print the text “Hello, <your name here>!”. Use name in the print statement.
 
 ![SS](../00_includes/PRG/02.02.png)
+
 [Code](../Python/Scripts/02Variables2.py)
 
 ## **Opdracht 3**
@@ -31,6 +33,7 @@
     Print the text “Value 3: <value 3 here>”.
 
 ![SS](../00_includes/PRG/02.03.png)
+
 [Code](../Python/Scripts/02Variables3.py)
 
 ### **Gebruikte bronnen**
