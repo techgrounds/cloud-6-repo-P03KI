@@ -1,21 +1,21 @@
-#import
 import csv
-csvColumn =  ['Naam', 'Achternaam', 'Functie', 'Bedrijf']
+import os
 
-#vragen
-myDict = {}
-myDict["Naam"] = input("Wat is jouw voornaam?")
-myDict["Achternaam"] = input("Wat is jouw achternaam?")
-myDict["Functie"] = input("Welke functie voer jij uit?")
-myDict["Bedrijf"] = input("Bij welk bedrijf ben jij werkzaam?")
-print(myDict)
+csvColumn = ['Naam', 'Achternaam', 'Functie', 'Bedrijf']
+header = False
+myDict = {
+    "Naam" : input("Wat is jouw voornaam?\n"),
+    "Achternaam" : input("Wat is jouw achternaam?\n"),
+    "Functie" : input("Welke functie voer jij uit?\n"),
+    "Bedrijf" : input("Bij welk bedrijf ben jij werkzaam?\n")
+}
 
-csv_file = "test.csv"
 try:
-    with open(csv_file, 'w') as csvfile:
+    with open("test.csv", 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csvColumn)
-        writer.writeheader()
-        for data in myDict:
-            writer.writerow(data)
+        if os.path.getsize("test.csv") == 0:
+            writer.writeheader()
+        writer.writerow(myDict)
+        
 except IOError:
     print("I/O error")

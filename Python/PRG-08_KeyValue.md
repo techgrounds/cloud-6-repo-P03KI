@@ -33,6 +33,8 @@
 
 ![SS](../00_includes/PRG/08.02.png)
 
+![SS](../00_includes/PRG/08.03.png)
+
 [Code](../Python/Scripts/08keyvalue2.py)
 
 ### **Gebruikte bronnen**
