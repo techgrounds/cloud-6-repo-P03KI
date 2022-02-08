@@ -2,7 +2,7 @@ import csv
 import os
 
 csvColumn = ['Naam', 'Achternaam', 'Functie', 'Bedrijf']
-header = False
+csv1 = "Python/Scripts/test.csv"
 myDict = {
     "Naam" : input("Wat is jouw voornaam?\n"),
     "Achternaam" : input("Wat is jouw achternaam?\n"),
@@ -11,9 +11,9 @@ myDict = {
 }
 
 try:
-    with open("test.csv", 'a') as csvfile:
+    with open(csv1, 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csvColumn)
-        if os.path.getsize("test.csv") == 0:
+        if os.path.getsize(csv1) == 0 or os.path.isfile(csv1) == False:
             writer.writeheader()
         writer.writerow(myDict)
         
