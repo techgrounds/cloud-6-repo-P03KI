@@ -47,10 +47,10 @@ Rapporten en controle	|Krijg inzicht in de beveiliging en gebruikspatronen in uw
 
 ## **Key-terms**
 
-**Identiteit	**
+**Identiteit**
 - Een ding dat kan worden geverifieerd. Een identiteit kan een gebruiker met een gebruikersnaam en wachtwoord zijn. Identiteiten omvatten ook toepassingen of andere servers die mogelijk moeten worden geverifieerd via geheime sleutels of certificaten.
 
-**Account	**
+**Account**
 - Een identiteit waaraan gegevens zijn gekoppeld. U kunt geen account hebben zonder een identiteit.
 
 **Azure AD-account**	
@@ -76,7 +76,7 @@ Rapporten en controle	|Krijg inzicht in de beveiliging en gebruikspatronen in uw
 - De tenant is een speciaal en vertrouwd exemplaar van Azure AD dat automatisch wordt gemaakt wanneer uw organisatie zich registreert voor een abonnement op een cloudservice van Microsoft, bijvoorbeeld Microsoft Azure, Microsoft Intune of Microsoft 365. Een Azure-tenant vertegenwoordigt één organisatie.
 Eén tenant	Azure-tenants die toegang hebben tot andere services in een toegewezen omgeving, worden als één tenant beschouwd.
 
-**Multitenant	**
+**Multitenant**
 - Azure-tenants die toegang hebben tot andere services in een gedeelde omgeving in meerdere organisaties, worden als meerdere tenants beschouwd.
 
 **Azure AD-directory**	

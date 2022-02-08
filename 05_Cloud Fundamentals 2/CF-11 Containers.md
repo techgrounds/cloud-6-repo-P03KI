@@ -2,11 +2,11 @@
 
 **Azure Container Instance**
 
-Voorkeursmethode voor het verpakken, implementeren en beheren van cloudtoepassingen, waarbij het niet nodig is om virtuele machines te beheren of het serviceniveau te verhogen. 
+Voorkeursmethode voor het verpakken, implementeren en beheren van cloudtoepassingen, waarbij het niet nodig is om virtuele machines te beheren of het serviceniveau te verhogen. PaaS. Snel en simpel.
 
 **Azure Kubernetes Service**
 
-Kubernetes is een snel ontwikkelend platform dat containertoepassingen en de bijbehorende netwerk- en opslagonderdelen beheert. Kubernetes richt zich op de workloads van de toepassing, niet op de onderliggende infrastructuuronderdelen. Kubernetes biedt een declaratieve benadering van implementaties, met ondersteuning van een robuuste set API's voor beheerbewerkingen. Betaalt alleen voor de AKS nodes die de applicaties uitvoeren.
+Kubernetes is een snel ontwikkelend managementplatform dat containertoepassingen en de bijbehorende netwerk- en opslagonderdelen beheert. Kubernetes richt zich op de workloads van de toepassing, niet op de onderliggende infrastructuuronderdelen. Kubernetes biedt een declaratieve benadering van implementaties, met ondersteuning van een robuuste set API's voor beheerbewerkingen. Betaalt alleen voor de AKS nodes die de applicaties uitvoeren.
 
 AKS is verdeeld in 2 componenten:
 
