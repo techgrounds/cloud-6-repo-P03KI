@@ -64,6 +64,4 @@ Hou rekening met de volgende projectactiviteiten:
 
 - Azure ARM resource omschrijvingen: [link](https://docs.microsoft.com/en-us/azure/templates/)
 
-
-
-![image](../00_includes/PRJ/AzureOntwerp.png)
+![image](../00_includes/PRJ/Azure.png)
