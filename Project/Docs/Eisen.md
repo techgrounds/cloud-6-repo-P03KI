@@ -1,7 +1,8 @@
 # Eisen
 
 ## Team
-- Als team willen wij duidelijk hebben wat de eisen zijn van de applicaties
+
+- Als team willen wij duidelijk hebben wat de **eisen** zijn van de applicatie
 
     - Alle VM disks moeten encrypted zijn.
     - De webserver moet dagelijks gebackupt worden. De backups moeten 7 dagen behouden worden.
@@ -12,19 +13,28 @@
     - Alle subnets moeten beschermd worden door een firewall op subnet niveau.
     - SSH of RDP verbindingen met de webserver mogen alleen tot stand komen vanuit de admin server.
 
-- Als team willen wij een duidelijk overzicht van de aannames die wij gemaakt hebben en van de Cloud Infrastructuur die de applicatie nodig heeft.
+- Als team willen wij een duidelijk overzicht van de **aannames** die wij gemaakt hebben.
 
-    - Gebruikte het bedrijf webserver publiek of intern?
-    - Budget +/- €130 per maand
+    - Klant wilt een veilig applicatie waarmee een werkende web- + adminserver wordt deployed.
+    - Verkeer webserver verloopt via PIP.
+    - RDP/SSH webserver middels een adminserver (peering), bereikbaar via een PIP met trusted locations.
+    - NSG's op subnet-niveau geconfigureerd als firewall om servers te beschermen.
+   - Budget +/- €130 per maand
+   - Klant gebruikt Linux en Windows (SSH/RDP)
+   - 
+    
+- Als team willen wij een duidelijk overzicht hebben van de **Cloud Infrastructuur** die de applicatie nodig heeft
+
+    - 2 public IP's
     - Keyvault nodig voor certificaten en keys/encryptie
     - 2 v-nets in 2 availibilty zones verbonden middels peering
     - subnet met NSG voor webserver
     - subnet met NSG voor adminserver
     - 1 vm webserver met SSH/RDP via adminserver
     - 1 vm adminserver
-    - storage account
+    - storage account voor post-deployment scripts
     - 2 firewall(NSG) subnets
-    
+
 ## Klant
 - Als klant wil ik een werkende applicatie hebben waarmee ik een veilige netwerk kan deployen
 - Als klant wil ik een werkende applicatie hebben waarmee ik een werkende webserver kan deployen
