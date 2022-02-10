@@ -8,7 +8,7 @@
 
 ![SS](../00_includes/PRG/06.01.png)
 
-[Code](../Python/Scripts/06functions1.py)
+[Code](../06_Python/Scripts/06functions1.py)
 
 ## **Opdracht 2**
 
@@ -21,7 +21,7 @@
 
 ![SS](../00_includes/PRG/06.03.png)    
 
-[Code](../Python/Scripts/06functions2.py)
+[Code](../06_Python/Scripts/06functions2.py)
 
 ## **Opdracht 3**
 
@@ -38,7 +38,7 @@
 
 ![SS](../00_includes/PRG/06.04.png)
 
-[Code](../Python/Scripts/06functions3.py)
+[Code](../06_Python/Scripts/06functions3.py)
 
 ### **Gebruikte bronnen**
 

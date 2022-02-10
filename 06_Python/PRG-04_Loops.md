@@ -11,7 +11,7 @@
 
 ![SS](../00_includes/PRG/04.01.png)
 
-[Code](../Python/Scripts/04loops1.py)
+[Code](../06_Python/Scripts/04loops1.py)
 
 ## **Opdracht 2**
 
@@ -30,7 +30,7 @@
 
 ![SS](../00_includes/PRG/04.03.png)
 
-[Code](../Python/Scripts/04loops2.py)
+[Code](../06_Python/Scripts/04loops2.py)
 
 ## **Opdracht 3**
 
@@ -41,7 +41,7 @@
 
 ![SS](../00_includes/PRG/04.04.png)
 
-[Code](../Python/Scripts/04loops3.py)
+[Code](../06_Python/Scripts/04loops3.py)
 
 ### **Gebruikte bronnen**
 

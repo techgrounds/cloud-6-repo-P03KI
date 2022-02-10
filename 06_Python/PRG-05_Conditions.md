@@ -7,7 +7,7 @@
 
 ![SS](../00_includes/PRG/05.01.png)
 
-[Code](../Python/Scripts/05conditions1.py)
+[Code](../06_Python/Scripts/05conditions1.py)
 
 ## **Opdracht 2**
 
@@ -17,7 +17,7 @@
 
 ![SS](../00_includes/PRG/05.02.png)
 
-[Code](../Python/Scripts/05conditions2.py)
+[Code](../06_Python/Scripts/05conditions2.py)
 
 
 ### **Gebruikte bronnen**
