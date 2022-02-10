@@ -8,7 +8,7 @@
 
 ![SS](../00_includes/PRG/07.01.png)
 
-[Code](../Python/Scripts/07lists1.py)
+[Code](../06_Python/Scripts/07lists1.py)
 
 ## **Opdracht 2**
 
@@ -20,7 +20,7 @@
 
 ![SS](../00_includes/PRG/07.02.png)
 
-[Code](../Python/Scripts/07lists2.py)
+[Code](../06_Python/Scripts/07lists2.py)
 
 ### **Gebruikte bronnen**
 

@@ -10,7 +10,7 @@
 
 ![SS](../00_includes/PRG/02.01.png)
 
-[Code](../Python/Scripts/02Variables1.py)
+[Code](../06_Python/Scripts/02Variables1.py)
 
 ## **Opdracht 2**
 
@@ -20,7 +20,7 @@
 
 ![SS](../00_includes/PRG/02.02.png)
 
-[Code](../Python/Scripts/02Variables2.py)
+[Code](../06_Python/Scripts/02Variables2.py)
 
 ## **Opdracht 3**
 
@@ -34,7 +34,7 @@
 
 ![SS](../00_includes/PRG/02.03.png)
 
-[Code](../Python/Scripts/02Variables3.py)
+[Code](../06_Python/Scripts/02Variables3.py)
 
 ### **Gebruikte bronnen**
 

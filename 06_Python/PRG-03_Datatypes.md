@@ -15,7 +15,7 @@
 
 ![SS](../00_includes/PRG/03.01.png)
 
-[Code](../Python/Scripts/03Datatypes1.py)
+[Code](../06_Python/Scripts/03Datatypes1.py)
 
 ## **Opdracht 2**
 
@@ -28,7 +28,7 @@
 
 ![SS](../00_includes/PRG/03.02.png)
 
-[Code](../Python/Scripts/03Datatypes2.py)
+[Code](../06_Python/Scripts/03Datatypes2.py)
 
 ### **Gebruikte bronnen**
 
