@@ -12,10 +12,19 @@
     - Alle subnets moeten beschermd worden door een firewall op subnet niveau.
     - SSH of RDP verbindingen met de webserver mogen alleen tot stand komen vanuit de admin server.
 
-- Als team willen wij een duidelijk overzicht van de aannames die wij gemaakt hebben.
+- Als team willen wij een duidelijk overzicht van de aannames die wij gemaakt hebben en van de Cloud Infrastructuur die de applicatie nodig heeft.
 
-- Als team willen wij een duidelijk overzicht hebben van de Cloud Infrastructuur die de applicatie nodig heeft
-
+    - Gebruikte het bedrijf webserver publiek of intern?
+    - Budget +/- €130 per maand
+    - Keyvault nodig voor certificaten en keys/encryptie
+    - 2 v-nets in 2 availibilty zones verbonden middels peering
+    - subnet met NSG voor webserver
+    - subnet met NSG voor adminserver
+    - 1 vm webserver met SSH/RDP via adminserver
+    - 1 vm adminserver
+    - storage account
+    - 2 firewall(NSG) subnets
+    
 ## Klant
 - Als klant wil ik een werkende applicatie hebben waarmee ik een veilige netwerk kan deployen
 - Als klant wil ik een werkende applicatie hebben waarmee ik een werkende webserver kan deployen
