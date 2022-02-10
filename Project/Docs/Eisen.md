@@ -1,19 +1,19 @@
 # Eisen
 
-- Alle VM disks moeten encrypted zijn.
-- De webserver moet dagelijks gebackupt worden. De backups moeten 7 dagen behouden worden.
-- De webserver moet op een geautomatiseerde manier geïnstalleerd worden.
-- De admin/management server moet bereikbaar zijn met een publiek IP.
-- De admin/management server moet alleen bereikbaar zijn van vertrouwde locaties (office/admin’s thuis)
-- De volgende IP ranges worden gebruikt: 10.10.10.0/24 & 10.20.20.0/24
-- Alle subnets moeten beschermd worden door een firewall op subnet niveau.
-- SSH of RDP verbindingen met de webserver mogen alleen tot stand komen vanuit de admin server.
-
-NB. Wees niet bang om verbeteringen in de architectuur voor te stellen of te implementeren, maar maak wel harde keuzes, zodat je de deadline kan halen.
-
 ## Team
 - Als team willen wij duidelijk hebben wat de eisen zijn van de applicaties
+
+    - Alle VM disks moeten encrypted zijn.
+    - De webserver moet dagelijks gebackupt worden. De backups moeten 7 dagen behouden worden.
+    - De webserver moet op een geautomatiseerde manier geïnstalleerd worden.
+    - De admin/management server moet bereikbaar zijn met een publiek IP.
+    - De admin/management server moet alleen bereikbaar zijn van vertrouwde locaties (office/admin’s thuis)
+    - De volgende IP ranges worden gebruikt: 10.10.10.0/24 & 10.20.20.0/24
+    - Alle subnets moeten beschermd worden door een firewall op subnet niveau.
+    - SSH of RDP verbindingen met de webserver mogen alleen tot stand komen vanuit de admin server.
+
 - Als team willen wij een duidelijk overzicht van de aannames die wij gemaakt hebben.
+
 - Als team willen wij een duidelijk overzicht hebben van de Cloud Infrastructuur die de applicatie nodig heeft
 
 ## Klant
@@ -44,9 +44,8 @@ Belangrijke data:
 |Introductie Project v1.1|14-03-2022 (wk 5)|
 |Oplevering- / Eindpresentatie|08-04-2022 (wk 9)|
 
-
-
 Hou rekening met de volgende projectactiviteiten:
+
 |Project Activiteit:|Datum (projectweek) :|
 | --- | --- |
 |Sprint 1 Review progressie app v1.0|25-02-2022 (wk 3)|
@@ -56,12 +55,16 @@ Hou rekening met de volgende projectactiviteiten:
 
 ## Resources:
 
-- Voor het ontwerpen van je architectuur: [Draw.io](https://draw.io)
+- Voor het ontwerpen van je architectuur: [Draw.io](https://draw.io) || [Visual Paradigm](https://online.visual-paradigm.com/diagrams/templates/azure-architecture-diagram/)
 
 - Azure Bicep documentatie: [link](https://docs.microsoft.com/nl-nl/azure/azure-resource-manager/bicep/)
 
 - Azure ARM template documentatie: [link](https://docs.microsoft.com/nl-nl/azure/azure-resource-manager/templates/)
 
 - Azure ARM resource omschrijvingen: [link](https://docs.microsoft.com/en-us/azure/templates/)
+
+- Chocolatey: [link](https://chocolatey.org/install)
+
+- FizzBuzz: [link](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
 
 ![image](../00_includes/PRJ/Azure.png)
