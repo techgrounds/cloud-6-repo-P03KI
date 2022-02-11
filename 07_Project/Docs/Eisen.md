@@ -4,11 +4,23 @@
 
 - Vragen voor klant:
     - Backup -> alles?
-    - Webserver PIP voor extern gebruik? Schaalbaar? 
+        - ?
+    - Webserver PIP voor extern gebruik? Schaalbaar? Hoeveelheid verkeer/Functie?
+        - ?
     - Geen wijzigingen? Totaal akkoord voor de gegeven deadline?
+        - ?
     - Kosten/budget
-    - Active Directory huidige systeem?
-    - 
+        - ?
+    - Active Directory users in het huidige systeem?
+        - ?
+    - Webserver OS? Meer vereisten?
+        - ?
+    - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
+        - ?
+    - Documentatieformaat? PDF/RTF/DOC(X)/ETC
+        - ?
+    - Cloudopslag alleen voor bootscripts (en backups)?
+        - ?
 
 - Als team willen wij duidelijk hebben wat de **eisen** zijn van de applicatie
 
@@ -23,13 +35,13 @@
 
 - Als team willen wij een duidelijk overzicht van de **aannames** die wij gemaakt hebben.
 
-    - Klant wilt een veilig applicatie waarmee een werkende web- + adminserver wordt deployed.
+    - Klant wilt een veilige applicatie waarmee een werkende web- + adminserver wordt deployed.
     - Verkeer webserver verloopt via PIP.
     - RDP/SSH webserver middels een adminserver (peering), bereikbaar via een PIP met trusted locations.
     - NSG's op subnet-niveau geconfigureerd als firewall om servers te beschermen.
-   - Budget +/- €130 per maand
-   - Klant gebruikt Linux en Windows (SSH/RDP)
-   - 
+    - Budget +/- €130 per maand
+    - Klant gebruikt Linux en Windows (SSH/RDP)
+    - 
     
 - Als team willen wij een duidelijk overzicht hebben van de **Cloud Infrastructuur** die de applicatie nodig heeft
 
