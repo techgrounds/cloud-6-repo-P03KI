@@ -57,20 +57,20 @@
 
 Belangrijke data:
 
-|  Onderwerp:  | Datum (projectweek):  |
+| Onderwerp: | Datum (projectweek): |
 | --- | --- |
-|Start Python, Start Project (v1.0)|07-02-2022 (wk 1)|
-|Introductie Project v1.1|14-03-2022 (wk 5)|
-|Oplevering- / Eindpresentatie|08-04-2022 (wk 9)|
+|Start Python, Start Project (v1.0) | 07-02-2022 (wk 1)|
+|Introductie Project v1.1 | 14-03-2022 (wk 5)|
+|Oplevering- / Eindpresentatie | 08-04-2022 (wk 9)|
 
 Hou rekening met de volgende projectactiviteiten:
 
 |Project Activiteit:|Datum (projectweek) :|
 | --- | --- |
-|Sprint 1 Review progressie app v1.0|25-02-2022 (wk 3)|
-|Sprint 2 Review oplevering app v1.0|11-03-2022 (wk 5)|
-|Sprint 3 Review progressie app v1.1|25-03-2022 (wk 7)|
-|Sprint 4 Review oplevering app v1.1 / Eindpresentatie|08-04-2022 (wk 9)|
+|Sprint 1 Review progressie app v1.0 | 25-02-2022 (wk 3)|
+|Sprint 2 Review oplevering app v1.0 | 11-03-2022 (wk 5)|
+|Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
+|Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
 ## Resources:
 
