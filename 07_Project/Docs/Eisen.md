@@ -2,26 +2,6 @@
 
 ## Team
 
-- Vragen voor klant:
-    - Backup -> alles?
-        - ?
-    - Webserver PIP voor extern gebruik? Schaalbaar? Hoeveelheid verkeer/Functie?
-        - ?
-    - Geen wijzigingen? Totaal akkoord voor de gegeven deadline?
-        - ?
-    - Kosten/budget
-        - ?
-    - Active Directory users in het huidige systeem?
-        - ?
-    - Webserver OS? Meer vereisten?
-        - ?
-    - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
-        - ?
-    - Documentatieformaat? PDF/RTF/DOC(X)/ETC
-        - ?
-    - Cloudopslag alleen voor bootscripts (en backups)?
-        - ?
-
 - Als team willen wij duidelijk hebben wat de **eisen** zijn van de applicatie
 
     - Alle VM disks moeten encrypted zijn.
@@ -64,6 +44,26 @@
 - Als klant wil ik iedere dag een backup hebben dat 7 dagen behouden wordt
 - Als klant wil ik weten hoe ik de applicatie kan gebruiken
 - Als klant wil ik een MVP kunnen deployen om te testen
+
+- **Vragen voor klant:**
+    - Backup -> alles?
+        - ?
+    - Webserver PIP voor extern gebruik? Schaalbaar? Hoeveelheid verkeer/Functie?
+        - ?
+    - Geen wijzigingen? Totaal akkoord voor de gegeven deadline?
+        - ?
+    - Kosten/budget
+        - ?
+    - Active Directory users in het huidige systeem?
+        - ?
+    - Webserver OS? Meer vereisten?
+        - ?
+    - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
+        - ?
+    - Documentatieformaat? PDF/RTF/DOC(X)/ETC
+        - ?
+    - Cloudopslag alleen voor bootscripts (en backups)?
+        - ?
 
 # Oplevering
 
