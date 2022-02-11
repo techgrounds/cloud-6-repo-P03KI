@@ -2,6 +2,14 @@
 
 ## Team
 
+- Vragen voor klant:
+    - Backup -> alles?
+    - Webserver PIP voor extern gebruik? Schaalbaar? 
+    - Geen wijzigingen? Totaal akkoord voor de gegeven deadline?
+    - Kosten/budget
+    - Active Directory huidige systeem?
+    - 
+
 - Als team willen wij duidelijk hebben wat de **eisen** zijn van de applicatie
 
     - Alle VM disks moeten encrypted zijn.
