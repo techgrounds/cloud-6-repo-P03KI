@@ -47,29 +47,27 @@
 
 - **Vragen voor klant:**
     - Backup -> alles?
-        - ?
+        - Motivatie voor kosten. 
     - Webserver PIP voor extern gebruik? Schaalbaar? Hoeveelheid verkeer/Functie?
-        - ?
-    - Geen wijzigingen? Totaal akkoord voor de gegeven deadline?
-        - ?
+        - Simpele server. -> 1.1 wss schaalbaar.
     - Kosten/budget
-        - ?
+        - 130
     - Active Directory users in het huidige systeem?
-        - ?
+        - Nee. Instellen voor klant.
     - Webserver OS? Meer vereisten?
-        - ?
+        - Windows admin. Linux evt goedkoper voor webserver.
     - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
-        - ?
+        - Bastion
     - Documentatieformaat? PDF/RTF/DOC(X)/ETC
         - ?
     - Cloudopslag alleen voor bootscripts (en backups). Users?
-        - ?
+        - Blob
     - Tijdstip backups? 
-        - ?
+        - Buiten kantoortijden
     - Gebruik per dienst per maand voor terugkerende kosten
-        - ?
-    - Zijn er licenties beschikbaar die gemigreerd dienen te worden?
-        - ?
+        - 130
+    - Regio
+        - West-Euopa
 
     
 # Oplevering
