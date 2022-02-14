@@ -62,9 +62,16 @@
         - ?
     - Documentatieformaat? PDF/RTF/DOC(X)/ETC
         - ?
-    - Cloudopslag alleen voor bootscripts (en backups)?
+    - Cloudopslag alleen voor bootscripts (en backups). Users?
+        - ?
+    - Tijdstip backups? 
+        - ?
+    - Gebruik per dienst per maand voor terugkerende kosten
+        - ?
+    - Zijn er licenties beschikbaar die gemigreerd dienen te worden?
         - ?
 
+    
 # Oplevering
 
 - Een werkende CDK / Bicep app van het MVP
