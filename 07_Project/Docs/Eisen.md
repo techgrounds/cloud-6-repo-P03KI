@@ -58,8 +58,6 @@
         - Windows admin. Linux evt goedkoper voor webserver.
     - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
         - Bastion
-    - Documentatieformaat? PDF/RTF/DOC(X)/ETC
-        - ?
     - Cloudopslag alleen voor bootscripts (en backups). Users?
         - Blob
     - Tijdstip backups? 
