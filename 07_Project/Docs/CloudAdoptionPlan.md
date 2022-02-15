@@ -1,17 +1,34 @@
-# [Your organization Name]
-# Microsoft Cloud Adoption Plan
+# Project: Sentia 1.0
+## Microsoft Cloud Adoption Plan
 
-[Date]
+15/02/2022
 
 ## Executive Summary
 
-[Overview of your business priorities, timelines and milestones in the upcoming year for successful cloud adoption. Also include prioritized projects and criteria for such projects.]
+| Onderwerp: | Datum (projectweek): |
+| --- | --- |
+|Start Python, Start Project (v1.0) | 07-02-2022 (wk 1)|
+|Introductie Project v1.1 | 14-03-2022 (wk 5)|
+|Oplevering- / Eindpresentatie | 08-04-2022 (wk 9)|
+
+
+|Project Activiteit:|Datum (projectweek) :|
+| --- | --- |
+|Sprint 1 Review progressie app v1.0 | 25-02-2022 (wk 3)|
+|Sprint 2 Review oplevering app v1.0 | 11-03-2022 (wk 5)|
+|Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
+|Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
 ## Define Strategy
 
 ### Motivations and drivers
 
-Why do you want to adopt the cloud? Are there critical business events driving your decision? Do you have specific business motivations? [Zie](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/motivations)
+Why do you want to adopt the cloud? 
+- Client would like to deploy a webserver in the cloud saving cost and being more adaptable. 
+
+Are there critical business events driving your decision? Do you have specific business motivations? 
+- ?
+[Zie](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/motivations)
 
     [Understand and describe business situation, implications and details on business events driving the move to the cloud]
 

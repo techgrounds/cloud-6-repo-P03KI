@@ -1,8 +1,8 @@
-Cloud Adoption Framework for Azure - Ready checklist
+# Cloud Adoption Framework for Azure - Ready checklist
 
 Before you start building and deploying solutions using Azure services, you need to prepare your environment. The Cloud Adoption Framework provides actionable guidance to reduce the effort required to get ready. For your convenience, this guide is online, in the Azure portal, & in this checklist.
 
-Checklist
+## Checklist
 
 Following these steps will help better prepare your environment.
 
