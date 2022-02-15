@@ -62,8 +62,6 @@
         - Blob
     - Tijdstip backups? 
         - Buiten kantoortijden
-    - Gebruik per dienst per maand voor terugkerende kosten
-        - 130
     - Regio
         - West-Euopa
 
