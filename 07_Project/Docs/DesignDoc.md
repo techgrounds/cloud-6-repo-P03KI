@@ -22,7 +22,7 @@
 
 Het project omvat het opzetten van een webserver met een adminserver in de Azure cloud omgeving. 
 
-![img](../00_includes/PRJ/ontwerp.png)
+![img](https://github.com/P03KI/repo-suheri-AZ900/blob/6885521423e3c6a9a3f6a4d217413a5958df0250/00_includes/PRJ/ontwerp.png)
 
 | Onderwerp: | Datum (projectweek): |
 | --- | --- |
