@@ -5,7 +5,7 @@
 
 ## Inhoudsopgave
 
-- [1 Introductie]()
+- [1 Introductie](DesignDoc.md#1-introductie)
 - [2 Azure Architecture Overview]()
 - [3 Microsoft Azure Networking]()
 - [4 Microsoft Azure Storage]()
