@@ -20,22 +20,23 @@
 
     Describe the scope of this document and who’s the target audience. Capture the design objectives, constraints, assumptions (if any) and appetite (or vision) for the cloud and make sure to add a quick summary as an overview.
 
-Het project omvat het opzetten van een webserver met een adminserver in de Azure cloud omgeving. 
+Het project omvat het opzetten van een webserver met een adminserver in de Azure cloud omgeving. Het doel is hier voldoende lering uit te trekken als basis voor een gedegen start bij Sentia. Het project wordt individueel gemaakt. Wanneer er bepaalde vragen of obstakels zijn, kunnen deze besproken worden in de groep. Voor eventuele vragen kan ik en mijn groep terecht bij de learning coach Coen, die als stakeholder fungeert.
+
+Bedrijf XYZ wilt graag 
+
+Het volgende ontwerp is aangeleverd door de stakeholder:
 
 ![img](https://github.com/P03KI/repo-suheri-AZ900/blob/6885521423e3c6a9a3f6a4d217413a5958df0250/00_includes/PRJ/ontwerp.png)
 
 | Onderwerp: | Datum (projectweek): |
 | --- | --- |
-|Start Python, Start Project (v1.0) | 07-02-2022 (wk 1)|
+| Start Python, Start Project (v1.0) | 07-02-2022 (wk 1)|
+| Sprint 1 Review progressie app v1.0 | 25-02-2022 (wk 3)|
+| Sprint 2 Review oplevering app v1.0 | 11-03-2022 (wk 5)|
 |Introductie Project v1.1 | 14-03-2022 (wk 5)|
-|Oplevering- / Eindpresentatie | 08-04-2022 (wk 9)|
+| Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
+| Oplevering- / Eindpresentatie Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
-|Project Activiteit:|Datum (projectweek) :|
-| --- | --- |
-|Sprint 1 Review progressie app v1.0 | 25-02-2022 (wk 3)|
-|Sprint 2 Review oplevering app v1.0 | 11-03-2022 (wk 5)|
-|Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
-|Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
 ### 2 Azure Architecture Overview
 
