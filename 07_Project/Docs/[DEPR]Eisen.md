@@ -63,7 +63,7 @@
     - Tijdstip backups? 
         - Buiten kantoortijden
     - Regio
-        - West-Europa. 
+        - West-Europa
 
     
 # Oplevering
