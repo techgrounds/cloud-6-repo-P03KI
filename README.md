@@ -1,7 +1,7 @@
 
 
 
-![img](../00_includes/etc/vr_gif.gif)
+![img](../00_includes/main/etc/vr_gif.gif)
 
 **Cinefiel, audiofiel, (PC)gamer en VR-fanaat**
 
