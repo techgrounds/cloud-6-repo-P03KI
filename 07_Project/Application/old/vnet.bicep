@@ -190,6 +190,42 @@ resource symbolicname 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   }
 }
 
+resource nsg 'Microsoft.Network/networkSecurityGroups@2020-04-01' = {
+  name: 'nsg'
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'rdp'
+        properties: {
+          description: 'description'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3389'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Deny'
+          priority: 100
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'ssh'
+        properties: {
+          description: 'description'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '22'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 110
+          direction: 'Inbound'
+        }
+      }
+    ]
+  }
+}
 
 // resource vnetDpl 'Microsoft.Network/virtualNetworks@2021-05-01' ={
 //   name: vnetName

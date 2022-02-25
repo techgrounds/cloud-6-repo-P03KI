@@ -1,16 +1,8 @@
-@description('Storage Account name')
-param storagename string
 
-@description('VM DNS label prefix')
-param vm_dns string = 'winssh-${uniqueString(resourceGroup().id)}'
-
-@description('Admin user for VM')
 param adminUser string
 
 @secure()
 param adminPassword string = newGuid()
-
-@description('Your public SSH key')
 param publicSshKey string
 
 @description('VM size for VM')
@@ -27,118 +19,25 @@ param vmsize string
 ])
 param vmSku string = '2022-datacenter-core-smalldisk-g2'
 
-@description('SKU of the attached data disk (Standard HDD, Standard SSD or Premium SSD)')
 @allowed([
   'Standard_LRS'
   'StandardSSD_LRS'
   'Premium_LRS'
 ])
 param diskSku string = 'StandardSSD_LRS'
-
-@description('Size of the attached data disk in GB')
 param diskSizeGB int = 50
-
-@description('Deployment location')
 param location string = resourceGroup().location
+param pip string
+// param _artifactsLocation string = deployment().properties.templateLink.uri
 
-@description('The base URI where artifacts required by this template are located including a trailing \'/\'')
-param _artifactsLocation string = deployment().properties.templateLink.uri
+// @description('SAS Token for accessing script path')
+// @secure()
+// param _artifactsLocationSasToken string = ''
 
-@description('SAS Token for accessing script path')
-@secure()
-param _artifactsLocationSasToken string = ''
+ var initScriptUrl = uri(_artifactsLocation, 'initialize.ps1${_artifactsLocationSasToken}')
+ var sshdConfigUrl = uri(_artifactsLocation, 'configs/sshd_config_wopwd${_artifactsLocationSasToken}')
 
-var initScriptUrl = uri(_artifactsLocation, 'initialize.ps1${_artifactsLocationSasToken}')
-var sshdConfigUrl = uri(_artifactsLocation, 'configs/sshd_config_wopwd${_artifactsLocationSasToken}')
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-06-01' = {
-  name: toLower(storagename)
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'Storage'
-  tags: {
-    displayName: 'Storage account'
-  }
-}
-
-resource publicIP 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
-  name: 'publicIP'
-  location: location
-  tags: {
-    displayName: 'PublicIPAddress'
-  }
-  properties: {
-    publicIPAllocationMethod: 'Dynamic'
-    dnsSettings: {
-      domainNameLabel: vm_dns
-    }
-  }
-}
-
-resource nsg 'Microsoft.Network/networkSecurityGroups@2020-04-01' = {
-  name: 'nsg'
-  location: location
-  properties: {
-    securityRules: [
-      {
-        name: 'rdp'
-        properties: {
-          description: 'description'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '3389'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Deny'
-          priority: 100
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'ssh'
-        properties: {
-          description: 'description'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '22'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 110
-          direction: 'Inbound'
-        }
-      }
-    ]
-  }
-}
-
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-04-01' = {
-  name: 'virtualNetwork'
-  location: location
-  tags: {
-    displayName: 'Virtual Network'
-  }
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '10.0.0.0/16'
-      ]
-    }
-    subnets: [
-      {
-        name: 'subnet'
-        properties: {
-          addressPrefix: '10.0.0.0/24'
-          networkSecurityGroup: {
-            id: nsg.id
-          }
-        }
-      }
-    ]
-  }
-}
 
 resource nic 'Microsoft.Network/networkInterfaces@2020-04-01' = {
   name: 'nic'
@@ -153,10 +52,10 @@ resource nic 'Microsoft.Network/networkInterfaces@2020-04-01' = {
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: publicIP.id
+            id: 'pip'
           }
           subnet: {
-            id: virtualNetwork.properties.subnets[0].id
+            id: 'subnet'
           }
         }
       }
