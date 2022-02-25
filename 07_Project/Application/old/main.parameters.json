@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment":{
+      "value": "Alpha"
+    },
+    "vnetName":{
+      "value": [
+        "management-prd-vnet",
+        "app-prd-vnet"
+      ]
+    },
+    "vnetPrefix":{
+      "value": [
+        "10.10.10.0/24",
+        "10.20.20.0/24"
+      ]
+    },
+    "subnetName":{
+      "value": [
+        "adm-subnet-nsg",
+        "app-subnet-nsg"
+      ]
+    }  
+  }
+}

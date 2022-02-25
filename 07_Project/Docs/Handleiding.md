@@ -50,3 +50,22 @@ Importeren sjabloon
 Controle deployment:
 
     Get-AzResourceGroupDeployment -ResourceGroupName learn-923b2203-94f5-4d20-9789-3e4990c034a0 | Format-Table
+
+Opzetten Subscriptie
+
+    New-AzSubscriptionDeployment `
+        -Name demoSubDeployment `
+        -Location centralus `
+        -TemplateFile main.bicep `
+        -rgName demoResourceGroup `
+        -rgLocation centralus
+
+Deployment
+        New-AzResourceGroupDeployment -Name $deploymentName -ResourceGroupName $$SUH_RG -TemplateFile .\main.bicep -TemplateParameterFile .\main.parameters.json -c
+
+        New-AzSubscriptionDeployment -TemplateFile main.bicep -TemplateParameterFile main.parameters.json -SkipTemplateParameterPrompt
+
+        New-AzResourceGroup -Name <resource-group-name> -Location <resource-group-location> 
+        #use this command when you need to create a new resource group for your deployment
+
+        New-AzResourceGroupDeployment -ResourceGroupName <resource-group-name> -TemplateUri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.network/existing-vnet-to-vnet-peering/azuredeploy.json

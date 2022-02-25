@@ -42,11 +42,11 @@ XYZ wilt graag zijn webdiensten in de cloud onderbrengen. Zij hebben de volgende
 | Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
 | Oplevering- / Eindpresentatie Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
+**Architectuur ontwerp**
+
 Het volgende ontwerp is meegeleverd door de cloud-architect:
 
-![img](https://github.com/P03KI/repo-suheri-AZ900/blob/6885521423e3c6a9a3f6a4d217413a5958df0250/00_includes/PRJ/ontwerp.png)
-
-<br><br>
+![img](/00_includes/PRJ/ontwerp.png)
 
 Hieruit kan het inventaris worden opgemaakt:
 

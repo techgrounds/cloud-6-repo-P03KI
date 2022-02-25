@@ -1,238 +1,127 @@
 targetScope = 'subscription'
 
-param namePrefix string
-param location string = resourceGroup().location
-param tenantId string
+@description('Locatie')
+param location string
+param client string
+param vnetName array
+param vnetPrefix array
+param objectId string = subscription().tenantId
+param secretName string
+param kvName string = 'kv1-${client}-${uniqueString(subscription().subscriptionId)}'
+param storageAccountName string
 
-var name = '${namePrefix}${uniqueString(resourceGroup().id)}'
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01'={
-  name: 'XYZ-RG'
-  location: deployment().location
+@secure()
+param secretValue string
+
+//_________________________________KV_____________________________________________________
+module kv 'mod-kv.bicep' = {
+  scope: resourceGroup('test-rg')
+  name: kvName
+  params: {
+    location: location
+    keyVaultName: 'kv-${client}'
+    objectId: objectId
+    secretName: secretName
+    secretValue: secretValue
+  }
 }
- 
+output kvName string = '${kvName}_deployed' 
 
+// ______________________________Storage________________________________________________
+module stg 'mod-stg.bicep' = {
+  scope: resourceGroup('test-rg')
+  name: storageAccountName
+  params:{
 
-resource key_vault 'Microsoft.KeyVault/vaults@2019-09-01' = {
-  name: name
-  location: location
-  properties: {
-    sku: {
-      family: 'A'
-      name: 'standard'
-    }    
-    tenantId: tenantId
   }
 }
 
-resource my_test_secret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/my-test-secret'
+
+// ________________________________ VNET _______________________________________________
+//
+// module vnet 'mod-vnet.bicep' =[for x in range(length(0, vnetName)):{
+//   name: vnetName[x]
+//   params:{
+//   }
+// }]
+
+var vnet1Config = {
+  addressSpacePrefix: vnetPrefix[0]
+  subnetName: 'subnet1'
+  subnetPrefix: vnetPrefix[0]
+}
+var vnet2Config = {
+  addressSpacePrefix: vnetPrefix[1]
+  subnetName: 'subnet1'
+  subnetPrefix: vnetPrefix[1]
+}
+
+resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
+  name: vnetName[0]
+  location: location
   properties: {
-    attributes: {
-      enabled: true
+    addressSpace: {
+      addressPrefixes: [
+        vnet1Config.addressSpacePrefix
+      ]
+    }
+    subnets: [
+      {
+        name: vnet1Config.subnetName
+        properties: {
+          addressPrefix: vnet1Config.subnetPrefix
+         }
+      }
+    ]
+  }
+}
+
+resource vnet2 'Microsoft.Network/virtualNetworks@2020-05-01' = {
+  name: vnetName[1]
+  location: location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        vnet2Config.addressSpacePrefix
+      ]
+    }
+    subnets: [
+      {
+        name: vnet2Config.subnetName
+        properties: {
+          addressPrefix: vnet2Config.subnetPrefix
+        }
+      }
+    ]
+  }
+}
+output state2 string = 'vnets_deployed' 
+
+resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
+  parent: vnet1
+  name: '${vnetName[0]}-${vnetName[1]}'
+  properties: {
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: false
+    allowGatewayTransit: false
+    useRemoteGateways: false
+    remoteVirtualNetwork: {
+      id: vnet2.id
     }
   }
 }
 
-// @description('Virtual machine size (has to be at least the size of Standard_A3 to support 2 NICs)')
-// param virtualMachineSize string = 'Standard_DS1_v2'
-
-// @description('Default Admin username')
-// param adminUsername string
-
-// @description('Default Admin password')
-// @secure()
-// param adminPassword string
-
-// @description('Storage Account type for the VM and VM diagnostic storage')
-// @allowed([
-//   'Standard_LRS'
-//   'Premium_LRS'
-// ])
-// param storageAccountType string = 'Standard_LRS'
-
-// @description('Location for all resources.')
-// param location string = resourceGroup().location
-
-// var virtualMachineName = 'VM-MultiNic'
-// var nic1Name = 'nic-1'
-// var nic2Name = 'nic-2'
-// var virtualNetworkName = 'virtualNetwork'
-// var subnet1Name = 'subnet-1'
-// var subnet2Name = 'subnet-2'
-// var publicIPAddressName = 'publicIp'
-// var diagStorageAccountName = 'diags${uniqueString(resourceGroup().id)}'
-// var networkSecurityGroupName = 'NSG'
-// var networkSecurityGroupName2 = '${subnet2Name}-nsg'
-
-// // This is the virtual machine that you're building.
-// resource vm 'Microsoft.Compute/virtualMachines@2020-06-01' = {
-//   name: virtualMachineName
-//   location: location
-//   properties: {
-//     osProfile: {
-//       computerName: virtualMachineName
-//       adminUsername: adminUsername
-//       adminPassword: adminPassword
-//       windowsConfiguration: {
-//         provisionVMAgent: true
-//       }
-//     }
-//     hardwareProfile: {
-//       vmSize: virtualMachineSize
-//     }
-//     storageProfile: {
-//       imageReference: {
-//         publisher: 'MicrosoftWindowsServer'
-//         offer: 'WindowsServer'
-//         sku: '2019-Datacenter'
-//         version: 'latest'
-//       }
-//       osDisk: {
-//         createOption: 'FromImage'
-//       }
-//     }
-//     networkProfile: {
-//       networkInterfaces: [
-//         {
-//           properties: {
-//             primary: true
-//           }
-//           id: nic1.id
-//         }
-//         {
-//           properties: {
-//             primary: false
-//           }
-//           id: nic2.id
-//         }
-//       ]
-//     }
-//     diagnosticsProfile: {
-//       bootDiagnostics: {
-//         enabled: true
-//         storageUri: diagsAccount.properties.primaryEndpoints.blob
-//       }
-//     }
-//   }
-// }
-
-// resource diagsAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-//   name: diagStorageAccountName
-//   location: location
-//   sku: {
-//     name: storageAccountType
-//   }
-//   kind: 'StorageV2'
-// }
-
-// // Simple Network Security Group for subnet2
-// resource nsg2 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
-//   name: networkSecurityGroupName2
-//   location: location
-// }
-
-// // This will build a Virtual Network.
-// resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
-//   name: virtualNetworkName
-//   location: location
-//   properties: {
-//     addressSpace: {
-//       addressPrefixes: [
-//         '10.0.0.0/16'
-//       ]
-//     }
-//     subnets: [
-//       {
-//         name: subnet1Name
-//         properties: {
-//           addressPrefix: '10.0.0.0/24'
-//         }
-//       }
-//       {
-//         name: subnet2Name
-//         properties: {
-//           addressPrefix: '10.0.1.0/24'
-//           networkSecurityGroup: {
-//             id: nsg2.id
-//           }
-//         }
-//       }
-//     ]
-//   }
-// }
-
-// // This will be your Primary NIC
-// resource nic1 'Microsoft.Network/networkInterfaces@2020-06-01' = {
-//   name: nic1Name
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig1'
-//         properties: {
-//           subnet: {
-//             id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnet.name, subnet1Name)
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//           publicIPAddress: {
-//             id: pip.id
-//           }
-//         }
-//       }
-//     ]
-//     networkSecurityGroup: {
-//       id: nsg.id
-//     }
-//   }
-// }
-
-// // This will be your Secondary NIC
-// resource nic2 'Microsoft.Network/networkInterfaces@2020-06-01' = {
-//   name: nic2Name
-//   location: location
-//   properties: {
-//     ipConfigurations: [
-//       {
-//         name: 'ipconfig1'
-//         properties: {
-//           subnet: {
-//             id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnet.name, subnet2Name)
-//           }
-//           privateIPAllocationMethod: 'Dynamic'
-//         }
-//       }
-//     ]
-//   }
-// }
-
-// // Public IP for your Primary NIC
-// resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
-//   name: publicIPAddressName
-//   location: location
-//   properties: {
-//     publicIPAllocationMethod: 'Dynamic'
-//   }
-// }
-
-// // Network Security Group (NSG) for your Primary NIC
-// resource nsg 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
-//   name: networkSecurityGroupName
-//   location: location
-//   properties: {
-//     securityRules: [
-//       {
-//         name: 'default-allow-rdp'
-//         properties: {
-//           priority: 1000
-//           sourceAddressPrefix: '*'
-//           protocol: 'Tcp'
-//           destinationPortRange: '3389'
-//           access: 'Allow'
-//           direction: 'Inbound'
-//           sourcePortRange: '*'
-//           destinationAddressPrefix: '*'
-//         }
-//       }
-//     ]
-//   }
-// }
+resource vnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
+  parent: vnet2
+  name: '${vnetName[1]}-${vnetName[0]}'
+  properties: {
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: false
+    allowGatewayTransit: false
+    useRemoteGateways: false
+    remoteVirtualNetwork: {
+      id: vnet1.id
+    }
+  }
+}
+output state3 string = 'peering_deployed' 
