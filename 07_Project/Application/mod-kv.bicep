@@ -43,6 +43,13 @@ param secretName string
 @secure()
 param secretValue string
 
+// resource ssh 'Microsoft.KeyVault/vaults/keys@2021-10-01' ={
+//   name: secretValue
+//   location: location
+//   properties:{
+    
+//   }
+// }
 resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
   name: keyVaultName
   location: location
@@ -51,6 +58,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
     enabledForDiskEncryption: enabledForDiskEncryption
     enabledForTemplateDeployment: enabledForTemplateDeployment
     tenantId: tenantId
+    
     accessPolicies: [
       {
         objectId: objectId

@@ -58,7 +58,6 @@ Hieruit kan het inventaris worden opgemaakt:
     - 1 VM webserver met SSH/RDP via adminserver
     - 1 VM adminserver
     - 1 Storage account voor post-deployment scripts
-    - 2 Firewall(NSG) subnets
 
 Ondanks enkele variabelen heb ik deze aannames gemaakt:
 

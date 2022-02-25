@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
       "client":{
-        "value": "XYZ"
+        "value": "xyz"
       },
       "location":{
         "value": "westeurope"
@@ -24,7 +24,10 @@
           "value":  "SSH"
       },
       "secretValue": {
-           "value":   "GEN-UNIQUE"
-      }
+           "value":   "Generate-UNIQUE"
+      }, 
+      "adminUser": {
+            "value":  "testuser@xyz.nl"
     }
+  }  
 }

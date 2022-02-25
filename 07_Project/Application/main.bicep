@@ -1,21 +1,31 @@
-targetScope = 'subscription'
+//targetScope = 'subscription'
 
-@description('Locatie')
+//________________vars_____________________________________________
+
 param location string
 param client string
 param vnetName array
 param vnetPrefix array
-param objectId string = subscription().tenantId
 param secretName string
-param kvName string = 'kv1-${client}-${uniqueString(subscription().subscriptionId)}'
-param storageAccountName string
+param adminUser string
+param publicSshKey string
+param vmsize string = 'Standard_A1_v2'
+
+//_____________ rng defined ____________________________________
+
+param objectId string = subscription().tenantId
+param kvName string = 'kv-${client}-${uniqueString(resourceGroup().id)}'
+param stgName string = 'storage${uniqueString(resourceGroup().id)}'
+
+//___________ xxx ____________________________
 
 @secure()
 param secretValue string
 
 //_________________________________KV_____________________________________________________
+
 module kv 'mod-kv.bicep' = {
-  scope: resourceGroup('test-rg')
+  //scope: resourceGroup('test-rg')
   name: kvName
   params: {
     location: location
@@ -28,11 +38,13 @@ module kv 'mod-kv.bicep' = {
 output kvName string = '${kvName}_deployed' 
 
 // ______________________________Storage________________________________________________
-module stg 'mod-stg.bicep' = {
-  scope: resourceGroup('test-rg')
-  name: storageAccountName
-  params:{
 
+module stg 'mod-stg.bicep' = {
+  //scope: resourceGroup('test-rg')
+  name: stgName 
+  params:{
+    storageAccountName: stgName
+    location: location
   }
 }
 
@@ -55,7 +67,6 @@ var vnet2Config = {
   subnetName: 'subnet1'
   subnetPrefix: vnetPrefix[1]
 }
-
 resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
   name: vnetName[0]
   location: location
@@ -75,7 +86,6 @@ resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
     ]
   }
 }
-
 resource vnet2 'Microsoft.Network/virtualNetworks@2020-05-01' = {
   name: vnetName[1]
   location: location
@@ -96,7 +106,6 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2020-05-01' = {
   }
 }
 output state2 string = 'vnets_deployed' 
-
 resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
   parent: vnet1
   name: '${vnetName[0]}-${vnetName[1]}'
@@ -110,7 +119,6 @@ resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
     }
   }
 }
-
 resource vnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
   parent: vnet2
   name: '${vnetName[1]}-${vnetName[0]}'
@@ -125,3 +133,16 @@ resource vnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
   }
 }
 output state3 string = 'peering_deployed' 
+
+//_____________________________ VM _______________________________________
+
+module vm 'mod-vm.bicep' = {
+  name: stgName
+  params:{
+    location: location
+    storagename: stgName
+    adminUser: adminUser
+    vmsize: vmsize
+    publicSshKey: publicSshKey
+  }
+}
