@@ -119,7 +119,7 @@ resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         properties: {
           addressPrefix: vnetArr.vnetPrefix[0]
           networkSecurityGroup: {
-            id: nsgArr[0]
+            id: 'nsg1'
           }
         }  
       }      
@@ -145,7 +145,7 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         properties: {
           addressPrefix: vnetArr.vnetPrefix[0]
           networkSecurityGroup: {
-            id: nsgArr[0]
+            id: 'nsg2'
           }
         }  
       }      
