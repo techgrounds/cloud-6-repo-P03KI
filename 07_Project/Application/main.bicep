@@ -1,6 +1,9 @@
-///////////////   vars    /////////////////////////////////////////////////////////////
+//--------------  SET SCOPE  -------------------------------------------------------------------------
+targetScope = 'subscription'
 
-param client string
+//-------------   VARS (defined in 'params.json') -------------------------------------------------------------------------------
+param rgName string
+param client string = uniqueString(subscription().id)
 param vnetName array
 param vnetPrefix array
 param secretName string
@@ -10,75 +13,83 @@ param subnetName array
 param vmSku string
 param diskSku string
 param diskSizeGB int = 50
-param location string = resourceGroup().location
+param location string 
+param storageAccountType string
+param pubIpName array
+//param vm_dns string 
 
-//////////////////////  rng defined //////////////////////////////////////////////////////////
+//---------------- OBJECTS -----------------------------------------------------------------------------------  
+param vnetArr object = {
+  vnetName: vnetName
+  vnetPrefix: vnetPrefix
+  subnetName: subnetName
+  pubIpName: pubIpName
+  vm_dns: 'winssh--${client}'
+  location: location
+}
 
+//---------------  SET RNG VAR   -----------------------------------------------------------------------
 param objectId string = subscription().tenantId
-param kvName string = 'kv${uniqueString(resourceGroup().id)}'
-param stgName string = 'storage${uniqueString(resourceGroup().id)}'
-param vm_dns string = 'winssh--${uniqueString(resourceGroup().id)}'
+param kvName string = 'kv-${client}'
+param stgName string = 'storage${client}'
 
-//////////   XXX    ////////////////////////////////////////////////////////////////////////////
-
+//---------------   XXX VARS   --------------------------------------------------------------------------------
 @secure()
 param secretValue string
-param adminPassword string = newGuid()
+//param adminPassword string = newGuid()
 
-////////////////////   KV    /////////////////////////////////////////////////////////////////////
+//----------------- CREATE RESOURCE GROUP ---------------------------------------------------------------
+module rg 'mod-rg.bicep' ={
+  scope: subscription()
+  name: rgName
+  params:{
+    rgName: rgName
+    location: location
+  }
+  
+}
+
+//----------------   CREATE STORAGE --------------------------------------------------------------------
+
+module stg 'mod-stg.bicep' = {
+  scope: resourceGroup(rgName)
+  name: stgName 
+  params:{
+    storageAccountType: storageAccountType
+    storageAccountName: stgName
+    location: location
+  }
+  dependsOn:[
+    rg
+  ]
+}
+
+//----------------   CREATE KEYVAULT   ----------------------------------------------------------------
 
 module kv 'mod-kv.bicep' = {
-  //scope: resourceGroup('test-rg')
+  scope: resourceGroup(rgName)
   name: kvName
   params: {
     enabledForDeployment: true
     location: location
     keyVaultName: 'kv-${client}'
     objectId: objectId
-    secretName: secretName
-    secretValue: secretValue
+    secretName: 'secretName'
+    secretValue: 'secretValue'
   }
+  dependsOn:[
+    rg
+  ]
 }
 
-//////////////////////   Storage   ///////////////////////////////////////////////////////////////
-
-module stg 'mod-stg.bicep' = {
-  //scope: resourceGroup('test-rg')
-  name: stgName 
+//---------------------  Netwerk   -----------------------------------------------------------------------
+module vnet 'mod-vnet.bicep' = {
+  scope: resourceGroup(rgName)
+  name: vnetArr.vnetName[0]
   params:{
-    storageAccountName: stgName
-    location: location
+    vnetArr: vnetArr
   }
+  dependsOn: [
+    rg
+]
 }
-
-///////////////////////   Netwerk   ////////////////////////////////////////////////////////////////
-
-module vnet 'mod-vnet.bicep' =[for x in range(0, length(vnetName)):{
-  name: vnetName[x]
-  params:{
-    vnetName:vnetName[x]
-    vnetPrefix: vnetPrefix[x]
-    location: location
-    subnetName: subnetName[x]
-    x:x
-    vm_dns: vm_dns
-  }
-}]
-
-//_____________________________ VM _________________________________________________________________\\
-
-// module vm 'mod-vm.bicep' = {
-//   name: ''
-//   params: {
-//     adminUser: ''
-//     pip: ''
-//     publicSshKey: ''
-//     vmsize: ''
-//   }
-//   dependsOn: [
-//         ''
-//   ]
-// }
-
-
-// output sshhost_connect string = 'ssh ${adminUser}@${PIP.properties.dnsSettings.fqdn}'

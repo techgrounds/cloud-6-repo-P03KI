@@ -1,37 +1,44 @@
-param vnetName string
-param vnetPrefix string
-param location string
-param subnetName string
-param x int
-param vm_dns string
-param nsgArr array = [
-  'nsg.id'
-  'nsg2.id'
-]
+//--------- Import Var -----------------------------------------------------
+param vnetArr object
 
-resource PIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
-  name: 'PIP'
-  location: location
+//-------------- Create Public IP's --------------------------------------------
+//[for i in range(0, length(vnetArr.pubIpName)):
+resource pubIp1 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
+  name:  string(vnetArr.vnetName[0]) 
+  location: vnetArr.location
   tags: {
-    displayName: 'PublicIPAddress'
+    displayName: 'PublicIPAddress1'
   }
   properties: {
     publicIPAllocationMethod: 'Dynamic'
     dnsSettings: {
-      domainNameLabel: vm_dns
+      domainNameLabel: vnetArr.vm_dns
     }
   }
 }
-
-resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
-  name: 'nsg'
-  location: location
+resource pubIp2 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
+  name:  string(vnetArr.vnetName[1]) 
+  location: vnetArr.location
+  tags: {
+    displayName: 'PublicIPAddress2'
+  }
+  properties: {
+    publicIPAllocationMethod: 'Dynamic'
+    dnsSettings: {
+      domainNameLabel: vnetArr.vm_dns
+    }
+  }
+}
+//----------------- Create NSG's ------------------------------------------------
+resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
+  name: 'nsg1'
+  location: vnetArr.location
   properties: {
     securityRules: [
       {
         name: 'rdp'
         properties: {
-          description: 'description'
+          description: 'rdp-rule'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
@@ -45,7 +52,43 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
       {
         name: 'ssh'
         properties: {
-          description: 'description'
+          description: 'ssh-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '22'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 110
+          direction: 'Inbound'
+        }
+      }
+    ]
+  }
+}
+resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
+  name: 'nsg2'
+  location: vnetArr.location
+  properties: {
+    securityRules: [
+      {
+        name: 'rdp'
+        properties: {
+          description: 'rdp-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '3389'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Deny'
+          priority: 100
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'ssh'
+        properties: {
+          description: 'ssh-rule'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '22'
@@ -60,97 +103,86 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   }
 }
 
-resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
-  name: vnetName
-  location: location
+//------------------- Create VNET's ---------------------------------------------
+resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' = {
+  name: vnetArr.vnetName[0]
+  location: vnetArr.location
   properties: {
     addressSpace: {
       addressPrefixes: [
-        vnetPrefix
+        vnetArr.vnetPrefix[0]
       ]
     }
     subnets: [
       {
-        name: subnetName
+        name: vnetArr.subnetName
         properties: {
-          addressPrefix: vnetPrefix
+          addressPrefix: vnetArr.vnetPrefix[0]
           networkSecurityGroup: {
-            id: nsgArr[x]
+            id: nsgArr[0]
           }
         }  
       }      
     ]
   }
   dependsOn: [
-    nsg
-    PIP
+    nsg1
+    pubIp1
+  ]
+}
+resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
+  name: vnetArr.vnetName[1]
+  location: vnetArr.location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        vnetArr.vnetPrefix[0]
+      ]
+    }
+    subnets: [
+      {
+        name: vnetArr.subnetName
+        properties: {
+          addressPrefix: vnetArr.vnetPrefix[0]
+          networkSecurityGroup: {
+            id: nsgArr[0]
+          }
+        }  
+      }      
+    ]
+  }
+  dependsOn: [
+    nsg2
+    pubIp2
   ]
 }
 
-resource VnetPeering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = if(x == 1){
-  parent: vnet
-  name: vnetName
+//------------------- Set up Peering ------------------------------------------------
+resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = {
+  parent: vnet1
+  name: '${vnetArr.vnetName[0]}-${vnetArr.vnetName[1]}'
   properties: {
     allowVirtualNetworkAccess: true
     allowForwardedTraffic: false
     allowGatewayTransit: false
     useRemoteGateways: false
     remoteVirtualNetwork: {
-      id: vnet.id
+      id: vnet1.id
     }
   }
 }
-
-output pubId string = PIP.id
-
-// resource vnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = {
-//   parent: vnet2
-//   name: '${vnetName[1]}-${vnetName[0]}'
-//   properties: {
-//     allowVirtualNetworkAccess: true
-//     allowForwardedTraffic: false
-//     allowGatewayTransit: false
-//     useRemoteGateways: false
-//     remoteVirtualNetwork: {
-//       id: vnet1.id
-//     }
-//   }
-// }
-// var vnet1Config = {
-//   addressSpacePrefix: vnetPrefix[x]
-//   subnetName: 'subnet1'
-//   subnetPrefix: vnetPrefix[x]
-// }
-// resource vnet1 'Microsoft.Network/virtualNetworks@2020-05-01' = {
-//   name: vnetName[x]
-//   location: location
-//   properties: {
-//     addressSpace: {
-//       addressPrefixes: [
-//         vnet1Config.addressSpacePrefix
-//       ]
-//     }
-//     subnets: [
-//       {
-//         name: vnet1Config.subnetName
-//         properties: {
-//           addressPrefix: vnet1Config.subnetPrefix
-//         }
-//       }
-//     ]
-//   }
-// }
-
-// resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-05-01' = {
-//   parent: vnet1
-//   name: '${vnetName[x]}-${vnetName[1]}'
-//   properties: {
-//     allowVirtualNetworkAccess: true
-//     allowForwardedTraffic: false
-//     allowGatewayTransit: false
-//     useRemoteGateways: false
-//     remoteVirtualNetwork: {
-//       id: vnet2.id
-//     }
-//   }
-// }
+resource VnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = {
+  parent: vnet2
+  name: '${vnetArr.vnetName[1]}-${vnetArr.vnetName[0]}'
+  properties: {
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: false
+    allowGatewayTransit: false
+    useRemoteGateways: false
+    remoteVirtualNetwork: {
+      id: vnet2.id
+    }
+  }
+}
+output pubId1 string = pubIp1.id
+output pubId2 string = pubIp2.id

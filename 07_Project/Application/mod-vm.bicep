@@ -29,7 +29,6 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
   }
 }
 
-param erre 
 resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
   name: 'datadisk'
   location: location
@@ -43,6 +42,7 @@ resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
     name: diskSku
   }
 }
+
 resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: 'webvm'
   location: location
