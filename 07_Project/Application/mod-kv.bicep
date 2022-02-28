@@ -1,25 +1,9 @@
-param keyVaultName string
-param location string
-param enabledForDeployment bool = true
-param enabledForDiskEncryption bool = true
-param enabledForTemplateDeployment bool = true
-param tenantId string = subscription().tenantId
-param objectId string
-
-@description('all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge')
-param keysPermissions array = [
-  'all'
-]
-
-@description('all, get, list, set, delete, backup, restore, recover, and purge')
-param secretsPermissions array = [
-  'all'
-]
+param kvObj object
 param skuName string = 'standard'
-param secretName string
 
-@secure()
-param secretValue string
+// param secretName string
+// @secure()
+// param secretValue string
 
 // resource ssh 'Microsoft.KeyVault/vaults/keys@2021-10-01' ={
 //   name: secretValue
@@ -30,21 +14,25 @@ param secretValue string
 //   }
 // }
 resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
-  name: keyVaultName
-  location: location
+  name: kvObj.keyVaultName
+  location: kvObj.location
   properties: {
-    enabledForDeployment: enabledForDeployment
-    enabledForDiskEncryption: enabledForDiskEncryption
-    enabledForTemplateDeployment: enabledForTemplateDeployment
-    tenantId: tenantId
+    enabledForDeployment: kvObj.enabledForDeployment
+    enabledForDiskEncryption: kvObj.enabledForDiskEncryption
+    enabledForTemplateDeployment: kvObj.enabledForTemplateDeployment
+    tenantId: kvObj.tenantId
     
+    ////////// Temporay for testdeployments ///////////////////////
+    enablePurgeProtection:false
+    enableSoftDelete: false
+    //////////////////////////////////////////////////////////////
     accessPolicies: [
       {
-        objectId: objectId
-        tenantId: tenantId
+        objectId: kvObj.objectId
+        tenantId: kvObj.tenantId
         permissions: {
-          keys: keysPermissions
-          secrets: secretsPermissions
+          keys: kvObj.keysPermissions
+          secrets: kvObj.secretsPermissions
         }
       }
     ]
@@ -56,6 +44,14 @@ resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
     }
+  }
+}
+
+resource ssh_web 'Microsoft.Compute/sshPublicKeys@2021-11-01' = {
+  name: 'ssh_web'
+  location: kvObj.location
+  properties: {
+    publicKey: kvObj.pubSSH
   }
 }
 // resource kv_Policy 'Microsoft.KeyVault/vaults/accessPolicies@2021-11-01-preview' = {
@@ -85,10 +81,10 @@ resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
 //     ]
 //   }
 // }
-resource secret 'Microsoft.KeyVault/vaults/secrets@2021-04-01-preview' = {
-  parent: kv
-  name: secretName
-  properties: {
-    value: secretValue
-  }
-}
+// resource secret 'Microsoft.KeyVault/vaults/secrets@2021-04-01-preview' = {
+//   parent: kv
+//   name: secretName
+//   properties: {
+//     value: secretValue
+//   }
+// }

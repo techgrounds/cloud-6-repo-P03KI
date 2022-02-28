@@ -30,17 +30,14 @@
                 "PublicIpAdm"
                 ]
     },
-      "secretName": {
-          "value": "SSH"
-      },
-      "secretValue": {
+      "pubSSH": {
         "value":   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCzjQGXXsalAvXm2hUPk95f8AR6ag+y3wnV3nAjR//2xzegYqTXTvvh1EuEXEtGrJybB6bhefQ8R3tynqqtsctZF9idESaM/oEKYxUD9808kN9NBUwH/f707aCE5DFSVUkaq8f8u2gm68sZYeBO/p5EsNjo+2ZXWShID1M7agXDfut1HROoDGNA3aKdtX9Gv4fryMH5tHMNLJeFCwU6KseqnqPGnGWcgE8lY7VDcOm52owIKyfbNvapC1PyhPwwGhMBulgK8zPzM+3UywpgKIA6NjXiYfYiD1EFpKtl9f1m84pFA2t9O6TJOmuAPFf0GsRsC734p8J1j4FgXUhCCIiZwSUsPrS6e7owz3DmLYXSYu01MFmY524iYTNUJQ5zZPx3vOLJIRKrhlnSVJdAMJE2p3eQHQbHvrBvKBSbLlZL1QnWz3OSrHdcTqQl8Bfo45x/1iM3sxYCZ8Z2dDu6x5ZTb9qyyF7rB8TN5fNJbGILO699W02aobG7ZeJBHimueqiDgMNdtf752/MROD7cMgmjkD1uZ9PGSaSHMA2OBwFq8G3+pbdj51Rgb3orX7GfJ1AoyCKFIU+AsfTJKQRkK9ArXIj3luEoRVKxQWYaJhROKEYUh0enTplhryACobvxEz1B3I4oiHMxNE+DuhZxo/fq0X0iu/M93CsNLaPdJSfH7Q== suher@DESKTOP-SUH"
       }, 
       "vmSku": {
         "value":   "20.04-LTS"
   },
       "adminUser": {
-            "value": "testuser@xyz.nl"
+            "value": "suheri@gmail.com"
       },
       "subnetName": {
             "value": [

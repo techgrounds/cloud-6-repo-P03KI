@@ -6,7 +6,6 @@ param rgName string
 param client string = uniqueString(subscription().id)
 param vnetName array
 param vnetPrefix array
-param secretName string
 param adminUser string
 param vmsize string = 'Standard_A1_v2'
 param subnetName array
@@ -16,16 +15,49 @@ param diskSizeGB int = 50
 param location string 
 param storageAccountType string
 param pubIpName array
-//param vm_dns string 
 
-//---------------- OBJECTS -----------------------------------------------------------------------------------  
-param vnetArr object = {
+@secure()
+param pubSSH string
+
+//----------------- Permissions 
+@description('all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge')
+param keysPermissions array = [
+  'all'
+]
+@description('all, get, list, set, delete, backup, restore, recover, and purge')
+param secretsPermissions array = [
+  'all'
+]
+//---------------- MODULE OBJECTS -----------------------------------------------------------------------------------  
+param kvObj object ={
+  enabledForDiskEncryption: true
+  enabledForTemplateDeployment: true
+  enabledForDeployment: true
+  location: location
+  keyVaultName: 'kv-${client}'
+  objectId: objectId
+  keysPermissions: keysPermissions
+  secretsPermissions: secretsPermissions
+  pubSSH: pubSSH
+}
+
+param vnetObj object = {
   vnetName: vnetName
   vnetPrefix: vnetPrefix
   subnetName: subnetName
   pubIpName: pubIpName
-  vm_dns: 'winssh--${client}'
   location: location
+}
+
+param vmObj object = {
+  adminUser: adminUser
+  adminPassword: newGuid()
+  vmsize: vmsize
+  diskSizeGB: diskSizeGB
+  diskSku: diskSku
+  location: location
+  pubSSH: secretValue
+
 }
 
 //---------------  SET RNG VAR   -----------------------------------------------------------------------
@@ -70,12 +102,7 @@ module kv 'mod-kv.bicep' = {
   scope: resourceGroup(rgName)
   name: kvName
   params: {
-    enabledForDeployment: true
-    location: location
-    keyVaultName: 'kv-${client}'
-    objectId: objectId
-    secretName: 'secretName'
-    secretValue: 'secretValue'
+    kvObj: kvObj
   }
   dependsOn:[
     rg
@@ -85,11 +112,26 @@ module kv 'mod-kv.bicep' = {
 //---------------------  Netwerk   -----------------------------------------------------------------------
 module vnet 'mod-vnet.bicep' = {
   scope: resourceGroup(rgName)
-  name: vnetArr.vnetName[0]
+  name: vnetObj.vnetName[0]
   params:{
-    vnetArr: vnetArr
+    vnetObj: vnetObj
   }
   dependsOn: [
     rg
 ]
+}
+
+//---------------------  VM's ------------------------------------------------------------------
+
+module vm 'mod-vm.bicep' = {
+  scope: resourceGroup(rgName)
+  name: 'vm'
+  params:{
+    vmObj: vmObj
+    //output vars VNET
+    pip1: vnet.outputs.pubId1
+    //pip2: vnet.outputs.pubId2
+    subId1: vnet.outputs.subnetId1
+    //subId2:vnet.outputs.subnetId2
+  }
 }

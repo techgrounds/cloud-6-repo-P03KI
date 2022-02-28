@@ -223,30 +223,32 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2020-04-01' = {
           direction: 'Inbound'
         }
       }
+      { 
+        name: 'http'
+        properties: {
+          priority: 120
+          protocol: 'Tcp'
+          access: 'Allow'
+          direction: 'Inbound'
+          sourceAddressPrefix: '*'
+          sourcePortRange: '*'
+          destinationAddressPrefix: '*'
+          destinationPortRange: '80'
+        }
+      }
+      {
+        name: 'https'
+        properties: {
+          priority: 130
+          protocol: 'Tcp'
+          access: 'Allow'
+          direction: 'Inbound'
+          sourceAddressPrefix: '*'
+          sourcePortRange: '*'
+          destinationAddressPrefix: '*'
+          destinationPortRange: '443'
+            }
+        }
     ]
   }
 }
-
-// resource vnetDpl 'Microsoft.Network/virtualNetworks@2021-05-01' ={
-//   name: vnetName
-// }
-
-// resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
-//   name: vnetName
-//   location: location
-//   properties: {
-//     addressSpace: {
-//       addressPrefixes: vnetPrefix
-//     }
-//     subnets:  [
-//       {
-//         subnetName: subnetName[0]
-//         properties: {
-//           addressPrefix: int(vnetPrefix[0])
-//         }
-//       } 
-//     ]
-//   }
-// }
-
-//output id string = vnet.id
