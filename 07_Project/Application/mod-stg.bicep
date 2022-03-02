@@ -18,16 +18,16 @@
   'Standard_RAGZRS'
   'Standard_ZRS'
 ])
-param storageAccountType string
+param stgType string
 param blobEncryptionEnabled bool = true
 param location string
-param storageAccountName string
+param stgName string
 
 resource sa 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: storageAccountName
+  name: stgName
   location: location
   sku: {
-    name: storageAccountType
+    name: stgType
   }
   kind: 'StorageV2'
   properties: {
@@ -42,21 +42,5 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-output storageAccountName string = sa.name
+output stgName string = sa.name
 output storageAccountId string = sa.id
-
-// resource sa 'Microsoft.Storage/storageAccounts@2021-06-01' = {
-//   name: storageAccountName
-//   location: location
-//   sku: {
-//     name: 'Standard_LRS'
-//   }
-//   kind: 'StorageV2'
-//   properties: {
-//     accessTier: 'Hot'
-//   }
-// }
-
-// resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-06-01' = {
-//   name: '${sa.name}/default/${containerName}'
-// }

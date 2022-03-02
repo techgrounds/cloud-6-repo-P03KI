@@ -6,21 +6,21 @@ param vnetObj object
 resource pubIp1 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
   name:  'pubIp1'
   location: vnetObj.location
-  tags: {
-    displayName: 'PublicIPAddress1'
-  }
+  zones:[
+    '1'
+  ]
   properties: {
-    publicIPAllocationMethod: 'Dynamic'
+    publicIPAllocationMethod: 'Static'
   }
 }
 resource pubIp2 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
   name:  'pubIp2'
   location: vnetObj.location
-  tags: {
-    displayName: 'PublicIPAddress2'
-  }
+  zones:[
+    '1'
+  ]
   properties: {
-    publicIPAllocationMethod: 'Dynamic'
+    publicIPAllocationMethod: 'Static'
   }
 }
 //----------------- Create NSG's ------------------------------------------------
@@ -30,9 +30,9 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   properties: {
     securityRules: [
       {
-        name: 'rdp'
+        name: 'RDP'
         properties: {
-          description: 'rdp-rule'
+          description: 'RDP-rule'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
@@ -44,9 +44,9 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
         }
       }
       {
-        name: 'ssh'
+        name: 'SSH'
         properties: {
-          description: 'ssh-rule'
+          description: 'SSH-rule'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '22'
@@ -54,6 +54,34 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 110
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'HTTP'
+        properties: {
+          description: 'HTTP-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '80'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 120
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'HTTPS'
+        properties: {
+          description: 'HTTPS-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 130
           direction: 'Inbound'
         }
       }
@@ -90,6 +118,34 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 110
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'HTTP'
+        properties: {
+          description: 'HTTP-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '80'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 120
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'HTTPS'
+        properties: {
+          description: 'HTTPS-rule'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '443'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 130
           direction: 'Inbound'
         }
       }
@@ -136,7 +192,7 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
       {
         name: vnetObj.subnetName[1]
         properties: {
-          addressPrefix: vnetObj.vnetPrefix[11]
+          addressPrefix: vnetObj.vnetPrefix[1]
           networkSecurityGroup: {
             id: nsg2.id
           }
@@ -152,7 +208,7 @@ resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
 //------------------- Set up Peering ------------------------------------------------
 resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = {
   parent: vnet1
-  name: '${vnetObj.vnetName[0]} to ${vnetObj.vnetName[1]}'
+  name: '${vnetObj.vnetName[0]}-${vnetObj.vnetName[1]}'
   properties: {
     allowVirtualNetworkAccess: true
     allowForwardedTraffic: false
@@ -165,7 +221,7 @@ resource VnetPeering1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
 }
 resource VnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = {
   parent: vnet2
-  name: '${vnetObj.vnetName[1]} to ${vnetObj.vnetName[0]}'
+  name: '${vnetObj.vnetName[1]}-${vnetObj.vnetName[0]}'
   properties: {
     allowVirtualNetworkAccess: true
     allowForwardedTraffic: false
@@ -178,5 +234,5 @@ resource VnetPeering2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
 }
 output pubId1 string = pubIp1.id
 output pubId2 string = pubIp2.id
-output subnetId1 string = vnetObj.subnetName[0].id
-output subnetId2 string = vnetObj.subnetName[0].id
+output subnetId1 string = '${vnet1.id}/subnets/${vnetObj.subnetName[0]}'
+output subnetId2 string = '${vnet1.id}/subnets/${vnetObj.subnetName[0]}'

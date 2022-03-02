@@ -13,7 +13,7 @@ param skuName string = 'standard'
 
 //   }
 // }
-resource kv 'Microsoft.KeyVault/vaults@2021-04-01-preview' = {
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   name: kvObj.keyVaultName
   location: kvObj.location
   properties: {
@@ -51,9 +51,12 @@ resource ssh_web 'Microsoft.Compute/sshPublicKeys@2021-11-01' = {
   name: 'ssh_web'
   location: kvObj.location
   properties: {
-    publicKey: kvObj.pubSSH
+    publicKey: kvObj.pub
   }
 }
+
+output kvo object = kv
+
 // resource kv_Policy 'Microsoft.KeyVault/vaults/accessPolicies@2021-11-01-preview' = {
 //   name: 'add'
 //   parent: kv
