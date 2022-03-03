@@ -1,149 +1,124 @@
 targetScope = 'subscription'
 
 //-------------   VARS (defined in 'params.json') -------------------------------------------------------------------------------
-param rgName string
-param vnetName array
-param vnetPrefix array
-param adminUser string
-param vmsize string
-param subnetName array
-param vmSku string
-param diskSku string
-param diskSizeGB int
-param location string 
-param stgType string
-param pubIpName array
-param tenantId string = subscription().tenantId
-@secure()
-param pubSSH string
-@secure()
-param adminPassword string
-param client string = uniqueString(subscription().id)
-
-//----------------- Permissions 
-@description('all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge')
-param keysPermissions array = [
-  'all'
-  'encrypt'
-  'decrypt'
-  'wrapkey'
-  'unwrapkey'
-  'get'
-  'create'
-  'import'
-  'verify'
-]
-@description('all, get, list, set, delete, backup, restore, recover, and purge')
-param secretsPermissions array = [
-  'all' 
-  'get'
-  'list'
-  'set'
-  'backup'
-//--- test deployment only -----
-  'purge'
-]
-
-//---------------  SET RNG VAR   -----------------------------------------------------------------------
-param objectId string = subscription().tenantId
-param kvName string = 'kv-${client}'
-param stgName string = 'storage${client}'
-
-//---------------- MODULE OBJECTS -----------------------------------------------------------------------------------  
-param kvObj object = {
+param clientVar object
+param vnetVar object
+param vmVar object
+param kvVar object = {
   enabledForDiskEncryption: true
   enabledForTemplateDeployment: true
   enabledForDeployment: true
-  vmsize: vmsize
-  vmSku: vmSku
-  location: location
-  keyVaultName: 'kv-${client}'
-  objectId: objectId
+  //vmsize: vmsize
+  //vmSku: vmSku
+  location: clientVar.location
+  keyVaultName: 'kv-${clientVar.client}'
+  objectId: clientVar.objId
+  certPermissions: certPermissions
   keysPermissions: keysPermissions
-  secretsPermissions: secretsPermissions
-  pubSSH: pubSSH
+  secretsPermissions: secretsPermissions  
+  storagePermissions: storagePermissions
   tenantId: tenantId
   kvName: kvName
+}
+param tenantId string = subscription().tenantId
+param unStr string = uniqueString(subscription().id)
+param kvName string = 'kv-${clientVar.client}'
+param stgName string = '${clientVar.client}storage${unStr}'
 
-}
-param vnetObj object = {
-  vnetName: vnetName
-  vnetPrefix: vnetPrefix
-  subnetName: subnetName
-  pubIpName: pubIpName
-  location: location
-}
-param vmObj object = {
-  vmSku: vmSku
-  adminUser: adminUser
-  adminPassword: adminPassword
-  vmsize: vmsize
-  diskSizeGB: diskSizeGB
-  diskSku: diskSku
-  location: location
-  client: client
-}
+//----------------- POLICY PERMISSIONS -----------------------------------------------------------------------
+param certPermissions array = [
+  'all'
+]
+param keysPermissions array = [
+  'all'
+]
+param secretsPermissions array = [
+  'all' 
+]
+param storagePermissions array = [
+   'all' 
+]
 
 //----------------- CREATE RESOURCE GROUP ---------------------------------------------------------------
-module rg 'mod-rg.bicep' = {
+module rg './module/mod-rg.bicep' = {
   scope:subscription()
-  name: rgName
+  name: clientVar.rgName
   params:{
-    rgName: rgName
-    location: location
+    rgName: clientVar.rgName
+    location: clientVar.location
   }
 }
-  
+
+//---------------------  CREATE VNET   -----------------------------------------------------------------------
+module vnet './module/mod-vnet.bicep' = {
+  scope: resourceGroup(clientVar.rgName)
+  name: '${clientVar.client}-vnet'
+  params:{
+    vnetVar: vnetVar
+  }
+  dependsOn: [
+    rg
+  ]
+}
+
 //----------------   CREATE STORAGE --------------------------------------------------------------------
-module stg 'mod-stg.bicep' = {
-  scope: resourceGroup(rgName)
+module stg './module/mod-stg.bicep' = {
+  scope: resourceGroup(clientVar.rgName)
   name: stgName 
   params:{
-    stgType: stgType
+    stgType: vmVar.stgType
     stgName: stgName
-    location: location
+    location: clientVar.location
   }
   dependsOn: [
-    rg
+    vnet
   ]
 }
 
-//----------------   CREATE KEYVAULT   ----------------------------------------------------------------
-// module kv 'mod-kv.bicep' = {
-//   scope: resourceGroup
-//   name: kvName
-//   params: {
-//     kvObj: kvObj
-//   }
-// }
-
-//---------------------  Netwerk   -----------------------------------------------------------------------
-module vnet 'mod-vnet.bicep' = {
-  scope: resourceGroup(rgName)
-  name: vnetObj.vnetName[0]
+//---------------------- CREATE KEYVAULT -------------------------------------------------------------------
+module kv './module/mod-kv.bicep' = {
+  scope: resourceGroup(clientVar.rgName)
+  name: kvName
   params:{
-    vnetObj: vnetObj
+    kvVar: kvVar
+    subId1: vnet.outputs.subnetId1
+    subId2: vnet.outputs.subnetId2
   }
   dependsOn: [
-    rg
+    vnet
   ]
 }
 
-//---------------------  VM's ------------------------------------------------------------------
-module vm 'mod-vm.bicep' = {
-  scope: resourceGroup(rgName)
+//----------------------- UPLOAD FILE -------------------------------------------------------------------------
+module up './module/mod-up.bicep' = {
+  scope: resourceGroup(clientVar.rgName)
+  name: 
+  params: {
+    clientVar: clientVar
+    stNameOutp: stg.outputs
+    stKeyOutp: stg.outputs
+    cont: loadTextContent('../etc/apache_install.sh')
+
+  }
+  dependsOn: [
+    stg
+  ]
+}
+
+//---------------------  DEPLOY VM'S  ------------------------------------------------------------------
+module vm './module/mod-vm.bicep' = {
+  scope: resourceGroup(clientVar.rgName)
   name: 'vm'
   params:{
-    //kvObject: 
-    kvObj: kvObj
-    vmObj: vmObj
-    //------ output VNET -------------------------------
+    //kvObj:kvObj
+    vmVar: vmVar
     pip1: vnet.outputs.pubId1
-    //pip2: vnet.outputs.pubId2
+    pip2: vnet.outputs.pubId2
     subId1: vnet.outputs.subnetId1
-    //subId2:vnet.outputs.subnetId2
+    subId2: vnet.outputs.subnetId2
   }
   dependsOn:[
     vnet
+    kv
   ]
 }

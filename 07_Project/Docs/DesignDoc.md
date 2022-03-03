@@ -139,14 +139,30 @@ xxxxxxxxxxxxxx
 #### Administratieserver 
 - Opgezet in West Europa met 'Availability Zoning' in zone 1. 
 - Instellingen worden extra veilig ingesteld
-- Grootte VM: Standard_B1ls = 1 vCPU/0,5GB geheugen ($4.38/maand)
+- Grootte VM: Standard_D2s_v3 = 1 vCPU/0,5GB geheugen ($4.38/maand)
 - OS = Windows 10 Pro 
+
+Install-Module Posh-SSH
+New-SSHSession 
+Invoke-SSHCommand -Index 0 -Command "uname"
 
 #### Webserver 
 - Opgezet in West Europa met 'Availability Zoning' in zone 1. 
 - Instellingen worden extra veilig ingesteld
-- Grootte VM: Standard_B1ls = 1 vCPU/0,5GB geheugen ($4.38/maand)
+- Grootte VM: Standard_D2s_v3 = 1 vCPU/0,5GB geheugen ($4.38/maand)
 - OS = Ubuntu 10
+
+
+**Welke versie windows? Kosten licentie**
+https://docs.microsoft.com/nl-nl/azure/virtual-machines/windows/cli-ps-findimage
+// $locName="westeurope"
+// Get-AzVMImagePublisher -Location $locName 
+// $pubName="MicrosoftWindowsDesktop"
+// Get-AzVMImageOffer -Location $locName -PublisherName $pubName  
+// $offerName="windows-11"
+// Get-AzVMImageSku -Location $locName -PublisherName $pubName -Offer $offerName
+// $skuName="win11-21h2-pron"
+// Get-AzVMImage -Location $locName -PublisherName $pubName -Offer $offerName -Sku $skuName | Select Version
 
 
     Often we focus on Infrastructure-as-a-Service (IaaS) here, which would include information about VM Types, Instances, Availability Set, how Images will be documented and which VM Extensions can be used.
