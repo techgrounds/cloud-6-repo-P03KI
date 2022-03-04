@@ -4,6 +4,7 @@ targetScope = 'subscription'
 param clientVar object
 param vnetVar object
 param vmVar object
+param sshK string = loadTextContent('./etc/SSHKey.pub')
 param kvVar object = {
   enabledForDiskEncryption: true
   enabledForTemplateDeployment: true
@@ -20,6 +21,7 @@ param kvVar object = {
 }
 @secure()
 param pwdWin string
+// init based strings
 param tenantId string = subscription().tenantId
 param unStr string = uniqueString(subscription().id)
 param kvName string = '${clientVar.client}-KV-${unStr}'
@@ -48,7 +50,6 @@ module rg './module/mod-rg.bicep' = {
     location: clientVar.location
   }
 }
-
 //---------------------  CREATE VNET   -----------------------------------------------------------------------
 module vnet './module/mod-vnet.bicep' = {
   scope: resourceGroup(clientVar.rgName)
@@ -61,26 +62,24 @@ module vnet './module/mod-vnet.bicep' = {
     rg
   ]
 }
-
 //----------------   CREATE STORAGE --------------------------------------------------------------------
 module stg './module/mod-stg.bicep' = {
   scope: resourceGroup(clientVar.rgName)
   name: stgName 
   params:{
-    clientVar: clientVar
+    //clientVar: clientVar
     stgType: vmVar.stgType
     stgName: stgName
     location: clientVar.location
     subId1: vnet.outputs.subnetId1
     subId2: vnet.outputs.subnetId2
-    kvUri: kv.outputs.kvUri
+    //kvUri: kv.outputs.kvUri
   }
   dependsOn: [
     kv
     vnet
   ]
 }
-
 //---------------------- CREATE KEYVAULT -------------------------------------------------------------------
 module kv './module/mod-kv.bicep' = {
   scope: resourceGroup(clientVar.rgName)
@@ -95,11 +94,6 @@ module kv './module/mod-kv.bicep' = {
     vnet
   ]
 }
-// resource getSecrets 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
-//   name: kvName
-//   scope: resourceGroup(clientVar.rgName)
-// }
-
 //---------------------  DEPLOY VM'S  ------------------------------------------------------------------
 module vm './module/mod-vm.bicep' = {
   scope: resourceGroup(clientVar.rgName)
@@ -107,12 +101,12 @@ module vm './module/mod-vm.bicep' = {
   params:{
     clientVar: clientVar
     vmVar: vmVar
+    sshK: sshK
     pip1: vnet.outputs.pubId1
     pip2: vnet.outputs.pubId2
     subId1: vnet.outputs.subnetId1
     subId2: vnet.outputs.subnetId2
-    kvUri: kv.outputs.kvUri
-    //dskEncrKey: kv.outputs.dskEncrKey
+    //kvUri: kv.outputs.kvUri
     pwdWin: pwdWin
   }
   dependsOn:[
@@ -120,3 +114,12 @@ module vm './module/mod-vm.bicep' = {
     kv
   ]
 }
+//--------------------  Set up Recovery Vault ----------------------------------------------------------------
+// module rv './module/mod-rv.bicep' = {
+//   name: 'Recovery Vault'
+//   scope: resourceGroup(clientVar.rgName)
+//   params: {
+//     //clientVar: clientVar
+//     webVmId: vm.outputs.webVmId
+//   }
+// }
