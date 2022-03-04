@@ -3,15 +3,18 @@
   "contentVersion": "0.0.1.0",
 
   "parameters": {
-
     "clientVar":{
       "value": {
         "location": "westeurope",
-        "name": "XYZ",
+        "client": "XYZ",
         "rgName": "RG-XYZ",
         "deploy": "dev",
-        "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416"
+        "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
+        "user": "testUser"
       }
+    },
+    "pwdWin":{
+      "value": "Leiden2022!"
     },
     "vnetVar":{
       "value": {
@@ -28,18 +31,16 @@
            "admin"
          ] 
       }
-    },
+    }, 
     "vmVar":{
       "value":{
-        "SSH": "SSHKey.pub",
         "diskSku": "StandardSSD_LRS",
-        "diskSizeGB": 50,
-        "stgType": "Standard_ZRS",
-        "vmSize1": "Standard_D2s_v3",
-        "vmSku1": "20_04-lts-gen2",
-        "vmSize2": "Standard_D2s_v3",
-        "vmSku2": "20_04-lts-gen2"
-
+        "diskSizeGB": 5,
+        "stgType": "Standard_LRS",
+        "vmSkuL": "20_04-lts-gen2",
+        "vmSizeL": "Standard_D2s_v3",
+        "vmSizeW": "Standard_D2s_v3",
+        "vmSkuW": "win11-21h2-pron"
       }
     }
   }

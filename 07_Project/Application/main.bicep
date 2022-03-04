@@ -8,8 +8,6 @@ param kvVar object = {
   enabledForDiskEncryption: true
   enabledForTemplateDeployment: true
   enabledForDeployment: true
-  //vmsize: vmsize
-  //vmSku: vmSku
   location: clientVar.location
   keyVaultName: 'kv-${clientVar.client}'
   objectId: clientVar.objId
@@ -20,10 +18,12 @@ param kvVar object = {
   tenantId: tenantId
   kvName: kvName
 }
+@secure()
+param pwdWin string
 param tenantId string = subscription().tenantId
 param unStr string = uniqueString(subscription().id)
-param kvName string = 'kv-${clientVar.client}'
-param stgName string = '${clientVar.client}storage${unStr}'
+param kvName string = '${clientVar.client}-KV-${unStr}'
+param stgName string = '${toLower(clientVar.client)}storage${unStr}'
 
 //----------------- POLICY PERMISSIONS -----------------------------------------------------------------------
 param certPermissions array = [
@@ -36,7 +36,7 @@ param secretsPermissions array = [
   'all' 
 ]
 param storagePermissions array = [
-   'all' 
+  'all' 
 ]
 
 //----------------- CREATE RESOURCE GROUP ---------------------------------------------------------------
@@ -55,6 +55,7 @@ module vnet './module/mod-vnet.bicep' = {
   name: '${clientVar.client}-vnet'
   params:{
     vnetVar: vnetVar
+    clientVar: clientVar
   }
   dependsOn: [
     rg
@@ -66,11 +67,16 @@ module stg './module/mod-stg.bicep' = {
   scope: resourceGroup(clientVar.rgName)
   name: stgName 
   params:{
+    clientVar: clientVar
     stgType: vmVar.stgType
     stgName: stgName
     location: clientVar.location
+    subId1: vnet.outputs.subnetId1
+    subId2: vnet.outputs.subnetId2
+    kvUri: kv.outputs.kvUri
   }
   dependsOn: [
+    kv
     vnet
   ]
 }
@@ -80,6 +86,7 @@ module kv './module/mod-kv.bicep' = {
   scope: resourceGroup(clientVar.rgName)
   name: kvName
   params:{
+    clientVar: clientVar
     kvVar: kvVar
     subId1: vnet.outputs.subnetId1
     subId2: vnet.outputs.subnetId2
@@ -88,34 +95,25 @@ module kv './module/mod-kv.bicep' = {
     vnet
   ]
 }
-
-//----------------------- UPLOAD FILE -------------------------------------------------------------------------
-module up './module/mod-up.bicep' = {
-  scope: resourceGroup(clientVar.rgName)
-  name: 
-  params: {
-    clientVar: clientVar
-    stNameOutp: stg.outputs
-    stKeyOutp: stg.outputs
-    cont: loadTextContent('../etc/apache_install.sh')
-
-  }
-  dependsOn: [
-    stg
-  ]
-}
+// resource getSecrets 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
+//   name: kvName
+//   scope: resourceGroup(clientVar.rgName)
+// }
 
 //---------------------  DEPLOY VM'S  ------------------------------------------------------------------
 module vm './module/mod-vm.bicep' = {
   scope: resourceGroup(clientVar.rgName)
   name: 'vm'
   params:{
-    //kvObj:kvObj
+    clientVar: clientVar
     vmVar: vmVar
     pip1: vnet.outputs.pubId1
     pip2: vnet.outputs.pubId2
     subId1: vnet.outputs.subnetId1
     subId2: vnet.outputs.subnetId2
+    kvUri: kv.outputs.kvUri
+    //dskEncrKey: kv.outputs.dskEncrKey
+    pwdWin: pwdWin
   }
   dependsOn:[
     vnet
