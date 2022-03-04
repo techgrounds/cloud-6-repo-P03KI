@@ -67,6 +67,7 @@ module stg './module/mod-stg.bicep' = {
   scope: resourceGroup(clientVar.rgName)
   name: stgName 
   params:{
+    //dskEncId: '${kv.outputs.dskEncId}'
     //clientVar: clientVar
     stgType: vmVar.stgType
     stgName: stgName
