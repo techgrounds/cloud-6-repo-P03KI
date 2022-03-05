@@ -29,13 +29,13 @@
          "environment":[
            "web",
            "admin"
-         ] 
+         ]
       }
     }, 
     "vmVar":{
       "value":{
         "diskSku": "StandardSSD_LRS",
-        "diskSizeGB": 5,
+        "diskSizeGB": 50,
         "stgType": "Standard_LRS",
         "vmSkuL": "20_04-lts-gen2",
         "vmSizeL": "Standard_D2s_v3",
