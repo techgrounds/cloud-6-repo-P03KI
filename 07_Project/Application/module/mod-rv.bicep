@@ -30,7 +30,7 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-08-01' = {
     //   keyVaultProperties:{
     //     keyUri: kvUri
     //   }
-    // }
+    //}
   //}
   // identity:{
   //   type: 'SystemAssigned'
@@ -49,21 +49,26 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-08-01' = {
 //    ]
 // } 
 resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
-  name: '${recoveryvault.name}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
+  name: '${recVltName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
+  location: clientVar.location
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
-    policyId: backupPolicyL.id
+    policyId: backupPolicy.id
     sourceResourceId: webVmId
+    backupManagementType:'AzureIaasVM'
+    backupSetName: 'LinuxBackup'
+    containerName: 'LinuxBackup'
+    createMode:'Default'
+    workloadType:'VM'
   }
 }
-resource backupPolicyL 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
-  name: 'BackupPolicyL'
-  //location: clientVar.location
+resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
+  name: 'BackupPolicy'
+  location: clientVar.location
   parent: recoveryvault
   properties: {
-    protectedItemsCount: 1
     backupManagementType: 'AzureIaasVM'
-    instantRpRetentionRangeInDays:3
+    instantRpRetentionRangeInDays:2
     retentionPolicy: {
       retentionPolicyType:'LongTermRetentionPolicy'
       dailySchedule:{
@@ -71,14 +76,26 @@ resource backupPolicyL 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05
           count:7
           durationType:'Days'
         }
+        retentionTimes:[
+          '1'
+        ]
       }
-     
     }
     schedulePolicy: {
       schedulePolicyType:'SimpleSchedulePolicy'
       scheduleRunFrequency:'Daily'
       scheduleRunTimes:[
         '2022-03-01T01:00:00.00Z'
+      ]
+      scheduleWeeklyFrequency:0
+      scheduleRunDays:[
+        'Friday'
+        'Monday'
+        'Saturday'
+        'Sunday'
+        'Thursday'
+        'Tuesday'
+        'Wednesday'
       ]
   }
   timeZone: 'UTC'

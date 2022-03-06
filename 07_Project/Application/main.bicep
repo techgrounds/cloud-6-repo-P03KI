@@ -4,7 +4,6 @@ targetScope = 'subscription'
 param clientVar object
 param vnetVar object
 param vmVar object
-param recVltName string = 'recoveryvault${toLower(clientVar.client)}'
 param sshK string = loadTextContent('./etc/SSHKey.pub')
 param kvVar object = {
   location: clientVar.location
@@ -22,9 +21,10 @@ param tagsC object ={
 param privIp string
 @secure()
 param pwdWin string
+param recVltName string = 'rv${uniqueString(subscription().id)}'
 param tenantId string = subscription().tenantId
-param kvName string = '${clientVar.client}-KV-${utcNow()}'
-param stgName string = 'storage${toLower(utcNow())}'
+param kvName string = '${clientVar.client}-KV-${uniqueString(subscription().id)}'
+param stgName string = 'storage${uniqueString(subscription().id)}'
 
 
 /////////// CREATE RESOURCE GROUP ////////////
@@ -104,7 +104,7 @@ module vm './module/mod-vm.bicep' = {
 /////////////  BACKUP  ////////////////////
 module rv './module/mod-rv.bicep' = {
   name: recVltName
-  scope: resourceGroup(clientVar.rgName)
+  scope: resGr
   params: {
     recVltName: recVltName
     //mngName: kv.outputs.mngName
@@ -118,8 +118,6 @@ module rv './module/mod-rv.bicep' = {
   }
   dependsOn:[
     vm
-    stg
-    kv
   ]
 }
 
