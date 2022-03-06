@@ -2,10 +2,12 @@ param clientVar object
 param kvVar object
 param subId1 string
 param subId2 string
+param tags object
 
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   name: kvVar.kvName
   location: kvVar.location
+  tags:tags
   properties:{
     enabledForDeployment: true
     enabledForDiskEncryption: true
@@ -41,7 +43,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
       family: 'A'
     }
     networkAcls: {
-      defaultAction: 'Allow'
+      defaultAction: 'Deny'
       bypass: 'AzureServices'
       virtualNetworkRules:[
         {
@@ -59,6 +61,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: clientVar.client
   location: clientVar.location
+  tags:tags
   dependsOn: [
     kv
   ]
@@ -93,6 +96,7 @@ resource RSAKey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
 resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
   name: 'dskEncrKey-${clientVar.client}'
   location: clientVar.location
+  tags:tags
   identity: {
     type: 'SystemAssigned'
   }

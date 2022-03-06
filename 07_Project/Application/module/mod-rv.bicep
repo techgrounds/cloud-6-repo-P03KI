@@ -1,68 +1,71 @@
 param clientVar object
 param webVmId string
+param admVmId string
+param kvUri string
+param tags object
+var backupFabric = 'Azure'
+var protectionContainer1 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};Admin-Server'
+var protectedItem1 = 'vm;iaasvmcontainerv2;${resourceGroup().name};Admin-Server'
+var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};Web-Server'
+var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};Web-Server'
 
-resource recoveryServicesVault 'Microsoft.RecoveryServices/vaults@2020-02-02' = {
-  name: 'Recovery Vault'
+resource recoveryServicesVault 'Microsoft.RecoveryServices/vaults@2021-08-01' = {
+  name: 'RecoveryVault'
   location: clientVar.location
+  tags:tags
   sku: {
     name: 'RS0'
+    tier: 'Standard'
   }
-  properties: {}
-}
-
-resource bUpPol 'Microsoft.DataProtection/backupVaults/backupPolicies@2021-10-01-preview'{
-  name: 'BackUpPolicy/'
-  properties:{
-    datasourceTypes: [
-      webVmId
-    ]
-    objectType: 'BackupPolicy'
-    policyRules:[
-      {
-        name: 'backup'
-        dataStore: {
-          dataStoreType: 'ArchiveStore'
-          objectType:
-        }
-        objectType: 'AzureBackupRule'
-        trigger: 
-      }
-    ]
-  }
-}
-
-resource symbolicname 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
-  name: 'string'
-  location: 'string'
-  tags: {
-    tagName1: 'tagValue1'
-    tagName2: 'tagValue2'
-  }
-  parent: resourceSymbolicName
-  eTag: 'string'
   properties: {
-    protectedItemsCount: int
-    backupManagementType: 'string'
-    // For remaining properties, see ProtectionPolicy objects
+    encryption:{
+      keyVaultProperties:{
+        keyUri: kvUri
+      }
+    }
   }
 }
 
-backupManagementType: 'AzureStorage'
+resource backupLinux 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
+  name: '${recoveryServicesVault}/${backupFabric}/${protectionContainer1}/${protectedItem1}'
+  tags:tags
+  properties: {
+    protectedItemType: 'Microsoft.Compute/virtualMachines'
+    policyId: backupPolicy.id
+    sourceResourceId: webVmId
+  }
+} 
+resource backupWindows 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
+  name: '${recoveryServicesVault}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
+  tags:tags
+  properties: {
+    protectedItemType: 'Microsoft.Compute/virtualMachines'
+    policyId: backupPolicy.id
+    sourceResourceId: admVmId
+  }
+}
+resource backupPolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
+  name: 'BackupPolicy'
+  location: clientVar.location
+  parent: recoveryServicesVault
+  properties: {
+    protectedItemsCount: 2
+    backupManagementType: 'AzureIaasVM'
+    instantRpRetentionRangeInDays: 7
   retentionPolicy: {
-    retentionPolicyType: 'string'
-    // For remaining properties, see RetentionPolicy objects
+    retentionPolicyType: 'SimpleRetentionPolicy'
+    retentionDuration:{
+      count: 7
+      durationType: 'Days'
+    }
   }
   schedulePolicy: {
-    schedulePolicyType: 'string'
-    // For remaining properties, see SchedulePolicy objects
+    schedulePolicyType: 'SimpleSchedulePolicy'
+    scheduleRunFrequency:'Daily'
+    scheduleRunTimes:[
+      '01:00'
+    ]
   }
-  timeZone: 'string'
-  workLoadType: 'string'
-// resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2020-02-02' = {
-//   name: '${Recovery Vault}/${backupFabric}/${protectionContainer}/${protectedItem}'
-//   properties: {
-//     protectedItemType: 'Microsoft.Compute/virtualMachines'
-//     policyId: '${recoveryServicesVault.id}/backupPolicies/${backupPolicyName}'
-//     sourceResourceId: webVmId
-//   }
-// } 
+  timeZone: 'UTC'
+  }
+}

@@ -6,6 +6,7 @@ param pip2 string
 param subId1 string
 param subId2 string
 param sshK string
+param tags object
 //param kvUri string
 param dskEncrKey string
 param clientVar object
@@ -16,12 +17,13 @@ param pwdWin string
 resource nic1 'Microsoft.Network/networkInterfaces@2021-05-01' = {
   name: 'webNIC1'
   location: clientVar.location
+  tags:tags
   properties: {
     ipConfigurations: [
       {
         name: 'ipConfigWeb1'
         properties: {
-          privateIPAllocationMethod: 'Static'
+          privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
             id: pip1
           }
@@ -36,12 +38,13 @@ resource nic1 'Microsoft.Network/networkInterfaces@2021-05-01' = {
 resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
   name: 'webNIC2'
   location: clientVar.location
+  tags:tags
   properties: {
     ipConfigurations: [
       {
         name: 'ipConfigWeb2'
         properties: {
-          privateIPAllocationMethod: 'Static'
+          privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
             id: pip2
           }
@@ -57,13 +60,12 @@ resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
 resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
   name: 'xt_DataDisk'
   location: clientVar.location
+  tags:tags
   properties: {
-    tier: 'P2'
     diskSizeGB: vmVar.diskSizeGB
     creationData: {
       createOption: 'Empty'
     }
-    
     encryption:{
       type: 'EncryptionAtRestWithCustomerKey'
       diskEncryptionSetId: dskEncrKey
@@ -82,6 +84,7 @@ resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
 resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: 'Web_Server'
   location: clientVar.location
+  tags:tags
   zones:[
     '1'
   ]
@@ -117,7 +120,7 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       deleteOption:'Detach'
         osType: 'Linux'
         name: 'Web_OSDisk'
-        diskSizeGB: 10
+        diskSizeGB: 30
         caching: 'ReadWrite'
         createOption: 'FromImage'
         managedDisk: {
@@ -156,10 +159,8 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
 resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: 'Admin_Server'
   location: clientVar.location
+  tags:tags
   properties: {
-    additionalCapabilities:{
-      hibernationEnabled:true
-    }
     priority: 'Spot'
     hardwareProfile: {
       vmSize: vmVar.vmSizeW
@@ -169,7 +170,11 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       adminUsername: clientVar.user
       adminPassword: pwdWin
       allowExtensionOperations: true
+      windowsConfiguration:{
+        provisionVMAgent:true
+      }
     }
+    licenseType: 'Windows_Client'
     storageProfile: {
       imageReference: {
         publisher: 'MicrosoftWindowsDesktop'
@@ -179,16 +184,14 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       }
       osDisk: {
         name: 'Adm_OSDisk'
-        diskSizeGB: 10
         caching: 'ReadWrite'
         createOption: 'FromImage'
         managedDisk:{
-          storageAccountType:'StandardSSD_LRS'
+          storageAccountType: vmVar.diskSku
           diskEncryptionSet: {
           id: dskEncrKey
           }
         }
-     
       }
     }
     networkProfile: {
@@ -205,3 +208,4 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
 }
 output admVmId string = admvm.id
 output webVmId string = webvm.id
+output webDisk string = webvm.properties.storageProfile.osDisk.managedDisk.id

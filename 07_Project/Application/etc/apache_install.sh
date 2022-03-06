@@ -8,7 +8,7 @@ apt-get -y install mysql-server
 apt-get -y install php libapache2-mod-php php-mysql
 
 # write some HTML
-echo \<center\>\<h1\>My Demo App\</h1\>\<br/\>\</center\> > /var/www/html/demo.html
+echo \<center\>\<h1\>--- Web-Server geinstalleerd ---\</h1\>\<br/\>\</center\> > /var/www/html/index.html
 
 # restart Apache
 apachectl restart
