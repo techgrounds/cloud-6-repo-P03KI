@@ -13,35 +13,27 @@ param kvVar object = {
 }
 @secure()
 param pwdWin string
-// ----- init based strings
 param tenantId string = subscription().tenantId
-param unStr string = uniqueString(subscription().id)
 param kvName string = '${clientVar.client}-KV-${utcNow()}'
-param stgName string = '${toLower(clientVar.client)}storage${unStr}'
+param stgName string = 'storage${toLower(utcNow())}'
 
 /////////// CREATE RESOURCE GROUP ////////////
-module rg './module/mod-rg.bicep' = {
-  scope:subscription()
+resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: clientVar.rgName
-  params:{
-    clientVar: clientVar
-  }
+  location: clientVar.location
 }
 ///////////  CREATE VNET   ///////////////////
 module vnet './module/mod-vnet.bicep' = {
-  scope: resourceGroup(clientVar.rgName)
+  scope: resGr
   name: '${clientVar.client}-vnet'
   params:{
     vnetVar: vnetVar
     clientVar: clientVar
   }
-  dependsOn: [
-    rg
-  ]
 }
 /////////// CREATE KEYVAULT //////////////////
 module kv './module/mod-kv.bicep' = {
-  scope: resourceGroup(clientVar.rgName)
+  scope: resGr
   name: kvName
   params:{
     clientVar: clientVar
@@ -55,7 +47,7 @@ module kv './module/mod-kv.bicep' = {
 }
 ///////////// CREATE STORAGE //////////////////
 module stg './module/mod-stg.bicep' = {
-  scope: resourceGroup(clientVar.rgName)
+  scope: resGr
   name: stgName 
   params:{
     mngId: kv.outputs.mngId
@@ -73,7 +65,7 @@ module stg './module/mod-stg.bicep' = {
 }
 //////////// DEPLOY VM'S ////////////////
 module vm './module/mod-vm.bicep' = {
-  scope: resourceGroup(clientVar.rgName)
+  scope: resGr
   name: 'vm'
   params:{
     dskEncrKey: kv.outputs.dskEncrId
@@ -92,7 +84,7 @@ module vm './module/mod-vm.bicep' = {
     kv
   ]
 }
-/////////  Set up Recovery Vault ////////////
+///////  Set up Recovery Vault ////////////
 // module rv './module/mod-rv.bicep' = {
 //   name: 'Recovery Vault'
 //   scope: resourceGroup(clientVar.rgName)
