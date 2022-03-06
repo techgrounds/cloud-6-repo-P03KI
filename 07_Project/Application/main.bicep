@@ -31,6 +31,7 @@ module vnet './module/mod-vnet.bicep' = {
     clientVar: clientVar
   }
 }
+
 /////////// CREATE KEYVAULT //////////////////
 module kv './module/mod-kv.bicep' = {
   scope: resGr

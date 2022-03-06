@@ -35,7 +35,7 @@
     "vmVar":{
       "value":{
         "diskSku": "StandardSSD_LRS",
-        "diskSizeGB": 50,
+        "diskSizeGB": 4,
         "stgType": "Standard_LRS",
         "vmSkuL": "20_04-lts-gen2",
         "vmSizeL": "Standard_D2s_v3",
