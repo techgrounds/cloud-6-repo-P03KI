@@ -207,5 +207,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   ]
 }
 output admVmId string = admvm.id
+output admSrvName string = admvm.name
+output webSrvName string = webvm.name
 output webVmId string = webvm.id
 output webDisk string = webvm.properties.storageProfile.osDisk.managedDisk.id

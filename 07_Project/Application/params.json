@@ -7,7 +7,7 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "beta14",
+        "rgName": "c5",
         "deploy": "dev",
         "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
         "user": "testUser"
@@ -15,6 +15,9 @@
     },
     "pwdWin":{
       "value": "Leiden2022!"
+    },
+    "privIp":{
+      "value":  "*"
     },
     "vnetVar":{
       "value": {
@@ -29,8 +32,7 @@
          "environment":[
            "web",
            "admin"
-         ],
-         "privIp": "*"
+         ]
       }
     }, 
     "vmVar":{

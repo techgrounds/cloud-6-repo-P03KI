@@ -2,6 +2,8 @@
 param vnetVar object
 param clientVar object
 param tags object
+@secure()
+param privIp string
 //-------------- Create Public IP's --------------------------------------------
 //[for i in range(0, length(vnVar.pubIpName)):
 resource pubIp1 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
@@ -77,7 +79,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
-          sourceAddressPrefix: vnetVar.privIp
+          sourceAddressPrefix: privIp
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 100
@@ -91,7 +93,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '22'
-          sourceAddressPrefix: vnetVar.privIp
+          sourceAddressPrefix: privIp
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 110

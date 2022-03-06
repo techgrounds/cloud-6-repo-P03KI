@@ -43,12 +43,11 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
       family: 'A'
     }
     networkAcls: {
-      defaultAction: 'Deny'
+      defaultAction: 'Allow'
       bypass: 'AzureServices'
       virtualNetworkRules:[
         {
             id: subId1
-
         }       
         {
             id: subId2        
@@ -148,3 +147,4 @@ output kvId string = kv.id
 output dskEncrId string = dskEncrKey.id
 output kvUri string = kv.properties.vaultUri
 output mngId string = mngId.id
+output mngName string = mngId.name

@@ -4,6 +4,7 @@ targetScope = 'subscription'
 param clientVar object
 param vnetVar object
 param vmVar object
+param recVltName string = 'recoveryvault${toLower(clientVar.client)}'
 param sshK string = loadTextContent('./etc/SSHKey.pub')
 param kvVar object = {
   location: clientVar.location
@@ -14,9 +15,11 @@ param kvVar object = {
 param tagsC object ={
     Client:clientVar.client
     Version:'1.0'
-    DeployDate:utcNow()
+    DeployDate:utcNow('d')
+    Time:utcNow('T')
 }
-
+@secure()
+param privIp string
 @secure()
 param pwdWin string
 param tenantId string = subscription().tenantId
@@ -35,7 +38,8 @@ module vnet './module/mod-vnet.bicep' = {
   scope: resGr
   name: '${clientVar.client}-vnet'
   params:{
-    tags:tagsC
+    privIp: privIp
+    tags: tagsC
     vnetVar: vnetVar
     clientVar: clientVar
   }
@@ -46,7 +50,7 @@ module kv './module/mod-kv.bicep' = {
   scope: resGr
   name: kvName
   params:{
-    tags:tagsC
+    tags: tagsC
     clientVar: clientVar
     kvVar: kvVar
     subId1: vnet.outputs.subnetId1
@@ -61,7 +65,7 @@ module stg './module/mod-stg.bicep' = {
   scope: resGr
   name: stgName 
   params:{
-    tags:tagsC
+    tags: tagsC
     mngId: kv.outputs.mngId
     clientVar: clientVar
     stgType: vmVar.stgType
@@ -80,7 +84,7 @@ module vm './module/mod-vm.bicep' = {
   scope: resGr
   name: 'vm'
   params:{
-    tags:tagsC
+    tags: tagsC
     dskEncrKey: kv.outputs.dskEncrId
     clientVar: clientVar
     vmVar: vmVar
@@ -99,17 +103,23 @@ module vm './module/mod-vm.bicep' = {
 }
 /////////////  BACKUP  ////////////////////
 module rv './module/mod-rv.bicep' = {
-  name: 'RecoveryVault'
+  name: recVltName
   scope: resourceGroup(clientVar.rgName)
   params: {
-    tags:tagsC
-    kvUri: kv.outputs.kvUri
+    recVltName: recVltName
+    //mngName: kv.outputs.mngName
+    //admSrvName: vm.outputs.admSrvName
+    webSrvName: vm.outputs.webSrvName
+    tags: tagsC
+    //kvUri: kv.outputs.kvUri
     clientVar: clientVar
     webVmId: vm.outputs.webVmId
-    admVmId: vm.outputs.admVmId
+    //admVmId: vm.outputs.admVmId
   }
   dependsOn:[
     vm
+    stg
+    kv
   ]
 }
 

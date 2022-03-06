@@ -58,7 +58,7 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
       }
     }
     networkAcls:{
-      defaultAction:'Deny'
+      defaultAction:'Allow'
       bypass:'AzureServices'
       virtualNetworkRules:[
         {
@@ -108,7 +108,6 @@ resource stgblobcnt 'Microsoft.Storage/storageAccounts/blobServices/containers@2
 
 resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'upSsh'
-  tags:tags
   location: clientVar.location
   kind: 'AzureCLI'
   properties: {
