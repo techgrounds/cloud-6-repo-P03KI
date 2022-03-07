@@ -91,31 +91,42 @@ Tijdens de eerste meeting met XYZ is het volgende besproken:
 
 ### 2 Azure Architecture Overzicht
 
-#### Subscription
+#### Dependancies
 
+ 
+Gezien de gevraagde diensten vaak afhankelijk zijn van elkaar, dient de deployment in een bepaalde volgorde te worden uitgevoerd.
+
+Volgorde van deployment:
+
+ResourceGroup > vNet > Keyvault > VM's > Recoveryvault  
+
+![img](../../00_includes/PRJ/script-dependancies.png)
+
+Zoals op de afbeelding te zien zijn zijn de resources in ogedeeld in modules. 
+Modules worden gebruikt om resources makkelijker op scopes te deployen. 
+
+
+#### Subscription
 De bicep wordt uitgevoerd op subscriptie-niveau voor de vereenvoudigde deployment. De deployment kan worden uitgevoerd op Azure account van de klant mits de juiste variabelen worden meegegeven in de 'params.json'.
 
 #### Benaming
-
 Volgende tags worden geimplementeerd om overzicht te houden bij meerdere deployments:
 
 |Key|Value|
-| Client | naam |
-| Version | versie |
-| Deploydate | datum|
-| Time | tijd |
+| ---- | ---- |
+| Client | -naam- |
+| Version | -versie- |
+| Deploydate | -datum-|
+| Time | -tijd- |
 
 #### KeyVault
-
 Er wordt in de deployment ook een keyvault aangemaakt. De encryptiekey wordt bij installatie automatisch gegenereerd om de data schijven te encrypten. Via portal of CLI is het mogelijk deze te vervangen voor uw eigen sleutel. De omgeving staat ingesteld dat de schijven automatisch uw sleutel gebruiken (rotational).
 
 #### Regio
-
 De infrastructuur wordt gedeployed in regio **West-Europa** vanwege de gunstige ligging van het bedrijf en haar klanten. De IaC wordt vanuit een agnostisch oogpunt ontworpen zodat de IaC ook deployed kan worden in eventuele andere regio's wanneer dat nodig zou zijn. Het enige wat u dient te wijzigen is de locatie in 'params.json'. 
 NB. *De (compute) resources kunnen per regio verschillen.*
 
 #### Administrative Roles
-
 Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere rollen nodig zijn, is het mogelijk deze toe te voegen via de portal of CLI.
 
 ### 3 Microsoft Azure Networking
