@@ -169,7 +169,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       computerName: 'Admin-Server'
       adminUsername: clientVar.user
       adminPassword: pwdWin
-      allowExtensionOperations: true
+      //allowExtensionOperations: true
       windowsConfiguration:{
         provisionVMAgent:true
       }

@@ -93,31 +93,41 @@ Tijdens de eerste meeting met XYZ is het volgende besproken:
 
 #### Subscription
 
-De deployment wordt gericht op subscriptie-niveau voor de vereenvoudigde . 
+De bicep wordt uitgevoerd op subscriptie-niveau voor de vereenvoudigde deployment. De deployment kan worden uitgevoerd op Azure account van de klant mits de juiste variabelen worden meegegeven in de 'params.json'.
+
 #### Benaming
-Volgende tags worden geimplementeerd om makkelijk te filteren:
+
+Volgende tags worden geimplementeerd om overzicht te houden bij meerdere deployments:
+
 |Key|Value|
-| --- | --- |
-|||
-|||
+| Client | naam |
+| Version | versie |
+| Deploydate | datum|
+| Time | tijd |
 
 #### KeyVault
-- Encryptiesleutel Disks
+
+Er wordt in de deployment ook een keyvault aangemaakt. De encryptiekey wordt bij installatie automatisch gegenereerd om de data schijven te encrypten. Via portal of CLI is het mogelijk deze te vervangen voor uw eigen sleutel. De omgeving staat ingesteld dat de schijven automatisch uw sleutel gebruiken (rotational).
 
 #### Regio
-De infrastructuur wordt gedeployed in regio **West-Europa** vanwege de gunstige ligging van het bedrijf en haar klanten. De IaC wordt vanuit een agnostisch oogpunt ontworpen zodat de IaC ook deployed kan worden in eventuele andere regio's wanneer dat nodig zou zijn.
 
+De infrastructuur wordt gedeployed in regio **West-Europa** vanwege de gunstige ligging van het bedrijf en haar klanten. De IaC wordt vanuit een agnostisch oogpunt ontworpen zodat de IaC ook deployed kan worden in eventuele andere regio's wanneer dat nodig zou zijn. Het enige wat u dient te wijzigen is de locatie in 'params.json'. 
+NB. *De (compute) resources kunnen per regio verschillen.*
 
-    A starting point to define which Azure Regions will be used. Also, cover topics like Subscription Model, Administrative Roles, Naming Standards, Role Based Access Control (RBAC) and Azure Resource Manager.
+#### Administrative Roles
+
+Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere rollen nodig zijn, is het mogelijk deze toe te voegen via de portal of CLI.
 
 ### 3 Microsoft Azure Networking
 
 #### VNET #1
+- A
 - Bereik: 10.10.10.0/24
-
+- 1 subnet
 
 #### VNET #2
 - Bereik: 10.20.20.0/24
+- 1 subnet
 
 
 #### Peering

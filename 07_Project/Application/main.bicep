@@ -21,11 +21,10 @@ param tagsC object ={
 param privIp string
 @secure()
 param pwdWin string
-param recVltName string = 'rv${uniqueString(subscription().id)}'
+param recVltName string = 'rv${toLower(uniqueString(utcNow()))}'
 param tenantId string = subscription().tenantId
-param kvName string = '${clientVar.client}-KV-${uniqueString(subscription().id)}'
-param stgName string = 'storage${uniqueString(subscription().id)}'
-
+param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
+param stgName string = 'storage${toLower(uniqueString(utcNow()))}'
 
 /////////// CREATE RESOURCE GROUP ////////////
 resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = {
@@ -103,18 +102,18 @@ module vm './module/mod-vm.bicep' = {
 }
 /////////////  BACKUP  ////////////////////
 module rv './module/mod-rv.bicep' = {
-  name: recVltName
   scope: resGr
+  name: recVltName
   params: {
     recVltName: recVltName
     //mngName: kv.outputs.mngName
-    //admSrvName: vm.outputs.admSrvName
+    admSrvName: vm.outputs.admSrvName
     webSrvName: vm.outputs.webSrvName
     tags: tagsC
     //kvUri: kv.outputs.kvUri
     clientVar: clientVar
     webVmId: vm.outputs.webVmId
-    //admVmId: vm.outputs.admVmId
+    admVmId: vm.outputs.admVmId
   }
   dependsOn:[
     vm
