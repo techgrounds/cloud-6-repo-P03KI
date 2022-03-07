@@ -7,7 +7,7 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "e1",
+        "rgName": "rgxyz01",
         "deploy": "dev",
         "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
         "user": "testUser"
