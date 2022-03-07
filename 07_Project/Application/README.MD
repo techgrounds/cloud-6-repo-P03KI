@@ -102,7 +102,9 @@ ResourceGroup > vNet > Keyvault > VM's > Recoveryvault
 
 ![img](../../00_includes/PRJ/script-dependancies.png)
 
+
 Zoals op de afbeelding te zien zijn de resources in opgedeeld in modules. 
+
 Modules worden gebruikt om resources makkelijker op scopes te deployen. 
 
 
@@ -190,7 +192,9 @@ De Admin Server draait op windows 11. Dit heeft een aantal redenen.
 ### 6 Microsoft Azure Identity
 
 #### Policy
+
 Middels policies worden rechten aan de gebruiker toegewezen. Deze heeft hierdoor volledige controle over de VM's, de Keyvault en de Recoveryvault.
+
 Meerdere rollen mogelijk door policies toe te voegen in de CLI of portal.
 
 ### 7 Compliance & Security

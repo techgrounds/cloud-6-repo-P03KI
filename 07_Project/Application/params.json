@@ -7,7 +7,7 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "beta",
+        "rgName": "rgxyz01",
         "deploy": "dev",
         "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
         "user": "testUser"
@@ -15,6 +15,9 @@
     },
     "pwdWin":{
       "value": "Leiden2022!"
+    },
+    "privIp":{
+      "value":  "*"
     },
     "vnetVar":{
       "value": {
@@ -35,10 +38,10 @@
     "vmVar":{
       "value":{
         "diskSku": "StandardSSD_LRS",
-        "diskSizeGB": 4,
+        "diskSizeGB": 50,
         "stgType": "Standard_LRS",
         "vmSkuL": "20_04-lts-gen2",
-        "vmSizeL": "Standard_D2s_v3",
+        "vmSizeL": "Standard_B2s",
         "vmSizeW": "Standard_D2s_v3",
         "vmSkuW": "win11-21h2-pron"
       }

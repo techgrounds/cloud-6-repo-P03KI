@@ -1,11 +1,15 @@
 //--------- Import Var -----------------------------------------------------
 param vnetVar object
 param clientVar object
+param tags object
+@secure()
+param privIp string
 //-------------- Create Public IP's --------------------------------------------
 //[for i in range(0, length(vnVar.pubIpName)):
 resource pubIp1 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
   name:  'pubIp1'
   location: clientVar.location
+  tags:tags
   zones:[
     '1'
   ]
@@ -16,6 +20,7 @@ resource pubIp1 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
 resource pubIp2 'Microsoft.Network/publicIPAddresses@2021-05-01' =  { 
   name:  'pubIp2'
   location: clientVar.location
+  tags:tags
   zones:[
     '1'
   ]
@@ -27,6 +32,7 @@ resource pubIp2 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
 resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: 'nsg1'
   location: clientVar.location
+  tags:tags
   properties: {
     securityRules: [
       {
@@ -63,6 +69,7 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
 resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: 'nsg2'
   location: clientVar.location
+  tags:tags
   properties: {
     securityRules: [
       {
@@ -72,7 +79,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
-          sourceAddressPrefix: '*'
+          sourceAddressPrefix: privIp
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 100
@@ -86,7 +93,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '22'
-          sourceAddressPrefix: '*'
+          sourceAddressPrefix: privIp
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 110
@@ -102,6 +109,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
 resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: vnetVar.vnetName[0]
   location: clientVar.location
+  tags:tags
   properties: {
     addressSpace: {
       addressPrefixes: [
@@ -137,6 +145,7 @@ resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' = {
 resource vnet2 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: vnetVar.vnetName[1]
   location: clientVar.location
+  tags:tags
   properties: {
     addressSpace: {
       addressPrefixes: [

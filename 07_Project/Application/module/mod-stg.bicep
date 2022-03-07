@@ -2,6 +2,7 @@ targetScope = 'resourceGroup'
 
 param clientVar object
 param mngId string
+param tags object
 param stgType string
 param stgName string
 param subId1 string
@@ -11,6 +12,7 @@ param filename string = 'Bootscript_Linux.sh'
 
 resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
   name:stgName
+  tags:tags
   identity:{
     type: 'UserAssigned'
     userAssignedIdentities: {
