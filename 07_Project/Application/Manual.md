@@ -39,10 +39,9 @@ Params.json is te wijzigen naar eigen inzicht.
 - Wijzig 'user' naar de gebruikers identiteit voor Windows
 - Wijzig ook 'objId' naar het objectId van de account waarmee de deployment plaats vindt. Dit is vanwege huidige accountbeperkingen niet te automatiseren gezien dit via AAD verloopt.
 
-Deploy het netwerk door 'Deployv1.ps1' uit te voeren
+**Deploy het netwerk door 'DeployV1.ps1' uit te voeren**
 
-Of open de powershell en kopieer het volgende en druk op enter
-
+    DeployV1.ps1
     New-AzSubscriptionDeployment 
     -TemplateFile ./07_Project/Application/main.bicep 
     -TemplateParameterFile ./07_Project/Application/params.json 
@@ -55,7 +54,8 @@ Hier kan met het wachtwoord zoals in param.json is ingevuld worden ingelogd.
 In de Windows omgeving mogelijk een CLI naar keuze te installeren/openen en via deze CLI in te loggen op de webserver via SSH/RDP
 
 
-## Extra Powwershell commando's
+## Extra PowerShell commando's
+
 Maak een connectie met Azure
 
     Connect-AzAccount
