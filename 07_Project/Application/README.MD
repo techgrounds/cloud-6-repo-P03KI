@@ -5,16 +5,16 @@
 
 ## Inhoudsopgave
 
-- [1 Introductie](DesignDoc.md#1-introductie)
-- [2 Azure Architecture Overview](DesignDoc.md#2-azure-architecture-overview)
-- [3 Microsoft Azure Networking](DesignDoc.md#3-microsoft-azure-networking)
-- [4 Microsoft Azure Storage](DesignDoc.md#4-microsoft-azure-storage)
-- [5 Microsoft Azure Compute](DesignDoc.md#5-microsoft-azure-compute)
-- [6 Microsoft Azure Identity](DesignDoc.md#6-microsoft-azure-identity)
-- [7 Compliance & Security](DesignDoc.md#7-compliance--security)
-- [8 Backup](DesignDoc.md#8-backup)
-- [9 Management and Maintenance](DesignDoc.md#9-management-and-maintenance)
-- [10 Appendix](DesignDoc.md#10-appendix)
+- [1 Introductie](README.MD#1-introductie)
+- [2 Azure Architecture Overview](README.MD#2-azure-architecture-overview)
+- [3 Microsoft Azure Networking](README.MD#3-microsoft-azure-networking)
+- [4 Microsoft Azure Storage](README.MD#4-microsoft-azure-storage)
+- [5 Microsoft Azure Compute](README.MD#5-microsoft-azure-compute)
+- [6 Microsoft Azure Identity](README.MD#6-microsoft-azure-identity)
+- [7 Compliance & Security](README.MD#7-compliance--security)
+- [8 Backup](README.MD#8-backup)
+- [9 Management and Maintenance](README.MD#9-management-and-maintenance)
+- [10 Appendix](README.MD#10-appendix)
 
 ### 1 Introductie
 
