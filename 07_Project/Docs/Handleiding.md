@@ -69,3 +69,18 @@ Deployment
         #use this command when you need to create a new resource group for your deployment
 
         New-AzResourceGroupDeployment -ResourceGroupName <resource-group-name> -TemplateUri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.network/existing-vnet-to-vnet-peering/azuredeploy.json
+
+**Welke versie windows? Kosten licentie**
+https://docs.microsoft.com/nl-nl/azure/virtual-machines/windows/cli-ps-findimage
+// $locName="westeurope"
+// Get-AzVMImagePublisher -Location $locName 
+// $pubName="MicrosoftWindowsDesktop"
+// Get-AzVMImageOffer -Location $locName -PublisherName $pubName  
+// $offerName="windows-11"
+// Get-AzVMImageSku -Location $locName -PublisherName $pubName -Offer $offerName
+// $skuName="win11-21h2-pron"
+// Get-AzVMImage -Location $locName -PublisherName $pubName -Offer $offerName -Sku $skuName | Select Version
+
+<!-- Install-Module Posh-SSH
+New-SSHSession 
+Invoke-SSHCommand -Index 0 -Command "uname" -->

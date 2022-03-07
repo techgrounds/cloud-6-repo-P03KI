@@ -43,7 +43,7 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
   parent: recoveryvault
   properties: {
     backupManagementType: 'AzureIaasVM'
-    instantRpRetentionRangeInDays:2
+    instantRpRetentionRangeInDays:3
     retentionPolicy: {
       retentionPolicyType:'LongTermRetentionPolicy'
       dailySchedule:{

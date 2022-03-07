@@ -121,83 +121,86 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 ### 3 Microsoft Azure Networking
 
 #### VNET #1
-- A
+- Benaming: "app-prd-vnet"
 - Bereik: 10.10.10.0/24
 - 1 subnet
+- 1 publiek IP voor toegang tot de website 
 
 #### VNET #2
+- Benaming: "management-prd-vnet"  
 - Bereik: 10.20.20.0/24
 - 1 subnet
+- 1 publiek ip voor admin toegang
 
 #### Peering
-
-    Networking represents one of the most important chapters of the document. Things like Network structure, ExpressRoute, Virtual Network Address Space, Virtual Network Gateway, DNS, Network Security Groups, Forced Tunneling, … will go here. Move lists of IP’s to an external document or the appendix.
+Er worden twee peering resources aangemaakt waardoor de twee virtuele netwerken volledige verbinding hebben met elkaar.
 
 ### 4 Microsoft Azure Storage
 
 #### Encryption
+Alle schijven van de VM's worden tijdens de installatie versleuteld. Tijdens de deployment wordt er een encryptiesleutel gegenereerd door Azure. Deze is via CLI of portal te wijzigen naar geschikte sleutel naar keuze. Azure staat ingesteld om de encryptie van de schijven automatisch te verwerken.
 
 #### Storage Account
-xxxxxxxxxxxxxx
+Voor de opslag is er een Storage Account aangemaakt. Hier wordt een blobcontainer ingezet met de naam 'bootstrapdata'. 
+Tijdens de deployment wordt het init script voor de webserver in de blobcontainer gezet. Toegang is alleen mogelijk via de VM's.
 
 #### Hard Disk
-
-    Capture the decisions on the requirements for the workloads (e.g., path-through, IOPS), Storage Accounts, Managed Disks and Virtual Hard Disks. Encryption and Azure Files also would make an important part.
+De volgende harde schijven zijn in het huidige model geimplementeerd:
+- Lokaal redundant standaard SSD 30 GB voor de Web Server
+- Lokaal redundant standaard SSD 50 GB voor de data schijf van de Web Server
+- Lokaal redundant standaard SSD 120 GB voor de Admin Server (Minimum van Windows 11 SKU)
 
 ### 5 Microsoft Azure Compute
+
+#### Webserver
+- Opgezet in West Europa met 'Availability Zoning' in zone 1. 
+- Instellingen worden extra veilig ingesteld
+- Grootte VM: Standard_B2s = 2 vCPU/4GB RAM ($35.04/maand) --> Bij reservering 1jr $20.49/maand en 3jr $13.19/maand
+- OS = Ubuntu 11.04 LTS
+
+Instap VM-grootte gekozen en  gelet op de prijs. Indien er meer capaciteit nodig is, is het mogelijk om horizontaal en verticaal te schalen.
+Bij installatie wordt er Apachev2 geinstalleerd als webserver. Dit bootscript wordt ook in de cloud gezet in de 'bootstrapdata' container.
+
+
 
 #### Administratieserver 
 - Opgezet in West Europa met 'Availability Zoning' in zone 1. 
 - Instellingen worden extra veilig ingesteld
-- Grootte VM: Standard_D2s_v3 = 1 vCPU/0,5GB geheugen ($4.38/maand)
-- OS = Windows 10 Pro 
-
-Install-Module Posh-SSH
-New-SSHSession 
-Invoke-SSHCommand -Index 0 -Command "uname"
-
-#### Webserver 
-- Opgezet in West Europa met 'Availability Zoning' in zone 1. 
-- Instellingen worden extra veilig ingesteld
-- Grootte VM: Standard_D2s_v3 = 1 vCPU/0,5GB geheugen ($4.38/maand)
+- Grootte VM: Standard_D2s_v3 = 2 vCPU/8GB geheugen ($20.27/maand SPOT)
 - OS = Ubuntu 10
 
-
-**Welke versie windows? Kosten licentie**
-https://docs.microsoft.com/nl-nl/azure/virtual-machines/windows/cli-ps-findimage
-// $locName="westeurope"
-// Get-AzVMImagePublisher -Location $locName 
-// $pubName="MicrosoftWindowsDesktop"
-// Get-AzVMImageOffer -Location $locName -PublisherName $pubName  
-// $offerName="windows-11"
-// Get-AzVMImageSku -Location $locName -PublisherName $pubName -Offer $offerName
-// $skuName="win11-21h2-pron"
-// Get-AzVMImage -Location $locName -PublisherName $pubName -Offer $offerName -Sku $skuName | Select Version
-
-
-    Often we focus on Infrastructure-as-a-Service (IaaS) here, which would include information about VM Types, Instances, Availability Set, how Images will be documented and which VM Extensions can be used.
+Gezien de Admin Server niet continue aan hoeft te staan, is er gekozen voor een wat zwaarder exemplaar met SPOT. SPOT geeft in ruil voor een hoge korting een lagere prioriteit in de cloud. 
+Het is theoretisch mogelijk dat de VM niet beschikbaar is. Indien het toch als hinderlijk ervaren wordt, is het mogelijk de VM te downscalen. 
+De Admin Server draait op windows 11. Dit heeft een aantal redenen. 
+1. Comfortabele omgeving voor de Administrator
+2. Geen extra licentiekosten voor Server-versies.
+3. Gekoppeld met redelijke hardware zodat de gebruiker geen haperingen in zijn workflow ondervindt door cpu-capaciteit en/of latency problemen.
 
 ### 6 Microsoft Azure Identity
 
-#### Azure Active Directory
-Admin login zal via AAD lopen naar de admin server.
-
-
-    Define how the existing on-premises identity and name services will be made available in Azure, and how this could get extended using Azure Active Directory (AAD). This doesn’t necessarily have to cover the AD or AAD design.
+#### Policy
+Middels policies worden rechten aan de gebruiker toegewezen. De Administrator heeft hierdoor volledige controle over de VM's, de Keyvault en de Recoveryvault.
+Meerdere rollen mogelijk door policies toe te voegen in de CLI of portal.
 
 ### 7 Compliance & Security
 
 #### Network Security Groups
 
-#### Security Center
+##### NSG #1
+- Ingesteld om alleen http(s) request toe te laten vanaf het publieke IP
+- Ingesteld om verbindingen vanaf het virtuele netwerk toe te laten zoals de Admin Server
 
-    Design Guidelines to ensure a secure adoption of Azure, including certifications for PCI-DSS (if required) and integration with Azure Security Center.
+##### NSG #2
+- Ingesteld om alleen RDP en SSH request toe te laten vanaf het publieke IP met een nog nader in te stellen IP
+- Ingesteld om verbindingen vanaf het virtuele netwerk toe te laten zoals de Web Server
+
+#### Security Center
 
 ### 8 Backup
 #### Backup
-De webserver zal dagelijks een backup uitvoeren rond 01.00 CET. Retentieperiode van de backups bedraagt 7 dagen.
+De Recoveryvault zal dagelijks een backup van beide VM's uitvoeren rond 01.00 UTC. Retentieperiode van de backups bedraagt 7 dagen.
+Ook heeft deze een ingebouwde optie om direct de schijf te herstellen naar een herstelpunt van de afgelopen drie dagen.
 
-    Design Guidelines on Backup, ow the existing solution will be used for the cloud or how Azure Backup would be used. Ideal chapter to touch on the requirement of Disaster Recovery, cloud to cloud using Azure Site Recovery (ASR).
 
 ### 9 Management and Maintenance
 #### Log Analytics
@@ -215,7 +218,3 @@ Bronnen:
 - Azure ARM resource omschrijvingen: [link](https://docs.microsoft.com/en-us/azure/templates/)
 - Chocolatey: [link](https://chocolatey.org/install)
 - FizzBuzz: [link](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
-
-
-
-    Move the full naming convention to the Appendix. The end of the document is also an excellent place to keep all links to the online resources.
