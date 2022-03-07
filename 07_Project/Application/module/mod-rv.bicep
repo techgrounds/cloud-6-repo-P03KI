@@ -22,26 +22,24 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = 
     name: 'RS0'
     tier: 'Standard'
   }
-  properties:{}
-}
-    //properties: {
+  properties:{
+    //// ------------  deploy account limitation --------------
     // encryption:{
-    //   // ------------  learn account limitation --------------
+    //   
     //   // kekIdentity:{
     //   //   useSystemAssignedIdentity:true
     //   // }
     //   keyVaultProperties:{
     //     keyUri: kvUri
     //   }
-    //}
-  //}
-  // identity:{
-  //   type: 'SystemAssigned'
-  // }
+    // identity:{
+    //   type: 'SystemAssigned'
+    // }
+  }
+}
 
 resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
   name: 'backuppolicy'
-  //location: clientVar.location
   parent: recoveryvault
   properties: {
     backupManagementType: 'AzureIaasVM'
@@ -65,15 +63,15 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
         '2022-03-01T01:00:00.00Z'
       ]
       scheduleWeeklyFrequency:0
-      // scheduleRunDays:[
-      //   'Friday'
-      //   'Monday'
-      //   'Saturday'
-      //   'Sunday'
-      //   'Thursday'
-      //   'Tuesday'
-      //   'Wednesday'
-      // ]
+      scheduleRunDays:[
+        'Friday'
+        'Monday'
+        'Saturday'
+        'Sunday'
+        'Thursday'
+        'Tuesday'
+        'Wednesday'
+      ]
   }
   timeZone: 'UTC'
   }
@@ -81,7 +79,6 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
 
 resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
   name: '${recVltName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
-  //location: clientVar.location
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backuppolicy.id
@@ -105,29 +102,3 @@ resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protection
    backupWeb
    ]
 } 
-// resource backupPolicyW 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
-//   name: 'BackupPolicyW'
-//   location: clientVar.location
-//   parent: recoveryvault
-//   properties: {
-//     protectedItemsCount: 1
-//     backupManagementType: 'AzureIaasVM'
-//     //instantRpRetentionRangeInDays: 1
-//     retentionPolicy: {
-//       retentionPolicyType:'LongTermRetentionPolicy'
-//      dailySchedule:{
-//        retentionDuration:{
-//          count: 7
-//          durationType:'Days'
-//        }
-//        retentionTimes:[
-//          '1'
-//        ]
-//      }
-//     }
-//     schedulePolicy: {
-//       schedulePolicyType:'LongTermSchedulePolicy'
-//     }
-//   timeZone: 'UTC'
-//   }
-// }

@@ -129,8 +129,8 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 - Bereik: 10.20.20.0/24
 - 1 subnet
 
-
 #### Peering
+
     Networking represents one of the most important chapters of the document. Things like Network structure, ExpressRoute, Virtual Network Address Space, Virtual Network Gateway, DNS, Network Security Groups, Forced Tunneling, … will go here. Move lists of IP’s to an external document or the appendix.
 
 ### 4 Microsoft Azure Storage
