@@ -15,13 +15,13 @@
 
 - Als team willen wij een duidelijk overzicht van de **aannames** die wij gemaakt hebben.
 
-    - Klant wilt een veilig applicatie waarmee een werkende web- + adminserver wordt deployed.
+    - Klant wilt een veilige applicatie waarmee een werkende web- + adminserver wordt deployed.
     - Verkeer webserver verloopt via PIP.
     - RDP/SSH webserver middels een adminserver (peering), bereikbaar via een PIP met trusted locations.
     - NSG's op subnet-niveau geconfigureerd als firewall om servers te beschermen.
-   - Budget +/- €130 per maand
-   - Klant gebruikt Linux en Windows (SSH/RDP)
-   - 
+    - Budget +/- €130 per maand
+    - Klant gebruikt Linux en Windows (SSH/RDP)
+    - 
     
 - Als team willen wij een duidelijk overzicht hebben van de **Cloud Infrastructuur** die de applicatie nodig heeft
 
@@ -45,6 +45,27 @@
 - Als klant wil ik weten hoe ik de applicatie kan gebruiken
 - Als klant wil ik een MVP kunnen deployen om te testen
 
+- **Vragen voor klant:**
+    - Backup -> alles?
+        - Motivatie voor kosten. 
+    - Webserver PIP voor extern gebruik? Schaalbaar? Hoeveelheid verkeer/Functie?
+        - Simpele server. -> 1.1 wss schaalbaar.
+    - Kosten/budget
+        - 130
+    - Active Directory users in het huidige systeem?
+        - Nee. Instellen voor klant.
+    - Webserver OS? Meer vereisten?
+        - Windows admin. Linux evt goedkoper voor webserver.
+    - Admin server exclusief voor webserver? Andere functionaliteit? Hoeveel users toegang?
+        - Bastion
+    - Cloudopslag alleen voor bootscripts (en backups). Users?
+        - Blob
+    - Tijdstip backups? 
+        - Buiten kantoortijden
+    - Regio
+        - West-Europa
+
+    
 # Oplevering
 
 - Een werkende CDK / Bicep app van het MVP
@@ -57,20 +78,20 @@
 
 Belangrijke data:
 
-|  Onderwerp:  | Datum (projectweek):  |
+| Onderwerp: | Datum (projectweek): |
 | --- | --- |
-|Start Python, Start Project (v1.0)|07-02-2022 (wk 1)|
-|Introductie Project v1.1|14-03-2022 (wk 5)|
-|Oplevering- / Eindpresentatie|08-04-2022 (wk 9)|
+|Start Python, Start Project (v1.0) | 07-02-2022 (wk 1)|
+|Introductie Project v1.1 | 14-03-2022 (wk 5)|
+|Oplevering- / Eindpresentatie | 08-04-2022 (wk 9)|
 
 Hou rekening met de volgende projectactiviteiten:
 
 |Project Activiteit:|Datum (projectweek) :|
 | --- | --- |
-|Sprint 1 Review progressie app v1.0|25-02-2022 (wk 3)|
-|Sprint 2 Review oplevering app v1.0|11-03-2022 (wk 5)|
-|Sprint 3 Review progressie app v1.1|25-03-2022 (wk 7)|
-|Sprint 4 Review oplevering app v1.1 / Eindpresentatie|08-04-2022 (wk 9)|
+|Sprint 1 Review progressie app v1.0 | 25-02-2022 (wk 3)|
+|Sprint 2 Review oplevering app v1.0 | 11-03-2022 (wk 5)|
+|Sprint 3 Review progressie app v1.1 | 25-03-2022 (wk 7)|
+|Sprint 4 Review oplevering app v1.1 / Eindpresentatie | 08-04-2022 (wk 9)|
 
 ## Resources:
 

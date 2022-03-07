@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "0.0.1.0",
+
+  "parameters": {
+    "clientVar":{
+      "value": {
+        "location": "westeurope",
+        "client": "XYZ",
+        "rgName": "rgxyz01",
+        "deploy": "dev",
+        "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
+        "user": "testUser"
+      }
+    },
+    "pwdWin":{
+      "value": "Leiden2022!"
+    },
+    "privIp":{
+      "value":  "*"
+    },
+    "vnetVar":{
+      "value": {
+        "vnetName": [
+          "app-prd-vnet",
+          "management-prd-vnet"              
+          ],
+        "vnetPrefix": [
+          "10.10.10.0/24",
+          "10.20.20.0/24"
+          ],
+         "environment":[
+           "web",
+           "admin"
+         ]
+      }
+    }, 
+    "vmVar":{
+      "value":{
+        "diskSku": "StandardSSD_LRS",
+        "diskSizeGB": 50,
+        "stgType": "Standard_LRS",
+        "vmSkuL": "20_04-lts-gen2",
+        "vmSizeL": "Standard_B2s",
+        "vmSizeW": "Standard_D2s_v3",
+        "vmSkuW": "win11-21h2-pron"
+      }
+    }
+  }
+}
