@@ -43,7 +43,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
       family: 'A'
     }
     networkAcls: {
-      defaultAction: 'Allow'
+      defaultAction: 'Deny'
       bypass: 'AzureServices'
       virtualNetworkRules:[
         {

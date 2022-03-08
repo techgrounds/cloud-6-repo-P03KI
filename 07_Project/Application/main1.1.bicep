@@ -5,29 +5,28 @@ targetScope = 'subscription'
 param clientVar object
 param vnetVar object
 param vmVar object
-param dsad string = vmVar.diskSku
 
 //---- deployment booleans test/debug
-param deploy object ={
-  rg: true
-  peer: true
-
-}
+// param deploy object ={
+//   rg: true
+//   vnet: true
+//   peer: true
+//   scr: true
+// }
 
 //param sshK string = loadTextContent('./etc/SSHKey.pub')
-param kvVar object = {
-  location: clientVar.location
-  objectId: clientVar.objId
-  tenantId: tenantId
-  kvName: kvName
-}
+// param kvVar object = {
+//   location: clientVar.location
+//   objectId: clientVar.objId
+//   tenantId: tenantId
+//   kvName: kvName
+// }
 param tagsC object ={
     Client:clientVar.client
     Version:'1.1'
     DeployDate:utcNow('d')
     Time:utcNow('T')
 }
-
 //---- secured strings
 @secure()
 param privIp string
@@ -36,67 +35,53 @@ param pwdWin string
 
 //---- init-based params
 // param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
- param tenantId string = subscription().tenantId
- param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(subscription().id))}'
+ //param tenantId string = subscription().tenantId
+ //param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(subscription().id))}'
 // param stgName string = 'storage${toLower(uniqueString(subscription().id))}'
 
 ///////////////////// CREATE RESOURCE GROUP ///////////////////////////////////////////////
-resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(deploy.rg){
-  name: clientVar.rgName
-  location: clientVar.location
+resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags:tagsC
+  name:clientVar.rgName
+  location:clientVar.location
 }
 /////////////////////// VIRTUAL NETWORK ////////////////////////////////////////////////////
 //----- Looping vnets
 module vNet 'module/mod-vnetv2.bicep' = [for i in range(0, (length(vnetVar.vnetName))) :{
   scope: resGr
-  name: 'vNet${i}'
+  name:'${clientVar.client}-vNet${i}'
   params: {
     tags:tagsC
-    i:i
-    clientVar: clientVar
+    clientVar:clientVar
     vnetVar: vnetVar
+    privIp:privIp
+    i:i
   }
 }]
-output x2 string = vNet[1].outputs.subnetId[0]
-output x1 string = vNet[0].outputs.subnetId[0]
 
-
-//------------------- Set up Peering ------------------------------------------------
-module vNetPeering 'module/mod-peerv2.bicep' = if(deploy.peer){
+////////////////////// SET PEERING /////////////////////////////////////////////////////////
+module vNetPeering 'module/mod-peerv2.bicep' = {
   scope: resGr
   name:'vNetPeering' 
   params:{
     vnetVar: vnetVar
-    subnetId1: vNet[0].outputs.subnetId[0]
-    subnetId2: vNet[1].outputs.subnetId[0]
   }
   dependsOn:[
     vNet
   ]
 }
 
-output str string = vNetPeering.outputs.test
 // ////////// GET OBJECT ID USER ////////////////
-// module objId 'module/mod-psscript.bicep' ={
-//   name: 'getObjId'
-//   scope: resGr
-//   params:{
-//     clientVar:clientVar
-//   }
-// }
-
-///////////  CREATE VNET   ///////////////////
-// module vnet './module/mod-vnet.bicep' = {
-//   scope: resGr
-//   name: '${clientVar.client}-vnet'
-//   params:{
-//     privIp: privIp
-//     tags: tagsC
-//     vnetVar: vnetVar
-//     clientVar: clientVar
-//   }
-// }
+module objId 'module/mod-psscript.bicep' = {
+  name:'getObjId'
+  scope:resGr
+  params:{
+    clientVar:clientVar
+    tags:tagsC
+  }
+}
+output test string = objId.outputs.scriptLogs
+output objId string = objId.outputs.objId
 
 // /////////// CREATE KEYVAULT //////////////////
 // module kv './module/mod-kv.bicep' = {

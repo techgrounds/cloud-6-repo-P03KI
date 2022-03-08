@@ -16,7 +16,7 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
   identity:{
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${mngId}':{      }
+      '${mngId}':{}
     }
   }
   location:clientVar.location
@@ -58,7 +58,7 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
       }
     }
     networkAcls:{
-      defaultAction:'Allow'
+      defaultAction:'Deny'
       bypass:'AzureServices'
       virtualNetworkRules:[
         {
@@ -101,7 +101,6 @@ resource stgblobcnt 'Microsoft.Storage/storageAccounts/blobServices/containers@2
   parent: stgblob
   name: 'bootstrapdata'
   properties: {
-    
     publicAccess: 'None'
   }
 }
