@@ -3,12 +3,14 @@ targetScope = 'resourceGroup'
 param vnetVar object
 param clientVar object
 param i int
+param tags object
 
 //-------------- Create Public IP's --------------------------------------------
 
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' = { 
   name:'pubIp${i+1}'
   location: clientVar.location
+  tags:tags
   zones: [
     '1'
   ]
@@ -21,6 +23,7 @@ resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
 resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: string('nsg${i+1}')
   location: clientVar.location
+  tags:tags
   properties: i == 0 ? {
     securityRules: [
       {
@@ -33,7 +36,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 120
+          priority: 100
           direction: 'Inbound'
         }
       }
@@ -47,7 +50,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 130
+          priority: 110
           direction: 'Inbound'
         }
       }
@@ -90,6 +93,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: vnetVar.vnetName[i]
   location: clientVar.location
+  tags:tags
   properties: {
     addressSpace: {
       addressPrefixes: [
@@ -119,11 +123,17 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
 }
 
 //----------- Output -------------------------
-output vnetOut object = {
-  vnetId: vnet.id
-  pubIpId: pubIp.id
-  subnetId: '${vnet.id}/subnets/subnet${i+1}'
-}
+// output vnetOut object = {
+//   vnetId: [
+//     vnet.id
+//   ]
+//   pubIpId: [
+//     pubIp.id
+//   ]
+//   subnetId: [
+//     '${vnet.id}/subnets/subnet${i}'
+//   ]
+// }
 output vnetId array = [
   vnet.id
 ] 
@@ -131,8 +141,7 @@ output pubIpId array = [
   pubIp.id
 ]
 output subnetId array = [
-
-  '${vnet.id}/subnets/subnet${i+1}'
+  '${vnet.id}/subnets/subnet${i}'
 ]
 
 

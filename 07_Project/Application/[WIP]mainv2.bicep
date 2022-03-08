@@ -3,6 +3,7 @@ targetScope = 'subscription'
 ///////////////////////  OBJVARS (defined in 'params.json') //////////////////////////////////////////////
 param clientVar object
 param vnetVar object
+
 //param vnetOut object
 param vmVar object
 param sshK string = loadTextContent('./etc/SSHKey.pub')
@@ -28,7 +29,7 @@ param stgName string = '${toLower(clientVar.client)}storage${unStr}'
 
 /////////////////////// RESOURCE GROUP ////////////////////////////////////////////////////////////////////
 //--- Setting up a RG
-resource ResGr 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+resource ResGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(deployed) {
   name: clientVar.rgName
   location: clientVar.location
 }
@@ -48,7 +49,7 @@ module vNet 'module/mod-vnetv2.bicep' = [for i in range(0, (length(vnetVar.vnetN
   ]
 }]
 //------------------- Set up Peering ------------------------------------------------
-module vNetPeering 'module/mod-peer.bicep' ={
+module vNetPeering 'module/mod-peerv2.bicep' ={
   scope: resourceGroup(clientVar.rgName)
   name:'vNetPeering' 
   params:{
@@ -59,21 +60,21 @@ module vNetPeering 'module/mod-peer.bicep' ={
   ]
 }
 
-//////////////////////// KEYVAULT /////////////////////////////////////////////
-module kVault 'module/mod-kv.bicep' ={
-  scope: resourceGroup(clientVar.rgName)
-  name: kvName
-  params:{
-    kvVar: kvVar
-    subId2: vNet[1].outputs.subnetId[1]
-    subId1: vNet[0].outputs.subnetId[0]
-    clientVar: clientVar
-  }
-  dependsOn:[
-    vNetPeering
-    vNet
-  ]
-}
+// //////////////////////// KEYVAULT /////////////////////////////////////////////
+// module kVault 'module/mod-kv.bicep' ={
+//   scope: resourceGroup(clientVar.rgName)
+//   name: kvName
+//   params:{
+//     kvVar: kvVar
+//     subId2: vNet[1].outputs.subnetId[1]
+//     subId1: vNet[0].outputs.subnetId[0]
+//     clientVar: clientVar
+//   }
+//   dependsOn:[
+//     vNetPeering
+//     vNet
+//   ]
+// }
 // resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
 //   name: kvVar.kvName
 //   location: kvVar.location

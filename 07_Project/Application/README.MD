@@ -6,7 +6,7 @@
 ## Inhoudsopgave
 
 - [1 Introductie](README.MD#1-introductie)
-- [2 Azure Architecture Overview](README.MD#2-azure-architecture-overview)
+- [2 Azure Architecture Overview](README.MD#2-azure-architecture-overzicht)
 - [3 Microsoft Azure Networking](README.MD#3-microsoft-azure-networking)
 - [4 Microsoft Azure Storage](README.MD#4-microsoft-azure-storage)
 - [5 Microsoft Azure Compute](README.MD#5-microsoft-azure-compute)
@@ -102,7 +102,9 @@ ResourceGroup > vNet > Keyvault > VM's > Recoveryvault
 
 ![img](../../00_includes/PRJ/script-dependancies.png)
 
-Zoals op de afbeelding te zien zijn zijn de resources in ogedeeld in modules. 
+
+Zoals op de afbeelding te zien zijn de resources in opgedeeld in modules. 
+
 Modules worden gebruikt om resources makkelijker op scopes te deployen. 
 
 
@@ -190,7 +192,9 @@ De Admin Server draait op windows 11. Dit heeft een aantal redenen.
 ### 6 Microsoft Azure Identity
 
 #### Policy
-Middels policies worden rechten aan de gebruiker toegewezen. De Administrator heeft hierdoor volledige controle over de VM's, de Keyvault en de Recoveryvault.
+
+Middels policies worden rechten aan de gebruiker toegewezen. Deze heeft hierdoor volledige controle over de VM's, de Keyvault en de Recoveryvault.
+
 Meerdere rollen mogelijk door policies toe te voegen in de CLI of portal.
 
 ### 7 Compliance & Security
