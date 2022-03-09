@@ -1,16 +1,22 @@
 param clientVar object
 param kvVar object
-param subId1 string
-param subId2 string
 param tags object
 param vnetVar object
 
+@secure()
+param sshK string
+
+//--------------- Reference
 resource vnet0 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
   name: vnetVar.vnetName[0]
 }
 resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
   name: vnetVar.vnetName[1]
 }
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name: clientVar.client
+}
+//-------------- Deploying KV
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   name: kvVar.kvName
   location: kvVar.location
@@ -54,25 +60,22 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
       bypass: 'AzureServices'
       virtualNetworkRules:[
         {
-            id: subId1
+            id: '${vnet0.id}/subnets/subnet0'
         }       
         {
-            id: subId2        
+            id: '${vnet1.id}/subnets/subnet0'      
         }
     ]
     }
   }
 }
 
-resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
-  name: clientVar.client
-}
 //--------------------- Create Keys ------------------------------------------
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: kv
   name: 'ssh'
   properties: {
-    value: loadTextContent('../etc/SSHKey.pub')
+    value: sshK
   }
 }
 resource RSAKey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
