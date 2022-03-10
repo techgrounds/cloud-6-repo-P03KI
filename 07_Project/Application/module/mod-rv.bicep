@@ -17,7 +17,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' existing = {
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
 }
-resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = {
+resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-08-01' = {
   name: recVltName
   location: clientVar.location
   tags:tags
@@ -27,50 +27,41 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = 
   }
   properties:{
     //// ------------  deploy account limitation --------------
-    encryption:{
-      keyVaultProperties:{
-        keyUri: kv.properties.vaultUri
-      }
-    }
+    // encryption:{
+    //   keyVaultProperties:{
+    //     keyUri: kv.properties.vaultUri
+    //   }
+    // }
   }
 }
 
-resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-13' = {
+resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2021-12-01' = {
   name: 'backuppolicy'
   parent: recoveryvault
   properties: {
     backupManagementType: 'AzureIaasVM'
-    instantRpRetentionRangeInDays:3
+    instantRpRetentionRangeInDays: 3
     retentionPolicy: {
       retentionPolicyType:'LongTermRetentionPolicy'
       dailySchedule:{
-        retentionDuration:{
-          count:7
-          durationType:'Days'
+        retentionDuration: {
+          count: 7
+          durationType: 'Days'
         }
-        retentionTimes:[
-          '2022-03-01T01:30:00.00Z'
+        retentionTimes: [
+          '2022-03-10T00:30:00Z'
         ]
       }
     }
     schedulePolicy: {
-      schedulePolicyType:'SimpleSchedulePolicy'
-      scheduleRunFrequency:'Daily'
-      scheduleRunTimes:[
-        '2022-03-01T01:00:00.00Z'
+      schedulePolicyType: 'SimpleSchedulePolicy'
+      scheduleRunFrequency: 'Daily'
+      scheduleRunTimes: [
+        '2022-03-11T02:30:00Z'
       ]
-      // scheduleWeeklyFrequency:0
-      // scheduleRunDays:[
-      //   'Friday'
-      //   'Monday'
-      //   'Saturday'
-      //   'Sunday'
-      //   'Thursday'
-      //   'Tuesday'
-      //   'Wednesday'
-      // ]
-  }
-  timeZone: 'UTC'
+    scheduleWeeklyFrequency: 0
+    }
+  timeZone: 'W. Europe Standard Time'
   }
 }
 
@@ -80,11 +71,6 @@ resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionCo
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backuppolicy.id
     sourceResourceId: webvm.id
-    // backupManagementType:'AzureIaasVM'
-    // backupSetName: 'LinuxBackup'
-    // containerName: 'LinuxBackup'
-    // createMode:'Default'
-    // workloadType:'VM'
   }
 }
 
