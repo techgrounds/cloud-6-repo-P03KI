@@ -4,6 +4,7 @@ param tags object
 param vnetVar object
 @secure()
 param pwd string
+
 //- Reference
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
@@ -63,6 +64,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   }
 }
 
+//- Create managed ID
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: clientVar.client
   location: clientVar.location
@@ -72,7 +74,7 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   ]
 }
 
-//--------------------- Create Keys ------------------------------------------
+//- Create Keys
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: kv
   tags: tags
@@ -119,6 +121,8 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
     encryptionType: 'EncryptionAtRestWithCustomerKey'
   }
 }
+
+//- Define policy
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
   parent: kv

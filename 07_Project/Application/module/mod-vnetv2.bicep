@@ -1,4 +1,5 @@
 targetScope = 'resourceGroup'
+
 //--------- Import Var -----------------------------------------------------
 param vnetVar object
 param clientVar object
@@ -7,7 +8,6 @@ param tags object
 param privIp string
 
 //-------------- Create Public IP's --------------------------------------------
-
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' = { 
   name:'pubIp${i+1}'
   location: clientVar.location

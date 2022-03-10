@@ -1,7 +1,7 @@
-//-Scope 
+//- Scope 
 targetScope = 'resourceGroup'
 
-//- VAR 
+//- Parameters 
 param kvVar object
 param vnetVar object
 param sshK string
@@ -21,12 +21,15 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vn
 resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing = {
   name: 'dskEncrKey-${clientVar.client}'
 }
-
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name: clientVar.client
+}
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
   scope: resourceGroup('resGr')
 }
-//-Set up NIC's 
+
+//- Set up NIC's 
 resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = [for (vnetName, i) in vnetVar.vnetName: {
   name: 'webNIC${i}'
   location: clientVar.location
@@ -49,7 +52,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = [for (vnetName, 
   }
 }]
 
-//////////////////////////   Webserver  ////////////////////////////////////
+////////////////////////   Webserver  /////////////////////////////////////
 resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
   name: 'xt_DataDisk'
   location: clientVar.location
@@ -81,6 +84,12 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   zones:[
     '1'
   ]
+  identity:{
+    type:'UserAssigned'
+    userAssignedIdentities:{
+      '${mngId.id}' : {}
+    }
+  }
   properties: {
     hardwareProfile: {
       vmSize: vmVar.vmSizeL
@@ -153,6 +162,12 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: 'Admin_Server'
   location: clientVar.location
   tags:tags
+  identity:{
+    type:'UserAssigned'
+    userAssignedIdentities:{
+      '${mngId.id}' : {}
+    }
+  }
   properties: {
     priority: 'Regular'
     hardwareProfile: {
@@ -182,7 +197,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
         managedDisk:{
           storageAccountType: vmVar.diskSku
           diskEncryptionSet: {
-          id: dskEncrKey.id
+            id: dskEncrKey.id
           }
         }
       }
@@ -199,5 +214,3 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     '1'
   ]
 }
-
-output webDisk string = webvm.properties.storageProfile.osDisk.managedDisk.id

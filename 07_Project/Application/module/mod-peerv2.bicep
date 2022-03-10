@@ -1,5 +1,5 @@
 targetScope = 'resourceGroup'
-//param clientVar object
+
 param vnetVar object
 param vnetId0 string 
 param vnetId1 string

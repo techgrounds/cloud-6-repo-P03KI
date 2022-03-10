@@ -119,16 +119,6 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
   ]
 }
 
-// // //////////// LOADBALANCER ///////////////
-// // module lb 'module/mod-lb.bicep' = {
-// //   scope: resGr
-// //   name: 'loadbalancer'
-// //   params:{
-// //     clientVar: clientVar
-// //     tags:tagsC
-// //   }
-// // }
-
 // //////////// DEPLOY VM'S ////////////////
 module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
   scope: resGr
