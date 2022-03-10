@@ -58,7 +58,6 @@ module vNet 'module/mod-vnetv2.bicep' = [for (vnetName, i) in vnetVar.vnetName: 
   scope: resGr
   name:'${clientVar.client}-vNet${i}'
   params: {
-    
     tags: tagsC
     clientVar:clientVar
     vnetVar: vnetVar

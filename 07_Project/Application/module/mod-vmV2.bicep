@@ -98,10 +98,11 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     osProfile: {
       computerName: 'Web-Server'
       adminUsername: clientVar.user
+      adminPassword: adpw
       allowExtensionOperations: true
       customData: loadFileAsBase64('../etc/apache_install.sh')
       linuxConfiguration: {
-        disablePasswordAuthentication: true
+        disablePasswordAuthentication: false
         ssh: {
           publicKeys: [
             {
@@ -123,7 +124,7 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       deleteOption:'Detach'
         osType: 'Linux'
         name: 'Web_OSDisk'
-        diskSizeGB: 16
+        diskSizeGB: 32
         caching: 'ReadWrite'
         createOption: 'FromImage'
         managedDisk: {
@@ -194,7 +195,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       osDisk: {
         name: 'Adm_OSDisk'
         caching: 'ReadWrite'
-        diskSizeGB: 16
+        diskSizeGB: 128
         createOption: 'FromImage'
         managedDisk:{
           storageAccountType: vmVar.diskSku
