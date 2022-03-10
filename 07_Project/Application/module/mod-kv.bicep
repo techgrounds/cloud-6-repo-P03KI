@@ -64,9 +64,12 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   }
 }
 
-resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: clientVar.client
+  location: clientVar.location
+  tags:tags
 }
+
 //--------------------- Create Keys ------------------------------------------
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: kv

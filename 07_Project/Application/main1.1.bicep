@@ -8,7 +8,7 @@ param vnetVar object
 param vmVar object
 param kvVar object = {
   location: clientVar.location
-  objectId: clientVar.objId
+  objectId: iVar.objId
   tenantId: tenantId
   kvName: kvName
 }
@@ -18,29 +18,32 @@ param tagsC object ={
     DeployDate:utcNow('d')
     Time:utcNow('T')
 }
+
 //- load pubkey
 param sshK string = loadTextContent('./etc/SSHKey.pub')
 
-//- secured strings
+//- secure params
+@secure()
+param iVar object
 @secure()
 param privIp string
-@secure()
-param pwdWin string
+
 
 //- deployment booleans test/debug
 param deploy object ={
-  rg: false
-  vnet: false
-  peer: false
-  scr: true
-  kv: false
+  rg: true
+  vnet: true
+  peer: true
+  kv: true
+  sa: true
+  vm: true
 }
 
 //- init-based params
 // param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
 param tenantId string = subscription().tenantId
-param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(subscription().id))}'
-param stgName string = 'storage${toLower(uniqueString(subscription().id))}'
+param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
+param stgName string = '${toLower(uniqueString(subscription().id))}stor'
 
 ///////////////////// CREATE RESOURCE GROUP ///////////////////////////////////////////////
 
@@ -52,16 +55,17 @@ resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(bool(deploy.
 /////////////////////// V-NET ////////////////////////////////////////////////////
 
 //- Looping vnets
-module vNet 'module/mod-vnetv2.bicep' = [for i in range(0, (length(vnetVar.vnetName))) : if(bool(deploy.vnet)){
+module vNet 'module/mod-vnetv2.bicep' = [for (vnetName, i) in vnetVar.vnetName: if(bool(deploy.vnet)){
   scope: resGr
   name:'${clientVar.client}-vNet${i}'
   params: {
+    
     tags: tagsC
     clientVar:clientVar
     vnetVar: vnetVar
     privIp: privIp
     i: i
-  }
+  } 
 }]
 
 //- Set peering
@@ -69,6 +73,8 @@ module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
   scope: resGr
   name:'vNetPeering' 
   params:{
+    vnetId0: vNet[0].outputs.vnetId[0]
+    vnetId1: vNet[1].outputs.vnetId[0]
     vnetVar: vnetVar
   }
   dependsOn:[
@@ -76,27 +82,12 @@ module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
   ]
 }
 
-//- Run PS cmd -> ObjId Workaround
-module objId 'module/mod-psscript.bicep' = if(bool(deploy.scr)){
-  name:'getObjId'
-  scope: resGr
-  params:{
-    vnetVar: vnetVar
-    stgName: stgName
-    stgType: vmVar.stgType
-    clientVar: clientVar
-    tags: tagsC
-  }
-}
-//output test string = objId.outputs.testScr
-output objId string = objId.outputs.objId
-
 /////////// CREATE KEYVAULT //////////////////
-module kv './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
+module kvM './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
   scope: resGr
   name: kvName
   params:{
-    sshK: sshK
+    pwd: iVar.pwd
     vnetVar: vnetVar
     tags: tagsC
     clientVar: clientVar
@@ -107,26 +98,26 @@ module kv './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
   ]
 }
 
+///////////// CREATE STORAGE //////////////////
+module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
+  scope: resGr
+  name: stgName 
+  params:{
+    vnetId0: vNet[0].outputs.vnetId[0]
+    vnetId1: vNet[1].outputs.vnetId[0]
+    kvVar: kvVar
+    vnetVar: vnetVar
+    tags: tagsC
+    clientVar: clientVar
+    stgType: vmVar.stgType
+    stgName: stgName
+  }
+  dependsOn: [
+    kvM
+    vNet
+  ]
+}
 
-// ///////////// CREATE STORAGE //////////////////
-// module stg './module/mod-stg.bicep' = {
-//   scope: resGr
-//   name: stgName 
-//   params:{
-//     tags: tagsC
-//     mngId: kv.outputs.mngId
-//     clientVar: clientVar
-//     stgType: vmVar.stgType
-//     stgName: stgName
-//     subId1: vnet.outputs.subnetId1
-//     subId2: vnet.outputs.subnetId2
-//     kvUri: kv.outputs.kvUri
-//   }
-//   dependsOn: [
-//     kv
-//     vnet
-//   ]
-// }
 // //////////// LOADBALANCER ///////////////
 // module lb 'module/mod-lb.bicep' = {
 //   scope: resGr
@@ -140,28 +131,31 @@ module kv './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
 //   }
 // }
 
-// //////////// DEPLOY VM'S ////////////////
-// module vm './module/mod-vm.bicep' = {
-//   scope: resGr
-//   name: 'vm'
-//   params:{
-//     tags: tagsC
-//     dskEncrKey: kv.outputs.dskEncrId
-//     clientVar: clientVar
-//     vmVar: vmVar
-//     sshK: sshK
-//     pip1: vnet.outputs.pubId1
-//     pip2: vnet.outputs.pubId2
-//     subId1: vnet.outputs.subnetId1
-//     subId2: vnet.outputs.subnetId2
-//     pwdWin: pwdWin
-//   }
-//   dependsOn:[
-//     stg
-//     vnet
-//     kv
-//   ]
-// }
+//////////// DEPLOY VM'S ////////////////
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
+  scope: resGr
+  name: kvVar.kvName
+}
+
+module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
+  scope: resGr
+  name: 'vm'
+  params:{
+    adpw: kv.getSecret('genPass')
+    kvVar: kvVar
+    vnetVar: vnetVar
+    tags: tagsC
+    //dskEncrKey: kv.outputs.dskEncrId
+    clientVar: clientVar
+    vmVar: vmVar
+    sshK: sshK
+  }
+  dependsOn:[
+    stgM
+    vNet
+    kv
+  ]
+}
 // /////////////  BACKUP  ////////////////////
 // module rv './module/mod-rv.bicep' = {
 //   scope: resGr

@@ -1,23 +1,12 @@
 targetScope = 'resourceGroup'
-param vnetVar object
+
 param tags object
 param clientVar object
-param stgType string
-param stgName string
+
 // var bootstrapRoleAssignmentId = guid('${resourceGroup().id}contributor')
 // var contributorRoleDefinitionId = '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
-resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: clientVar.client
-  location: clientVar.location
-  tags:tags
-}
 
-resource vnet0 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
-  name: vnetVar.vnetName[0]
-}
-resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
-  name: vnetVar.vnetName[1]
-}
+
 // resource roleAssignment 'Microsoft.Authorization/roleAssignments@2021-04-01-preview' = {
 //   name: bootstrapRoleAssignmentId
 //   properties: {
@@ -49,7 +38,7 @@ resource getObjIdScr 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     // $DeploymentScriptOutputs = @{}
     // $DeploymentScriptOutputs['objId'] = $output
     // '''
-    primaryScriptUri: './etc/PS-Script1.ps1'
+    primaryScriptUri: 'https://github.com/P03KI/repo-suheri-AZ900/blob/v1.1/07_Project/Application/etc/PS-Script1.ps1'
     timeout: 'PT05M'
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
