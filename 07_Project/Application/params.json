@@ -2,19 +2,21 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "0.0.1.0",
 
-  "parameters": {
+  "parameters":{
+    "iVar":{
+      "value":{
+        "objId": "123",
+        "pwd": "123"
+      }
+    },
     "clientVar":{
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "rgxyz01",
+        "rgName": "RG-DemoV1",
         "deploy": "dev",
-        "objId": "d57cde6f-e234-4478-8cb2-6c79e523e416",
-        "user": "testUser"
+        "user": "XYZ"
       }
-    },
-    "pwdWin":{
-      "value": "Leiden2022!"
     },
     "privIp":{
       "value":  "*"
@@ -31,7 +33,7 @@
           ],
          "environment":[
            "web",
-           "admin"
+           "admin" 
          ]
       }
     }, 
@@ -42,8 +44,8 @@
         "stgType": "Standard_LRS",
         "vmSkuL": "20_04-lts-gen2",
         "vmSizeL": "Standard_B2s",
-        "vmSizeW": "Standard_D2s_v3",
-        "vmSkuW": "win11-21h2-pron"
+        "vmSizeW": "Standard_B2s",
+        "vmSkuW": "2022-datacenter-azure-edition"
       }
     }
   }

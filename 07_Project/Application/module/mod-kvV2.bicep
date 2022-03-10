@@ -1,16 +1,16 @@
 param clientVar object
 param kvVar object
-param subId1 string
-param subId2 string
 param tags object
 param vnetVar object
+@secure()
+param pwd string
 
-resource vnet0 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
-  name: vnetVar.vnetName[0]
-}
-resource vnet1 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
-  name: vnetVar.vnetName[1]
-}
+//- Reference
+resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
+  name: vnetVar.vnetName[i]
+}]
+
+//- Deploying KV
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
   name: kvVar.kvName
   location: kvVar.location
@@ -50,37 +50,43 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
       family: 'A'
     }
     networkAcls: {
-      defaultAction: 'Deny'
+      defaultAction: 'Allow'
       bypass: 'AzureServices'
       virtualNetworkRules:[
         {
-            id: subId1
+            id: '${vnet[0].id}/subnets/subnet0'
         }       
         {
-            id: subId2        
+            id: '${vnet[1].id}/subnets/subnet1'      
         }
     ]
     }
   }
 }
 
+//- Create managed ID
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: clientVar.client
   location: clientVar.location
   tags:tags
+  dependsOn:[
+    kv
+  ]
 }
 
-//--------------------- Create Keys ------------------------------------------
+//- Create Keys
 resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: kv
-  name: 'ssh'
+  tags: tags
+  name: 'genPass'
   properties: {
-    value: loadTextContent('../etc/SSHKey.pub')
+    value: pwd
   }
 }
 resource RSAKey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   name: 'RSAKey'
   parent: kv
+  tags: tags
   properties:{
     kty: 'RSA'
     keySize: 4096
@@ -115,6 +121,8 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
     encryptionType: 'EncryptionAtRestWithCustomerKey'
   }
 }
+
+//- Define policy
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
   parent: kv
@@ -130,6 +138,9 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           storage:[
             'all'
           ]
+          secrets:[
+            'all'
+          ]
         }
         
       }
@@ -143,13 +154,11 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           storage: [
             'all'
           ]
+          secrets:[
+            'all'
+          ]
         }    
       }
     ]
   }
 }
-output kvId string = kv.id
-output dskEncrId string = dskEncrKey.id
-output kvUri string = kv.properties.vaultUri
-output mngId string = mngId.id
-output mngName string = mngId.name

@@ -1,90 +1,54 @@
 targetScope = 'resourceGroup'
-param clientVar object ={
-  location: 'westeurope'
-}
 
-resource getObjId 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+param tags object
+param clientVar object
+
+// var bootstrapRoleAssignmentId = guid('${resourceGroup().id}contributor')
+// var contributorRoleDefinitionId = '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+
+
+// resource roleAssignment 'Microsoft.Authorization/roleAssignments@2021-04-01-preview' = {
+//   name: bootstrapRoleAssignmentId
+//   properties: {
+//     roleDefinitionId: contributorRoleDefinitionId
+//     principalId: reference(mngId.id, '2018-11-30').principalId
+//     scope: resourceGroup().id
+//     principalType: 'ServicePrincipal'
+//   }
+// }
+
+resource getObjIdScr 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'GetObjectId'
   location: clientVar.location
+  //tags: tags
   kind: 'AzurePowerShell'
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: {
-      //'/subscriptions/01234567-89AB-CDEF-0123-456789ABCDEF/resourceGroups/myResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID': {}
-      '${subscription().id}' : {}
+      '${mngId.id}' : {}
     }
   }
   properties: {
-    //forceUpdateTag: '1'
-    // containerSettings: {
-    //   containerGroupName: 'mycustomaci'
-    // }
-    // storageAccountSettings: {
-    //   storageAccountName: 'myStorageAccount'
-    //   storageAccountKey: 'myKey'
-    // }
-    azPowerShellVersion: '6.4' // or azCliVersion: '2.28.0'
-    arguments: '-name \\"John Dole\\"'
-    environmentVariables: [
-      {
-        name: 'UserName'
-        value: 'jdole'
-      }
-      {
-        name: 'Password'
-        secureValue: 'jDolePassword'
-      }
-    ]
-    scriptContent: '''
-    Function Get-Something {
-      <#
-      .SYNOPSIS
-          This is a basic overview of what the script is used for..
-       
-       
-      .NOTES
-          Name: Get-Something
-          Author: theSysadminChannel
-          Version: 1.0
-          DateCreated: 2020-Dec-10
-       
-       
-      .EXAMPLE
-          Get-Something -UserPrincipalName "username@thesysadminchannel.com"
-       
-       
-      .LINK
-          https://thesysadminchannel.com/powershell-template -
-      #>
-       
-          [CmdletBinding()]
-          param(
-              [Parameter(
-                  Mandatory = $false,
-                  ValueFromPipeline = $true,
-                  ValueFromPipelineByPropertyName = $true,
-                  Position = 0
-                  )]
-              [string[]]  $UserPrincipalName
-          )
-       
-          BEGIN {}
-       
-          PROCESS {}
-       
-          END {}
-      }
-      
-      //param([string] $name)
-      //$output = \'Hello {0}. The username is {1}, the password is {2}.\' -f $name,\${Env:UserName},\${Env:Password}
-      $output = az ad signed-in-user show --query objectId
-      Write-Output $output
-      $DeploymentScriptOutputs = @{}
-      $DeploymentScriptOutputs[\'text\'] = $output
-    ''' // or primaryScriptUri: 'https://raw.githubusercontent.com/Azure/azure-docs-bicep-samples/main/samples/deployment-script/inlineScript.ps1'
-    //supportingScriptUris: []
-    timeout: 'PT30M'
+    azPowerShellVersion: '7.2.1'
+    //arguments: 
+    //azCliVersion: '2.28.0'
+    // scriptContent: '''
+    // $output = az ad signed-in-user show --query objectId
+    // Write-Output $output
+    // $DeploymentScriptOutputs = @{}
+    // $DeploymentScriptOutputs['objId'] = $output
+    // '''
+    primaryScriptUri: 'https://github.com/P03KI/repo-suheri-AZ900/blob/v1.1/07_Project/Application/etc/PS-Script1.ps1'
+    timeout: 'PT05M'
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
   }
 }
+
+output objId string = getObjIdScr.properties.outputs.text
+output mngId string = mngId.id
+
+// $output = az ad signed-in-user show --query objectId
+// Write-Output $output
+// $DeploymentScriptOutputs = @{}
+// $DeploymentScriptOutputs['objid'] = $output

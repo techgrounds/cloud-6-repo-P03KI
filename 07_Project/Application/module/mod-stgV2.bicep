@@ -1,22 +1,33 @@
 targetScope = 'resourceGroup'
 
+param kvVar object
+param vnetVar object
 param clientVar object
-param mngId string
 param tags object
+// param vnetId0 string 
+// param vnetId1 string
 param stgType string
 param stgName string
-param subId1 string
-param subId2 string
-param kvUri string
 param filename string = 'Bootscript_Linux.sh'
 
+resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
+  name: vnetVar.vnetName[i]
+}]
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name: clientVar.client
+}
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
+  name: kvVar.kvName
+}
+
+//////////////////// STORAGE /////////////////////////////////
 resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
   name:stgName
   tags:tags
   identity:{
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${mngId}':{}
+      '${mngId.id}':{}
     }
   }
   location:clientVar.location
@@ -31,12 +42,12 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
     allowSharedKeyAccess:true
     encryption:{
       identity:{
-        userAssignedIdentity: mngId
+        userAssignedIdentity: mngId.id
       }
       keySource:'Microsoft.Keyvault'
       keyvaultproperties:{
         keyname:'RSAKey'
-        keyvaulturi:kvUri
+        keyvaulturi:kv.properties.vaultUri
       }
       services:{
         blob:{
@@ -58,21 +69,13 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
       }
     }
     networkAcls:{
-      defaultAction:'Deny'
+      defaultAction:'Allow'
       bypass:'AzureServices'
-      virtualNetworkRules:[
-        {
-            id: subId1
-        }       
-        {
-            id: subId2
-        }
-      ]
     }
   }
 }
 
-resource stgblob 'Microsoft.Storage/storageAccounts/blobServices@2021-08-01'={
+resource stgblob 'Microsoft.Storage/storageAccounts/blobServices@2021-08-01'= {
   parent: sa
   name: 'default'
   properties:{
@@ -101,7 +104,7 @@ resource stgblobcnt 'Microsoft.Storage/storageAccounts/blobServices/containers@2
   parent: stgblob
   name: 'bootstrapdata'
   properties: {
-    publicAccess: 'None'
+    publicAccess: 'Container'
   }
 }
 
@@ -130,5 +133,3 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     scriptContent: 'echo "$CONTENT" | base64 -d > ${filename} && az storage blob upload -f ${filename} -c bootstrapdata -n ${filename}' 
   }
 }
-output stgName string = sa.name
-output storageAccountId string = sa.id

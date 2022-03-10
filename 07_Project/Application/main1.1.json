@@ -1,0 +1,1141 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1272.37030",
+      "templateHash": "3920637450799538970"
+    }
+  },
+  "parameters": {
+    "clientVar": {
+      "type": "object"
+    },
+    "vnetVar": {
+      "type": "object"
+    },
+    "vmVar": {
+      "type": "object"
+    },
+    "kvVar": {
+      "type": "object",
+      "defaultValue": {
+        "location": "[parameters('clientVar').location]",
+        "objectId": "[parameters('iVar').objId]",
+        "tenantId": "[parameters('tenantId')]",
+        "kvName": "[parameters('kvName')]"
+      }
+    },
+    "tagsC": {
+      "type": "object",
+      "defaultValue": {
+        "Client": "[parameters('clientVar').client]",
+        "Version": "1.1",
+        "DeployDate": "[utcNow('d')]",
+        "Time": "[utcNow('T')]"
+      }
+    },
+    "sshK": {
+      "type": "string",
+      "defaultValue": "---- BEGIN SSH2 PUBLIC KEY ----\r\nComment: \"rsa-ssh 0403\"\r\nAAAAB3NzaC1yc2EAAAADAQABAAACAQCfBF+iyg+Hi10jO16yQ4fWhnT14H3GZqvW\r\n3kWTOkAvzjCSFWLfQb3U1PZi2xafvNCJMxxv2/wHXWxTFyjf88SPImaO7FCc8o9I\r\nMe9kLV6lxHxeVO/VuwpJr37VHnoZaoAtGJi9XzV69+xLoDSBAqXgVrBrI5ctOliz\r\noRQSE18vQ55c2yJQRU6cq3O5R/0hunD6ownvYCD20Ck1nZdw9LwjWxCnlseqaBSO\r\nF6UK/ywZY3WsWC7nNIz+4O3lT/mHO1V5ez3SAsO11d6UNIOCLZmcCE8szlN2/j19\r\nPmcwJyX6siXCArCmT88rqe+dEXlG0i1UQASHUdb/jMVHGQu90LvWWuPUZ2fP1jjC\r\nTwEX3DholJ0FCoUUIIDgZ8tnPqZZgt90wIeNVu4waURvHpSdZOurXm/uzhMt6D4t\r\nZ8jbbam9A1UowJGtAdE/HXkC51mTlBC0YWlcf4MFBv0AXrkLg5K0BTKhffAMUvI3\r\nv6gj76fZuPvC8SgRbmHxsF3oCasFU2DGSTglPg95Gp4MDgSMNd43bh0mIMUxw5mO\r\nIk44AcyCkgdyeFLV/FjJv83HvVX5x4NsH/cy1gmmHwgsBsV5LbaKrbleGvb+hlwC\r\nyMthIKRer2A8GZFu4obnWQ/3Xx2pgsPz+bhrmAnXFkbbq2ae5aLuRXaIZEO7gKm5\r\n9KVMQ9eLpQ==\r\n---- END SSH2 PUBLIC KEY ----"
+    },
+    "iVar": {
+      "type": "secureObject"
+    },
+    "privIp": {
+      "type": "secureString"
+    },
+    "deploy": {
+      "type": "object",
+      "defaultValue": {
+        "rg": true,
+        "vnet": true,
+        "peer": true,
+        "kv": true,
+        "sa": true,
+        "vm": true,
+        "rv": true
+      }
+    },
+    "recVltName": {
+      "type": "string",
+      "defaultValue": "[format('rv{0}', toLower(uniqueString(subscription().id)))]"
+    },
+    "tenantId": {
+      "type": "string",
+      "defaultValue": "[subscription().tenantId]"
+    },
+    "kvName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-KV-{1}', parameters('clientVar').client, toLower(uniqueString(utcNow())))]"
+    },
+    "stgName": {
+      "type": "string",
+      "defaultValue": "[format('{0}stor', toLower(uniqueString(subscription().id)))]"
+    }
+  },
+  "resources": [
+    {
+      "condition": "[bool(parameters('deploy').rg)]",
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2021-04-01",
+      "name": "[parameters('clientVar').rgName]",
+      "tags": "[parameters('tagsC')]",
+      "location": "[parameters('clientVar').location]"
+    },
+    {
+      "condition": "[bool(parameters('deploy').vnet)]",
+      "copy": {
+        "name": "vNet",
+        "count": "[length(parameters('vnetVar').vnetName)]"
+      },
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('{0}-vNet{1}', parameters('clientVar').client, copyIndex())]",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "tags": {
+            "value": "[parameters('tagsC')]"
+          },
+          "clientVar": {
+            "value": "[parameters('clientVar')]"
+          },
+          "vnetVar": {
+            "value": "[parameters('vnetVar')]"
+          },
+          "privIp": {
+            "value": "[parameters('privIp')]"
+          },
+          "i": {
+            "value": "[copyIndex()]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "6211633424048188991"
+            }
+          },
+          "parameters": {
+            "vnetVar": {
+              "type": "object"
+            },
+            "clientVar": {
+              "type": "object"
+            },
+            "i": {
+              "type": "int"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "privIp": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2021-05-01",
+              "name": "[format('pubIp{0}', add(parameters('i'), 1))]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "zones": [
+                "1"
+              ],
+              "properties": {
+                "publicIPAllocationMethod": "Static"
+              }
+            },
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2021-05-01",
+              "name": "[string(format('nsg{0}', add(parameters('i'), 1)))]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": "[if(equals(parameters('i'), 0), createObject('securityRules', createArray(createObject('name', 'HTTP', 'properties', createObject('description', 'HTTP-rule', 'protocol', 'Tcp', 'sourcePortRange', '*', 'destinationPortRange', '80', 'sourceAddressPrefix', '*', 'destinationAddressPrefix', '*', 'access', 'Allow', 'priority', 100, 'direction', 'Inbound')), createObject('name', 'HTTPS', 'properties', createObject('description', 'HTTPS-rule', 'protocol', 'Tcp', 'sourcePortRange', '*', 'destinationPortRange', '443', 'sourceAddressPrefix', '*', 'destinationAddressPrefix', '*', 'access', 'Allow', 'priority', 110, 'direction', 'Inbound')))), createObject('securityRules', createArray(createObject('name', 'rdp', 'properties', createObject('description', 'rdp-rule', 'protocol', 'Tcp', 'sourcePortRange', '*', 'destinationPortRange', '3389', 'sourceAddressPrefix', parameters('privIp'), 'destinationAddressPrefix', '*', 'access', 'Allow', 'priority', 100, 'direction', 'Inbound')), createObject('name', 'ssh', 'properties', createObject('description', 'ssh-rule', 'protocol', 'Tcp', 'sourcePortRange', '*', 'destinationPortRange', '22', 'sourceAddressPrefix', parameters('privIp'), 'destinationAddressPrefix', '*', 'access', 'Allow', 'priority', 110, 'direction', 'Inbound')))))]"
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2021-05-01",
+              "name": "[parameters('vnetVar').vnetName[parameters('i')]]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[parameters('vnetVar').vnetPrefix[parameters('i')]]"
+                  ]
+                },
+                "subnets": [
+                  {
+                    "name": "[format('subnet{0}', parameters('i'))]",
+                    "properties": {
+                      "addressPrefix": "[parameters('vnetVar').vnetPrefix[parameters('i')]]",
+                      "networkSecurityGroup": {
+                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', string(format('nsg{0}', add(parameters('i'), 1))))]"
+                      },
+                      "serviceEndpoints": [
+                        {
+                          "service": "Microsoft.KeyVault"
+                        },
+                        {
+                          "service": "Microsoft.Storage"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', string(format('nsg{0}', add(parameters('i'), 1))))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "vnetId": {
+              "type": "array",
+              "value": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVar').vnetName[parameters('i')])]"
+              ]
+            },
+            "pubIpId": {
+              "type": "array",
+              "value": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('pubIp{0}', add(parameters('i'), 1)))]"
+              ]
+            },
+            "subnetId": {
+              "type": "array",
+              "value": [
+                "[format('{0}/subnets/subnet{1}', resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVar').vnetName[parameters('i')]), parameters('i'))]"
+              ]
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]"
+      ]
+    },
+    {
+      "condition": "[bool(parameters('deploy').peer)]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "vNetPeering",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "vnetId0": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', format('{0}-vNet{1}', parameters('clientVar').client, 0))).outputs.vnetId.value[0]]"
+          },
+          "vnetId1": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', format('{0}-vNet{1}', parameters('clientVar').client, 1))).outputs.vnetId.value[0]]"
+          },
+          "vnetVar": {
+            "value": "[parameters('vnetVar')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "15555847417927975424"
+            }
+          },
+          "parameters": {
+            "vnetVar": {
+              "type": "object"
+            },
+            "vnetId0": {
+              "type": "string"
+            },
+            "vnetId1": {
+              "type": "string"
+            },
+            "tempArr": {
+              "type": "array",
+              "defaultValue": [
+                "[parameters('vnetId1')]",
+                "[parameters('vnetId0')]"
+              ]
+            }
+          },
+          "resources": [
+            {
+              "copy": {
+                "name": "vNetPeering",
+                "count": "[length(parameters('vnetVar').vnetName)]"
+              },
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2021-05-01",
+              "name": "[format('{0}/{1}', parameters('vnetVar').vnetName[copyIndex()], format('{0}-peering', parameters('vnetVar').vnetName[copyIndex()]))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[parameters('tempArr')[copyIndex()]]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]",
+        "vNet"
+      ]
+    },
+    {
+      "condition": "[bool(parameters('deploy').kv)]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[parameters('kvName')]",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "pwd": {
+            "value": "[parameters('iVar').pwd]"
+          },
+          "vnetVar": {
+            "value": "[parameters('vnetVar')]"
+          },
+          "tags": {
+            "value": "[parameters('tagsC')]"
+          },
+          "clientVar": {
+            "value": "[parameters('clientVar')]"
+          },
+          "kvVar": {
+            "value": "[parameters('kvVar')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "372003641439085987"
+            }
+          },
+          "parameters": {
+            "clientVar": {
+              "type": "object"
+            },
+            "kvVar": {
+              "type": "object"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "vnetVar": {
+              "type": "object"
+            },
+            "pwd": {
+              "type": "secureString"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.KeyVault/vaults",
+              "apiVersion": "2021-10-01",
+              "name": "[parameters('kvVar').kvName]",
+              "location": "[parameters('kvVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "enabledForDeployment": true,
+                "enabledForDiskEncryption": true,
+                "enabledForTemplateDeployment": true,
+                "enableRbacAuthorization": false,
+                "tenantId": "[parameters('kvVar').tenantId]",
+                "enablePurgeProtection": true,
+                "enableSoftDelete": true,
+                "accessPolicies": [
+                  {
+                    "objectId": "[parameters('kvVar').objectId]",
+                    "tenantId": "[parameters('kvVar').tenantId]",
+                    "permissions": {
+                      "keys": [
+                        "all"
+                      ],
+                      "secrets": [
+                        "all"
+                      ],
+                      "storage": [
+                        "all"
+                      ],
+                      "certificates": [
+                        "all"
+                      ]
+                    }
+                  }
+                ],
+                "sku": {
+                  "name": "standard",
+                  "family": "A"
+                },
+                "networkAcls": {
+                  "defaultAction": "Allow",
+                  "bypass": "AzureServices",
+                  "virtualNetworkRules": [
+                    {
+                      "id": "[format('{0}/subnets/subnet0', resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVar').vnetName[0]))]"
+                    },
+                    {
+                      "id": "[format('{0}/subnets/subnet1', resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVar').vnetName[1]))]"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+              "apiVersion": "2018-11-30",
+              "name": "[parameters('clientVar').client]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2021-10-01",
+              "name": "[format('{0}/{1}', parameters('kvVar').kvName, 'genPass')]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "value": "[parameters('pwd')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/keys",
+              "apiVersion": "2021-10-01",
+              "name": "[format('{0}/{1}', parameters('kvVar').kvName, 'RSAKey')]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "kty": "RSA",
+                "keySize": 4096,
+                "keyOps": [
+                  "unwrapKey",
+                  "wrapKey",
+                  "decrypt",
+                  "encrypt",
+                  "verify",
+                  "sign"
+                ],
+                "attributes": {
+                  "enabled": true
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/diskEncryptionSets",
+              "apiVersion": "2021-08-01",
+              "name": "[format('dskEncrKey-{0}', parameters('clientVar').client)]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "identity": {
+                "type": "SystemAssigned"
+              },
+              "properties": {
+                "rotationToLatestKeyVersionEnabled": true,
+                "activeKey": {
+                  "keyUrl": "[reference(resourceId('Microsoft.KeyVault/vaults/keys', parameters('kvVar').kvName, 'RSAKey')).keyUriWithVersion]",
+                  "sourceVault": {
+                    "id": "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]"
+                  }
+                },
+                "encryptionType": "EncryptionAtRestWithCustomerKey"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]",
+                "[resourceId('Microsoft.KeyVault/vaults/keys', parameters('kvVar').kvName, 'RSAKey')]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/accessPolicies",
+              "apiVersion": "2021-10-01",
+              "name": "[format('{0}/{1}', parameters('kvVar').kvName, 'add')]",
+              "properties": {
+                "accessPolicies": [
+                  {
+                    "tenantId": "[parameters('kvVar').tenantId]",
+                    "objectId": "[reference(resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client)), '2021-08-01', 'full').identity.principalId]",
+                    "permissions": {
+                      "keys": [
+                        "all"
+                      ],
+                      "storage": [
+                        "all"
+                      ]
+                    }
+                  },
+                  {
+                    "tenantId": "[parameters('kvVar').tenantId]",
+                    "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('clientVar').client)).principalId]",
+                    "permissions": {
+                      "keys": [
+                        "all"
+                      ],
+                      "storage": [
+                        "all"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client))]",
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName)]",
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('clientVar').client)]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]",
+        "vNet"
+      ]
+    },
+    {
+      "condition": "[bool(parameters('deploy').sa)]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[parameters('stgName')]",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "kvVar": {
+            "value": "[parameters('kvVar')]"
+          },
+          "vnetVar": {
+            "value": "[parameters('vnetVar')]"
+          },
+          "tags": {
+            "value": "[parameters('tagsC')]"
+          },
+          "clientVar": {
+            "value": "[parameters('clientVar')]"
+          },
+          "stgType": {
+            "value": "[parameters('vmVar').stgType]"
+          },
+          "stgName": {
+            "value": "[parameters('stgName')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "271841573946806520"
+            }
+          },
+          "parameters": {
+            "kvVar": {
+              "type": "object"
+            },
+            "vnetVar": {
+              "type": "object"
+            },
+            "clientVar": {
+              "type": "object"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "stgType": {
+              "type": "string"
+            },
+            "stgName": {
+              "type": "string"
+            },
+            "filename": {
+              "type": "string",
+              "defaultValue": "Bootscript_Linux.sh"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Storage/storageAccounts",
+              "apiVersion": "2021-08-01",
+              "name": "[parameters('stgName')]",
+              "tags": "[parameters('tags')]",
+              "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                  "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('clientVar').client))]": {}
+                }
+              },
+              "location": "[parameters('clientVar').location]",
+              "sku": {
+                "name": "[parameters('stgType')]"
+              },
+              "kind": "StorageV2",
+              "properties": {
+                "accessTier": "Hot",
+                "minimumTlsVersion": "TLS1_2",
+                "allowSharedKeyAccess": true,
+                "encryption": {
+                  "identity": {
+                    "userAssignedIdentity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('clientVar').client)]"
+                  },
+                  "keySource": "Microsoft.Keyvault",
+                  "keyvaultproperties": {
+                    "keyname": "RSAKey",
+                    "keyvaulturi": "[reference(resourceId('Microsoft.KeyVault/vaults', parameters('kvVar').kvName), '2021-10-01').vaultUri]"
+                  },
+                  "services": {
+                    "blob": {
+                      "enabled": true,
+                      "keyType": "Account"
+                    },
+                    "file": {
+                      "enabled": true,
+                      "keyType": "Account"
+                    },
+                    "queue": {
+                      "enabled": true,
+                      "keyType": "Account"
+                    },
+                    "table": {
+                      "enabled": true,
+                      "keyType": "Account"
+                    }
+                  }
+                },
+                "networkAcls": {
+                  "defaultAction": "Allow",
+                  "bypass": "AzureServices"
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Storage/storageAccounts/blobServices",
+              "apiVersion": "2021-08-01",
+              "name": "[format('{0}/{1}', parameters('stgName'), 'default')]",
+              "properties": {
+                "containerDeleteRetentionPolicy": {
+                  "enabled": true,
+                  "days": 30
+                },
+                "deleteRetentionPolicy": {
+                  "enabled": true,
+                  "days": 30
+                },
+                "automaticSnapshotPolicyEnabled": true,
+                "isVersioningEnabled": true,
+                "restorePolicy": {
+                  "enabled": true,
+                  "days": 7
+                },
+                "changeFeed": {
+                  "enabled": true,
+                  "retentionInDays": 14
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('stgName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+              "apiVersion": "2021-08-01",
+              "name": "[format('{0}/{1}/{2}', parameters('stgName'), 'default', 'bootstrapdata')]",
+              "properties": {
+                "publicAccess": "Container"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('stgName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('stgName'), 'default')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deploymentScripts",
+              "apiVersion": "2020-10-01",
+              "name": "upSsh",
+              "location": "[parameters('clientVar').location]",
+              "kind": "AzureCLI",
+              "properties": {
+                "azCliVersion": "2.26.1",
+                "timeout": "P1D",
+                "retentionInterval": "P1D",
+                "environmentVariables": [
+                  {
+                    "name": "AZURE_STORAGE_ACCOUNT",
+                    "value": "[parameters('stgName')]"
+                  },
+                  {
+                    "name": "AZURE_STORAGE_KEY",
+                    "secureValue": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('stgName')), '2021-08-01').keys[0].value]"
+                  },
+                  {
+                    "name": "CONTENT",
+                    "value": "IyEvYmluL2Jhc2gNCmRwa2cgLS1jb25maWd1cmUgLWENCmFwdC1nZXQgLXkgdXBkYXRlDQoNCiMgaW5zdGFsbCBBcGFjaGUyDQphcHQtZ2V0IC15IGluc3RhbGwgYXBhY2hlMg0KYXB0LWdldCAteSBpbnN0YWxsIG15c3FsLXNlcnZlcg0KYXB0LWdldCAteSBpbnN0YWxsIHBocCBsaWJhcGFjaGUyLW1vZC1waHAgcGhwLW15c3FsDQoNCiMgd3JpdGUgc29tZSBIVE1MDQplY2hvIFw8Y2VudGVyXD5cPGgxXD4tLS0gV2ViLVNlcnZlciBnZWluc3RhbGxlZXJkIC0tLVw8L2gxXD5cPGJyL1w+XDwvY2VudGVyXD4gPiAvdmFyL3d3dy9odG1sL2luZGV4Lmh0bWwNCg0KIyByZXN0YXJ0IEFwYWNoZQ0KYXBhY2hlY3RsIHJlc3RhcnQ="
+                  }
+                ],
+                "scriptContent": "[format('echo \"$CONTENT\" | base64 -d > {0} && az storage blob upload -f {1} -c bootstrapdata -n {2}', parameters('filename'), parameters('filename'), parameters('filename'))]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('stgName'))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', parameters('kvName'))]",
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]",
+        "vNet"
+      ]
+    },
+    {
+      "condition": "[bool(parameters('deploy').vm)]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "vm",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "adpw": {
+            "value": "[parameters('iVar').pwd]"
+          },
+          "kvVar": {
+            "value": "[parameters('kvVar')]"
+          },
+          "vnetVar": {
+            "value": "[parameters('vnetVar')]"
+          },
+          "tags": {
+            "value": "[parameters('tagsC')]"
+          },
+          "clientVar": {
+            "value": "[parameters('clientVar')]"
+          },
+          "vmVar": {
+            "value": "[parameters('vmVar')]"
+          },
+          "sshK": {
+            "value": "[parameters('sshK')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "13237123218487453705"
+            }
+          },
+          "parameters": {
+            "kvVar": {
+              "type": "object"
+            },
+            "vnetVar": {
+              "type": "object"
+            },
+            "sshK": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "clientVar": {
+              "type": "object"
+            },
+            "vmVar": {
+              "type": "object"
+            },
+            "adpw": {
+              "type": "secureString"
+            }
+          },
+          "resources": [
+            {
+              "copy": {
+                "name": "nic",
+                "count": "[length(parameters('vnetVar').vnetName)]"
+              },
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-05-01",
+              "name": "[format('webNIC{0}', copyIndex())]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "[format('ipConfigWeb{0}', copyIndex())]",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('pubIp{0}', add(copyIndex(), 1)))]"
+                      },
+                      "subnet": {
+                        "id": "[format('{0}/subnets/subnet{1}', resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVar').vnetName[copyIndex()]), copyIndex())]"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Compute/disks",
+              "apiVersion": "2021-08-01",
+              "name": "xt_DataDisk",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "diskSizeGB": "[parameters('vmVar').diskSizeGB]",
+                "creationData": {
+                  "createOption": "Empty"
+                },
+                "encryption": {
+                  "type": "EncryptionAtRestWithCustomerKey",
+                  "diskEncryptionSetId": "[resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client))]"
+                },
+                "networkAccessPolicy": "DenyAll",
+                "osType": "Linux"
+              },
+              "sku": {
+                "name": "[parameters('vmVar').diskSku]"
+              },
+              "zones": [
+                "1"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2021-11-01",
+              "name": "Web_Server",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "zones": [
+                "1"
+              ],
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmVar').vmSizeL]"
+                },
+                "osProfile": {
+                  "computerName": "Web-Server",
+                  "adminUsername": "[parameters('clientVar').user]",
+                  "allowExtensionOperations": true,
+                  "customData": "IyEvYmluL2Jhc2gNCmRwa2cgLS1jb25maWd1cmUgLWENCmFwdC1nZXQgLXkgdXBkYXRlDQoNCiMgaW5zdGFsbCBBcGFjaGUyDQphcHQtZ2V0IC15IGluc3RhbGwgYXBhY2hlMg0KYXB0LWdldCAteSBpbnN0YWxsIG15c3FsLXNlcnZlcg0KYXB0LWdldCAteSBpbnN0YWxsIHBocCBsaWJhcGFjaGUyLW1vZC1waHAgcGhwLW15c3FsDQoNCiMgd3JpdGUgc29tZSBIVE1MDQplY2hvIFw8Y2VudGVyXD5cPGgxXD4tLS0gV2ViLVNlcnZlciBnZWluc3RhbGxlZXJkIC0tLVw8L2gxXD5cPGJyL1w+XDwvY2VudGVyXD4gPiAvdmFyL3d3dy9odG1sL2luZGV4Lmh0bWwNCg0KIyByZXN0YXJ0IEFwYWNoZQ0KYXBhY2hlY3RsIHJlc3RhcnQ=",
+                  "linuxConfiguration": {
+                    "disablePasswordAuthentication": true,
+                    "ssh": {
+                      "publicKeys": [
+                        {
+                          "keyData": "[parameters('sshK')]",
+                          "path": "[format('/home/{0}/.ssh/authorized_keys', parameters('clientVar').user)]"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "storageProfile": {
+                  "imageReference": {
+                    "publisher": "canonical",
+                    "offer": "0001-com-ubuntu-server-focal",
+                    "sku": "[parameters('vmVar').vmSkuL]",
+                    "version": "latest"
+                  },
+                  "osDisk": {
+                    "deleteOption": "Detach",
+                    "osType": "Linux",
+                    "name": "Web_OSDisk",
+                    "diskSizeGB": 30,
+                    "caching": "ReadWrite",
+                    "createOption": "FromImage",
+                    "managedDisk": {
+                      "storageAccountType": "Standard_LRS",
+                      "diskEncryptionSet": {
+                        "id": "[resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client))]"
+                      }
+                    }
+                  },
+                  "dataDisks": [
+                    {
+                      "createOption": "Attach",
+                      "lun": 0,
+                      "managedDisk": {
+                        "storageAccountType": "[parameters('vmVar').diskSku]",
+                        "diskEncryptionSet": {
+                          "id": "[resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client))]"
+                        },
+                        "id": "[resourceId('Microsoft.Compute/disks', 'xt_DataDisk')]"
+                      }
+                    }
+                  ]
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('webNIC{0}', 0))]"
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/disks', 'xt_DataDisk')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', format('webNIC{0}', 0))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2021-11-01",
+              "name": "Admin_Server",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "properties": {
+                "priority": "Regular",
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmVar').vmSizeW]"
+                },
+                "osProfile": {
+                  "computerName": "Admin-Server",
+                  "adminUsername": "[parameters('clientVar').user]",
+                  "adminPassword": "[parameters('adpw')]",
+                  "windowsConfiguration": {
+                    "provisionVMAgent": true
+                  }
+                },
+                "licenseType": "Windows_Client",
+                "storageProfile": {
+                  "imageReference": {
+                    "publisher": "MicrosoftWindowsServer",
+                    "offer": "WindowsServer",
+                    "sku": "2022-datacenter-azure-edition",
+                    "version": "latest"
+                  },
+                  "osDisk": {
+                    "name": "Adm_OSDisk",
+                    "caching": "ReadWrite",
+                    "createOption": "FromImage",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('vmVar').diskSku]",
+                      "diskEncryptionSet": {
+                        "id": "[resourceId('Microsoft.Compute/diskEncryptionSets', format('dskEncrKey-{0}', parameters('clientVar').client))]"
+                      }
+                    }
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('webNIC{0}', 1))]"
+                    }
+                  ]
+                }
+              },
+              "zones": [
+                "1"
+              ],
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('webNIC{0}', 1))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "webDisk": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Compute/virtualMachines', 'Web_Server')).storageProfile.osDisk.managedDisk.id]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', parameters('kvName'))]",
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', parameters('stgName'))]",
+        "vNet"
+      ]
+    },
+    {
+      "condition": "[bool(parameters('deploy').rv)]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[parameters('recVltName')]",
+      "resourceGroup": "[parameters('clientVar').rgName]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "recVltName": {
+            "value": "[parameters('recVltName')]"
+          },
+          "tags": {
+            "value": "[parameters('tagsC')]"
+          },
+          "clientVar": {
+            "value": "[parameters('clientVar')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "15132676401729390246"
+            }
+          },
+          "parameters": {
+            "clientVar": {
+              "type": "object"
+            },
+            "recVltName": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "object"
+            }
+          },
+          "variables": {
+            "backupFabric": "Azure",
+            "protectionContainer": "[format('iaasvmcontainer;iaasvmcontainerv2;{0};{1}', resourceGroup().name, 'Admin_Server')]",
+            "protectedItem": "[format('vm;iaasvmcontainerv2;{0};{1}', resourceGroup().name, 'Admin_Server')]",
+            "protectionContainer2": "[format('iaasvmcontainer;iaasvmcontainerv2;{0};{1}', resourceGroup().name, 'Web_Server')]",
+            "protectedItem2": "[format('vm;iaasvmcontainerv2;{0};{1}', resourceGroup().name, 'Web_Server')]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.RecoveryServices/vaults",
+              "apiVersion": "2021-11-01-preview",
+              "name": "[parameters('recVltName')]",
+              "location": "[parameters('clientVar').location]",
+              "tags": "[parameters('tags')]",
+              "sku": {
+                "name": "RS0",
+                "tier": "Standard"
+              },
+              "properties": {}
+            },
+            {
+              "type": "Microsoft.RecoveryServices/vaults/backupPolicies",
+              "apiVersion": "2019-05-13",
+              "name": "[format('{0}/{1}', parameters('recVltName'), 'backuppolicy')]",
+              "properties": {
+                "backupManagementType": "AzureIaasVM",
+                "instantRpRetentionRangeInDays": 3,
+                "retentionPolicy": {
+                  "retentionPolicyType": "LongTermRetentionPolicy",
+                  "dailySchedule": {
+                    "retentionDuration": {
+                      "count": 1,
+                      "durationType": "Weeks"
+                    },
+                    "retentionTimes": [
+                      "2022-03-01T01:00:00.00Z"
+                    ]
+                  }
+                },
+                "schedulePolicy": {
+                  "schedulePolicyType": "SimpleSchedulePolicy",
+                  "scheduleRunFrequency": "Daily",
+                  "scheduleRunTimes": [
+                    "2022-03-01T01:00:00.00Z"
+                  ],
+                  "scheduleWeeklyFrequency": 0,
+                  "scheduleRunDays": [
+                    "Friday",
+                    "Monday",
+                    "Saturday",
+                    "Sunday",
+                    "Thursday",
+                    "Tuesday",
+                    "Wednesday"
+                  ]
+                },
+                "timeZone": "UTC"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('recVltName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
+              "apiVersion": "2021-12-01",
+              "name": "[format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer2'), variables('protectedItem2'))]",
+              "properties": {
+                "protectedItemType": "Microsoft.Compute/virtualMachines",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('recVltName'), 'backuppolicy')]",
+                "sourceResourceId": "[resourceId('Microsoft.Compute/virtualMachines', 'Web_Server')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('recVltName'), 'backuppolicy')]"
+              ]
+            },
+            {
+              "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
+              "apiVersion": "2021-12-01",
+              "name": "[format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer'), variables('protectedItem'))]",
+              "properties": {
+                "protectedItemType": "Microsoft.Compute/virtualMachines",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('recVltName'), 'backuppolicy')]",
+                "sourceResourceId": "[resourceId('Microsoft.Compute/virtualMachines', 'Admin_Server')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('recVltName'), 'backuppolicy')]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems', split(format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer2'), variables('protectedItem2')), '/')[0], split(format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer2'), variables('protectedItem2')), '/')[1], split(format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer2'), variables('protectedItem2')), '/')[2], split(format('{0}/{1}/{2}/{3}', parameters('recVltName'), variables('backupFabric'), variables('protectionContainer2'), variables('protectedItem2')), '/')[3])]",
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('recVltName'))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('clientVar').rgName)]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('clientVar').rgName), 'Microsoft.Resources/deployments', 'vm')]"
+      ]
+    }
+  ]
+}

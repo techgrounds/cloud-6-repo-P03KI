@@ -49,6 +49,7 @@ module kv './module/mod-kv.bicep' = {
   scope: resGr
   name: kvName
   params:{
+    vnetVar: vnetVar
     tags: tagsC
     clientVar: clientVar
     kvVar: kvVar
@@ -77,18 +78,6 @@ module stg './module/mod-stg.bicep' = {
     kv
     vnet
   ]
-}
-//////////// LOADBALANCER ///////////////
-module lb 'module/mod-lb.bicep' = {
-  scope: resGr
-  name: 'loadbalancer'
-  params:{
-    clientVar: clientVar
-    tags:tagsC
-
-
-
-  }
 }
 
 //////////// DEPLOY VM'S ////////////////

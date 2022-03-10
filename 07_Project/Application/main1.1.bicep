@@ -1,23 +1,14 @@
 targetScope = 'subscription'
 
 /////// VARS (defined in 'params.json') ////////
-//--- external params
+
+//- external params
 param clientVar object
 param vnetVar object
 param vmVar object
-param dsad string = vmVar.diskSku
-
-//---- deployment booleans test/debug
-param deploy object ={
-  rg: true
-  peer: true
-
-}
-
-//param sshK string = loadTextContent('./etc/SSHKey.pub')
 param kvVar object = {
   location: clientVar.location
-  objectId: clientVar.objId
+  objectId: iVar.objId
   tenantId: tenantId
   kvName: kvName
 }
@@ -26,164 +17,137 @@ param tagsC object ={
     Version:'1.1'
     DeployDate:utcNow('d')
     Time:utcNow('T')
+    Environment: clientVar.deploy
 }
 
-//---- secured strings
+//- load pubkey
+param sshK string = loadTextContent('./etc/SSHKey.pub')
+
+//- secure params
+@secure()
+param iVar object
 @secure()
 param privIp string
-@secure()
-param pwdWin string
 
-//---- init-based params
-// param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
- param tenantId string = subscription().tenantId
- param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(subscription().id))}'
-// param stgName string = 'storage${toLower(uniqueString(subscription().id))}'
+//- deployment booleans test/debug
+param deploy object ={
+  rg: true
+  vnet: true
+  peer: true
+  kv: true
+  sa: true
+  vm: true
+  rv: true
+}
 
-///////////////////// CREATE RESOURCE GROUP ///////////////////////////////////////////////
-resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(deploy.rg){
+//- init-based params
+param recVltName string = 'rv${toLower(toLower(uniqueString(utcNow())))}'
+param tenantId string = subscription().tenantId
+param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
+param stgName string = 'sto${toLower(toLower(uniqueString(utcNow())))}'
+
+///////// CREATE RESOURCE GROUP //////////////
+resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(bool(deploy.rg)){
+  tags: tagsC
   name: clientVar.rgName
   location: clientVar.location
-  tags:tagsC
 }
-/////////////////////// VIRTUAL NETWORK ////////////////////////////////////////////////////
-//----- Looping vnets
-module vNet 'module/mod-vnetv2.bicep' = [for i in range(0, (length(vnetVar.vnetName))) :{
+
+//////////////// V-NET ///////////////////////
+module vNet 'module/mod-vnetv2.bicep' = [for (vnetName, i) in vnetVar.vnetName: if(bool(deploy.vnet)){
   scope: resGr
-  name: 'vNet${i}'
+  name:'${clientVar.client}-vNet${i}'
   params: {
-    tags:tagsC
-    i:i
-    clientVar: clientVar
+    tags: tagsC
+    clientVar:clientVar
     vnetVar: vnetVar
-  }
+    privIp: privIp
+    i: i
+  } 
 }]
-output x2 string = vNet[1].outputs.subnetId[0]
-output x1 string = vNet[0].outputs.subnetId[0]
 
-
-//------------------- Set up Peering ------------------------------------------------
-module vNetPeering 'module/mod-peerv2.bicep' = if(deploy.peer){
+///////////////  PEERING  ////////////////////
+module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
   scope: resGr
   name:'vNetPeering' 
   params:{
+    vnetId0: vNet[0].outputs.vnetId[0]
+    vnetId1: vNet[1].outputs.vnetId[0]
     vnetVar: vnetVar
-    subnetId1: vNet[0].outputs.subnetId[0]
-    subnetId2: vNet[1].outputs.subnetId[0]
   }
   dependsOn:[
     vNet
   ]
 }
 
-output str string = vNetPeering.outputs.test
-// ////////// GET OBJECT ID USER ////////////////
-// module objId 'module/mod-psscript.bicep' ={
-//   name: 'getObjId'
-//   scope: resGr
-//   params:{
-//     clientVar:clientVar
-//   }
-// }
+/////////// CREATE KEYVAULT ///////////////////
+module kvM './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
+  scope: resGr
+  name: kvName
+  params:{
+    pwd: iVar.pwd
+    vnetVar: vnetVar
+    tags: tagsC
+    clientVar: clientVar
+    kvVar: kvVar
+  }
+  dependsOn: [
+    vNet
+  ]
+}
 
-///////////  CREATE VNET   ///////////////////
-// module vnet './module/mod-vnet.bicep' = {
-//   scope: resGr
-//   name: '${clientVar.client}-vnet'
-//   params:{
-//     privIp: privIp
-//     tags: tagsC
-//     vnetVar: vnetVar
-//     clientVar: clientVar
-//   }
-// }
+///////////// CREATE STORAGE //////////////////
+module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
+  scope: resGr
+  name: stgName 
+  params:{
+    // vnetId0: vNet[0].outputs.vnetId[0]
+    // vnetId1: vNet[1].outputs.vnetId[0]
+    kvVar: kvVar
+    vnetVar: vnetVar
+    tags: tagsC
+    clientVar: clientVar
+    stgType: vmVar.stgType
+    stgName: stgName
+  }
+  dependsOn: [
+    kvM
+    vNet
+  ]
+}
 
-// /////////// CREATE KEYVAULT //////////////////
-// module kv './module/mod-kv.bicep' = {
-//   scope: resGr
-//   name: kvName
-//   params:{
-//     tags: tagsC
-//     clientVar: clientVar
-//     kvVar: kvVar
-//     subId1: vnet.outputs.subnetId1
-//     subId2: vnet.outputs.subnetId2
-//   }
-//   dependsOn: [
-//     vnet
-//   ]
-// }
-// ///////////// CREATE STORAGE //////////////////
-// module stg './module/mod-stg.bicep' = {
-//   scope: resGr
-//   name: stgName 
-//   params:{
-//     tags: tagsC
-//     mngId: kv.outputs.mngId
-//     clientVar: clientVar
-//     stgType: vmVar.stgType
-//     stgName: stgName
-//     subId1: vnet.outputs.subnetId1
-//     subId2: vnet.outputs.subnetId2
-//     kvUri: kv.outputs.kvUri
-//   }
-//   dependsOn: [
-//     kv
-//     vnet
-//   ]
-// }
-// //////////// LOADBALANCER ///////////////
-// module lb 'module/mod-lb.bicep' = {
-//   scope: resGr
-//   name: 'loadbalancer'
-//   params:{
-//     clientVar: clientVar
-//     tags:tagsC
+/////////////// DEPLOY VM'S ///////////////////
+module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
+  scope: resGr
+  name: 'vm'
+  params:{
+    adpw:  iVar.pwd
+    kvVar: kvVar
+    vnetVar: vnetVar
+    tags: tagsC
+    clientVar: clientVar
+    vmVar: vmVar
+    sshK: sshK
+  }
+  dependsOn:[
+    stgM
+    vNet
+    kvM
+  ]
+}
 
-
-
-//   }
-// }
-
-// //////////// DEPLOY VM'S ////////////////
-// module vm './module/mod-vm.bicep' = {
-//   scope: resGr
-//   name: 'vm'
-//   params:{
-//     tags: tagsC
-//     dskEncrKey: kv.outputs.dskEncrId
-//     clientVar: clientVar
-//     vmVar: vmVar
-//     sshK: sshK
-//     pip1: vnet.outputs.pubId1
-//     pip2: vnet.outputs.pubId2
-//     subId1: vnet.outputs.subnetId1
-//     subId2: vnet.outputs.subnetId2
-//     pwdWin: pwdWin
-//   }
-//   dependsOn:[
-//     stg
-//     vnet
-//     kv
-//   ]
-// }
-// /////////////  BACKUP  ////////////////////
-// module rv './module/mod-rv.bicep' = {
-//   scope: resGr
-//   name: recVltName
-//   params: {
-//     recVltName: recVltName
-//     //mngName: kv.outputs.mngName
-//     admSrvName: vm.outputs.admSrvName
-//     webSrvName: vm.outputs.webSrvName
-//     tags: tagsC
-//     //kvUri: kv.outputs.kvUri
-//     clientVar: clientVar
-//     webVmId: vm.outputs.webVmId
-//     admVmId: vm.outputs.admVmId
-//   }
-//   dependsOn:[
-//     vm
-//   ]
-// }
+////////////////  BACKUP  /////////////////////
+module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
+  scope: resGr
+  name: recVltName
+  params: {
+    kvVar: kvVar
+    recVltName: recVltName
+    tags: tagsC
+    clientVar: clientVar
+  }
+  dependsOn:[
+    vm
+  ]
+}
 
