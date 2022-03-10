@@ -10,8 +10,6 @@ param tags object
 //param dskEncrKey string
 param clientVar object
 param vmVar object
-@secure()
-param adpw string
 
 //- Reference
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: { 
@@ -24,6 +22,9 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing= 
   name: 'dskEncrKey-${clientVar.client}'
 }
 
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
+  name: kvVar.kvName
+}
 //-Set up NIC's 
 resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = [for (vnetName, i) in vnetVar.vnetName: {
   name: 'webNIC${i}'
@@ -147,58 +148,18 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
 }
 
 //-------------------- Set up Admin Server ----------------------------------------------
-resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
-  name: 'Admin_Server'
-  location: clientVar.location
-  tags:tags
-  properties: {
-    priority: 'Regular'
-    hardwareProfile: {
-      vmSize: vmVar.vmSizeW
-    }
-    osProfile: {
-      computerName: 'Admin-Server'
-      adminUsername: clientVar.user
-      adminPassword: adpw
-      //allowExtensionOperations: true
-      windowsConfiguration:{
-        provisionVMAgent:true
-      }
-    }
-    licenseType: 'Windows_Client'
-    storageProfile: {
-      imageReference: {
-        publisher: 'MicrosoftWindowsServer'
-        offer: 'WindowsServer'
-        sku: '2022-datacenter-azure-edition' 
-        version: 'latest'
-      }
-      osDisk: {
-        name: 'Adm_OSDisk'
-        caching: 'ReadWrite'
-        createOption: 'FromImage'
-        managedDisk:{
-          storageAccountType: vmVar.diskSku
-          diskEncryptionSet: {
-          id: dskEncrKey.id
-          }
-        }
-      }
-    }
-    networkProfile: {
-      networkInterfaces: [
-        {
-          id: nic[1].id
-        }
-      ]
-    }
+module admVmM 'mod-srvwin.bicep' = {
+  name: 'WindowsServerModule'
+  params:{
+    nic: nic[0].id
+    tags:tags
+    clientVar: clientVar
+    adpw: kv.getSecret('genPass')
+    vmVar: vmVar
   }
-  zones:[
-    '1'
-  ]
 }
-output admVmId string = admvm.id
-output admSrvName string = admvm.name
+output admVmId string = admVmM.outputs.admVmId
+output admSrvName string = admVmM.name
 output webSrvName string = webvm.name
 output webVmId string = webvm.id
 output webDisk string = webvm.properties.storageProfile.osDisk.managedDisk.id

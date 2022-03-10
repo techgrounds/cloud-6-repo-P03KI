@@ -4,8 +4,8 @@ param kvVar object
 param vnetVar object
 param clientVar object
 param tags object
-param vnetId0 string 
-param vnetId1 string
+// param vnetId0 string 
+// param vnetId1 string
 param stgType string
 param stgName string
 param filename string = 'Bootscript_Linux.sh'

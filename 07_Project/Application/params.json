@@ -18,9 +18,6 @@
         "user": "testUser"
       }
     },
-    "pwdWin":{
-      "value": "Leiden2022!"
-    },
     "privIp":{
       "value":  "*"
     },

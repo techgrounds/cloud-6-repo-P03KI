@@ -83,7 +83,7 @@ module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
 }
 
 /////////// CREATE KEYVAULT //////////////////
-module kvM './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
+module kv './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
   scope: resGr
   name: kvName
   params:{
@@ -103,8 +103,8 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
   scope: resGr
   name: stgName 
   params:{
-    vnetId0: vNet[0].outputs.vnetId[0]
-    vnetId1: vNet[1].outputs.vnetId[0]
+    // vnetId0: vNet[0].outputs.vnetId[0]
+    // vnetId1: vNet[1].outputs.vnetId[0]
     kvVar: kvVar
     vnetVar: vnetVar
     tags: tagsC
@@ -113,49 +113,42 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
     stgName: stgName
   }
   dependsOn: [
-    kvM
+    kv
     vNet
   ]
 }
 
-// //////////// LOADBALANCER ///////////////
-// module lb 'module/mod-lb.bicep' = {
+// // //////////// LOADBALANCER ///////////////
+// // module lb 'module/mod-lb.bicep' = {
+// //   scope: resGr
+// //   name: 'loadbalancer'
+// //   params:{
+// //     clientVar: clientVar
+// //     tags:tagsC
+// //   }
+// // }
+
+// //////////// DEPLOY VM'S ////////////////
+
+
+// module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
 //   scope: resGr
-//   name: 'loadbalancer'
+//   name: 'vm'
 //   params:{
+//     kvVar: kvVar
+//     vnetVar: vnetVar
+//     tags: tagsC
 //     clientVar: clientVar
-//     tags:tagsC
-
-
-
+//     vmVar: vmVar
+//     sshK: sshK
 //   }
+//   dependsOn:[
+//     stgM
+//     vNet
+//     kv
+//   ]
 // }
 
-//////////// DEPLOY VM'S ////////////////
-resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
-  scope: resGr
-  name: kvVar.kvName
-}
-
-module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
-  scope: resGr
-  name: 'vm'
-  params:{
-    adpw: kv.getSecret('genPass')
-    kvVar: kvVar
-    vnetVar: vnetVar
-    tags: tagsC
-    //dskEncrKey: kv.outputs.dskEncrId
-    clientVar: clientVar
-    vmVar: vmVar
-    sshK: sshK
-  }
-  dependsOn:[
-    stgM
-    vNet
-    kv
-  ]
-}
 // /////////////  BACKUP  ////////////////////
 // module rv './module/mod-rv.bicep' = {
 //   scope: resGr
