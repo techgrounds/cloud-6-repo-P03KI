@@ -13,7 +13,7 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "beta",
+        "rgName": "beta01",
         "deploy": "dev",
         "user": "XYZ"
       }

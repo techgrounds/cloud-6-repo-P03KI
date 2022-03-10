@@ -46,16 +46,14 @@ param tenantId string = subscription().tenantId
 param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
 param stgName string = 'sto${toLower(toLower(uniqueString(utcNow())))}'
 
-///////////////////// CREATE RESOURCE GROUP ///////////////////////////////////////////////
-
+///////// CREATE RESOURCE GROUP //////////////
 resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' = if(bool(deploy.rg)){
   tags: tagsC
   name: clientVar.rgName
   location: clientVar.location
 }
-/////////////////////// V-NET ////////////////////////////////////////////////////
 
-//- Looping vnets
+//////////////// V-NET ///////////////////////
 module vNet 'module/mod-vnetv2.bicep' = [for (vnetName, i) in vnetVar.vnetName: if(bool(deploy.vnet)){
   scope: resGr
   name:'${clientVar.client}-vNet${i}'
@@ -69,7 +67,7 @@ module vNet 'module/mod-vnetv2.bicep' = [for (vnetName, i) in vnetVar.vnetName: 
   } 
 }]
 
-//- Set peering
+///////////////  PEERING  ////////////////////
 module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
   scope: resGr
   name:'vNetPeering' 
@@ -83,7 +81,7 @@ module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
   ]
 }
 
-/////////// CREATE KEYVAULT //////////////////
+/////////// CREATE KEYVAULT ///////////////////
 module kvM './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
   scope: resGr
   name: kvName
@@ -119,7 +117,7 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
   ]
 }
 
-// //////////// DEPLOY VM'S ////////////////
+/////////////// DEPLOY VM'S ///////////////////
 module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
   scope: resGr
   name: 'vm'
@@ -139,7 +137,7 @@ module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
   ]
 }
 
-// /////////////  BACKUP  ////////////////////
+////////////////  BACKUP  /////////////////////
 module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
   scope: resGr
   name: recVltName

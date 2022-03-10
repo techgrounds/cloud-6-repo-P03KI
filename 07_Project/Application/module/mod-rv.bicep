@@ -30,13 +30,13 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = 
     tier: 'Standard'
   }
   identity:{
-    type: 'SystemAssigned, UserAssigned'
+    type: 'UserAssigned'
     userAssignedIdentities:{
       '${mngId.id}' : {}
     }
   }
   properties:{
-    //// ------------  deploy account limitation --------------
+    // ------------  deploy account limitation --------------
     // encryption:{
     //   keyVaultProperties:{
     //     keyUri: kv.properties.vaultUri
@@ -66,8 +66,8 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2021-12-
           '2022-03-10T00:30:00Z'
         ]
         retentionDuration: {
-          count: 1
-          durationType: 'Weeks'
+          count: 7
+          durationType: 'Days'
         }
       }
     }

@@ -52,7 +52,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = [for (vnetName, 
   }
 }]
 
-////////////////////////   Webserver  /////////////////////////////////////
+////////////////////////   Data Disk   ///////////////////////////////////
 resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
   name: 'xt_DataDisk'
   location: clientVar.location
@@ -77,6 +77,7 @@ resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
     '1'
   ]
 }
+////////////////////////   Webserver  /////////////////////////////////////
 resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: 'Web_Server'
   location: clientVar.location
@@ -122,7 +123,7 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       deleteOption:'Detach'
         osType: 'Linux'
         name: 'Web_OSDisk'
-        diskSizeGB: 30
+        diskSizeGB: 16
         caching: 'ReadWrite'
         createOption: 'FromImage'
         managedDisk: {
@@ -193,6 +194,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       osDisk: {
         name: 'Adm_OSDisk'
         caching: 'ReadWrite'
+        diskSizeGB: 16
         createOption: 'FromImage'
         managedDisk:{
           storageAccountType: vmVar.diskSku
