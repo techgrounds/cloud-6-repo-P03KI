@@ -134,6 +134,9 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           storage:[
             'all'
           ]
+          secrets:[
+            'all'
+          ]
         }
         
       }
@@ -145,6 +148,9 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
            'all'
           ]
           storage: [
+            'all'
+          ]
+          secrets:[
             'all'
           ]
         }    

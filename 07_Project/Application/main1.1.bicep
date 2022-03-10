@@ -17,6 +17,7 @@ param tagsC object ={
     Version:'1.1'
     DeployDate:utcNow('d')
     Time:utcNow('T')
+    Environment: clientVar.deploy
 }
 
 //- load pubkey
@@ -36,13 +37,14 @@ param deploy object ={
   kv: true
   sa: true
   vm: true
+  rv: true
 }
 
 //- init-based params
- param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
+param recVltName string = 'rv${toLower(toLower(uniqueString(utcNow())))}'
 param tenantId string = subscription().tenantId
 param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
-param stgName string = '${toLower(uniqueString(subscription().id))}stor'
+param stgName string = 'sto${toLower(toLower(uniqueString(utcNow())))}'
 
 ///////////////////// CREATE RESOURCE GROUP ///////////////////////////////////////////////
 
@@ -148,14 +150,13 @@ module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
 }
 
 // /////////////  BACKUP  ////////////////////
-module rv './module/mod-rv.bicep' = {
+module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
   scope: resGr
   name: recVltName
   params: {
+    kvVar: kvVar
     recVltName: recVltName
-    //mngName: kv.outputs.mngName
     tags: tagsC
-    //kvUri: kv.outputs.kvUri
     clientVar: clientVar
   }
   dependsOn:[

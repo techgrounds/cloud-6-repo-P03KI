@@ -1,8 +1,6 @@
-
+param kvVar object
 param clientVar object
-//param mngName string
 param recVltName string
-
 param tags object
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
@@ -16,7 +14,9 @@ resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' existing = {
 resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' existing = {
   name: 'Admin_Server'
 }
-
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
+  name: kvVar.kvName
+}
 resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = {
   name: recVltName
   location: clientVar.location
@@ -27,17 +27,11 @@ resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = 
   }
   properties:{
     //// ------------  deploy account limitation --------------
-    // encryption:{
-    //   
-    //   // kekIdentity:{
-    //   //   useSystemAssignedIdentity:true
-    //   // }
-    //   keyVaultProperties:{
-    //     keyUri: kvUri
-    //   }
-    // identity:{
-    //   type: 'SystemAssigned'
-    // }
+    encryption:{
+      keyVaultProperties:{
+        keyUri: kv.properties.vaultUri
+      }
+    }
   }
 }
 
@@ -51,11 +45,11 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
       retentionPolicyType:'LongTermRetentionPolicy'
       dailySchedule:{
         retentionDuration:{
-          count:1
-          durationType:'Weeks'
+          count:7
+          durationType:'Days'
         }
         retentionTimes:[
-          '2022-03-01T01:00:00.00Z'
+          '2022-03-01T01:30:00.00Z'
         ]
       }
     }
@@ -65,16 +59,16 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
       scheduleRunTimes:[
         '2022-03-01T01:00:00.00Z'
       ]
-      scheduleWeeklyFrequency:0
-      scheduleRunDays:[
-        'Friday'
-        'Monday'
-        'Saturday'
-        'Sunday'
-        'Thursday'
-        'Tuesday'
-        'Wednesday'
-      ]
+      // scheduleWeeklyFrequency:0
+      // scheduleRunDays:[
+      //   'Friday'
+      //   'Monday'
+      //   'Saturday'
+      //   'Sunday'
+      //   'Thursday'
+      //   'Tuesday'
+      //   'Wednesday'
+      // ]
   }
   timeZone: 'UTC'
   }
