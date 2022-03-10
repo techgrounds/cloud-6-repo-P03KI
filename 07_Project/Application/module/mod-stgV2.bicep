@@ -13,7 +13,7 @@ param filename string = 'Bootscript_Linux.sh'
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
 }]
-resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing= {
+resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
   name: clientVar.client
 }
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {

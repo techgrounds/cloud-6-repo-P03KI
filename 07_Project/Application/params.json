@@ -13,9 +13,9 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "r1",
+        "rgName": "r8",
         "deploy": "dev",
-        "user": "testUser"
+        "user": "admin"
       }
     },
     "privIp":{

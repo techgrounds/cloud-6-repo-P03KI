@@ -28,7 +28,6 @@ param iVar object
 @secure()
 param privIp string
 
-
 //- deployment booleans test/debug
 param deploy object ={
   rg: true
@@ -40,7 +39,7 @@ param deploy object ={
 }
 
 //- init-based params
-// param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
+ param recVltName string = 'rv${toLower(uniqueString(subscription().id))}'
 param tenantId string = subscription().tenantId
 param kvName string = '${clientVar.client}-KV-${toLower(uniqueString(utcNow()))}'
 param stgName string = '${toLower(uniqueString(subscription().id))}stor'
@@ -83,7 +82,7 @@ module vNetPeering 'module/mod-peerv2.bicep' = if(bool(deploy.peer)) {
 }
 
 /////////// CREATE KEYVAULT //////////////////
-module kv './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
+module kvM './module/mod-kvV2.bicep' = if(bool(deploy.kv)){
   scope: resGr
   name: kvName
   params:{
@@ -113,7 +112,7 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
     stgName: stgName
   }
   dependsOn: [
-    kv
+    kvM
     vNet
   ]
 }
@@ -129,43 +128,38 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
 // // }
 
 // //////////// DEPLOY VM'S ////////////////
-
-
-// module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
-//   scope: resGr
-//   name: 'vm'
-//   params:{
-//     kvVar: kvVar
-//     vnetVar: vnetVar
-//     tags: tagsC
-//     clientVar: clientVar
-//     vmVar: vmVar
-//     sshK: sshK
-//   }
-//   dependsOn:[
-//     stgM
-//     vNet
-//     kv
-//   ]
-// }
+module vm './module/mod-vmV2.bicep' = if(bool(deploy.vm)) {
+  scope: resGr
+  name: 'vm'
+  params:{
+    adpw:  iVar.pwd
+    kvVar: kvVar
+    vnetVar: vnetVar
+    tags: tagsC
+    clientVar: clientVar
+    vmVar: vmVar
+    sshK: sshK
+  }
+  dependsOn:[
+    stgM
+    vNet
+    kvM
+  ]
+}
 
 // /////////////  BACKUP  ////////////////////
-// module rv './module/mod-rv.bicep' = {
-//   scope: resGr
-//   name: recVltName
-//   params: {
-//     recVltName: recVltName
-//     //mngName: kv.outputs.mngName
-//     admSrvName: vm.outputs.admSrvName
-//     webSrvName: vm.outputs.webSrvName
-//     tags: tagsC
-//     //kvUri: kv.outputs.kvUri
-//     clientVar: clientVar
-//     webVmId: vm.outputs.webVmId
-//     admVmId: vm.outputs.admVmId
-//   }
-//   dependsOn:[
-//     vm
-//   ]
-// }
+module rv './module/mod-rv.bicep' = {
+  scope: resGr
+  name: recVltName
+  params: {
+    recVltName: recVltName
+    //mngName: kv.outputs.mngName
+    tags: tagsC
+    //kvUri: kv.outputs.kvUri
+    clientVar: clientVar
+  }
+  dependsOn:[
+    vm
+  ]
+}
 

@@ -1,18 +1,21 @@
 
 param clientVar object
-param webVmId string
-param admVmId string
 //param mngName string
 param recVltName string
-//param kvUri string
+
 param tags object
-param webSrvName string
-param admSrvName string
 var backupFabric = 'Azure'
-var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admSrvName}'
-var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admSrvName}'
-var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webSrvName}'
-var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webSrvName}'
+var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
+var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
+var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+
+resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' existing = {
+  name: 'Web_Server'
+}
+resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' existing = {
+  name: 'Admin_Server'
+}
 
 resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = {
   name: recVltName
@@ -48,8 +51,8 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2019-05-
       retentionPolicyType:'LongTermRetentionPolicy'
       dailySchedule:{
         retentionDuration:{
-          count:7
-          durationType:'Days'
+          count:1
+          durationType:'Weeks'
         }
         retentionTimes:[
           '2022-03-01T01:00:00.00Z'
@@ -82,7 +85,7 @@ resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionCo
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backuppolicy.id
-    sourceResourceId: webVmId
+    sourceResourceId: webvm.id
     // backupManagementType:'AzureIaasVM'
     // backupSetName: 'LinuxBackup'
     // containerName: 'LinuxBackup'
@@ -96,7 +99,7 @@ resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protection
   properties: {
     protectedItemType: 'Microsoft.Compute/virtualMachines'
     policyId: backuppolicy.id
-    sourceResourceId: admVmId
+    sourceResourceId: admvm.id
   }
    dependsOn:[
    backupWeb
