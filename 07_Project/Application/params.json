@@ -49,7 +49,7 @@
       "value":{
         "diskSku": "StandardSSD_LRS",
         "diskSizeGB": 50,
-        "stgType": "Standard_LRS",
+        "stgType": "Standard_ZRS",
         "vmSkuL": "20_04-lts-gen2",
         "vmSizeL": "Standard_B2s",
         "vmSizeW": "Standard_B2s",
