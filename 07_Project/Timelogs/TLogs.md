@@ -1,4 +1,141 @@
 
+# vr 18-03
+
+## Dagverslag
+ 
+KV via PS voor secrets in main
+
+## Obstakels
+ 
+Centrale JSON param uitlezen in PS
+
+## Oplossingen
+ 
+Internet/Peers
+
+## Learnings
+# do 17-03
+
+## Dagverslag
+ 
+Implementeren app gatway ipv LB
+
+## Obstakels
+ 
+Dependancies app gateway uitzoeken
+
+## Oplossingen
+ 
+Internet
+
+## Learnings
+ 
+
+# wo 16-03
+
+## Dagverslag
+ 
+Implementeren LB
+
+## Obstakels
+ 
+Dependancies LB uitzoeken
+
+## Oplossingen
+ 
+Internet
+
+## Learnings
+ 
+
+# di 15-03
+
+## Dagverslag
+ 
+Implementeren VMSS
+
+## Obstakels
+ 
+Dependancies vmss uitzoeken
+
+## Oplossingen
+ 
+Internet
+
+## Learnings
+ 
+
+# ma 14-03
+
+## Dagverslag
+ 
+Start 1.1
+
+## Obstakels
+ 
+Loadbalancer begrijpen
+
+## Oplossingen
+ 
+Internet
+
+## Learnings
+ 
+---
+
+# Vr 11-03
+
+## Dagverslag
+ 
+Presentatie gegeven 1.0
+
+## Obstakels
+ 
+Aandacht hebben bij 5 verschillende versies van hetzelfde project.
+
+## Oplossingen
+ 
+Bepaalde gedachtengangen proberen te begrijpen.
+
+## Learnings
+ 
+---
+
+# Do 10-03
+
+## Dagverslag
+ 
+Basis gelegd en pushed als automated ps1 naar main git
+
+## Obstakels
+ 
+geen powershell ervaring
+
+## Oplossingen
+ 
+Microsoft docs/internet
+
+## Learnings
+ 
+---
+
+# Wo 09-03
+
+## Dagverslag
+ 
+V1.1 efficienter heropbouwen voor een betere basis voor de extra features 
+
+## Obstakels
+ 
+looping met symbolic names
+
+## Oplossingen
+ 
+Microsoft docs/internet/Michiel Dijcks
+
+## Learnings
+
+---
 
 # Di 08-03
 
@@ -53,6 +190,7 @@ Microsoft docs
 ## Learnings
 
 ---
+
 # Do 03-03
 
 ## Dagverslag
