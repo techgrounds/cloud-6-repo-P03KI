@@ -184,7 +184,7 @@ resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
 //       }
 //       {
 //         name: 'path'
-//         value: 'c:/priv.ppk'
+//         value: 'C://Users/XYZ/Documents/priv.ppk'
 //       }
 //     ]
 //     scriptContent:'''
@@ -192,7 +192,10 @@ resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
 //     Param([string]) $Secr)
 //     Param([string]) $Path)
 //     Connect-AzAccount -Identity
-//     echo az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
+//     Install-PackageProvider -Name NuGet -Confirm:$false -Force
+//     Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -Confirm:$False
+//     az keyvault secret download –vault-name kvXYZ29007 –name privSSH –file c:/priv.ppk
+//     //echo az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
 //     '''
 //     timeout: 'PT10M'
 //     cleanupPreference: 'Always'
