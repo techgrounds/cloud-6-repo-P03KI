@@ -4,7 +4,7 @@ targetScope = 'resourceGroup'
 //- Parameters 
 param kvVar object
 param vnetVar object
-param sshK string
+param privIp string
 param tags object
 param clientVar object
 param vmVar object
@@ -13,7 +13,7 @@ param adpw string
 
 //- Reference
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: { 
-  name:'pubIp${i+1}'
+  name: 'pubIp-${vnetVar.environment[i]}'
 }]
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
@@ -29,133 +29,42 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   scope: resourceGroup('resGr')
 }
 
-//- Set up NIC's 
-resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = [for (vnetName, i) in vnetVar.vnetName: {
-  name: 'webNIC${i}'
+//- Create NSG
+resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' =  {
+  name: 'nsg-${vnetVar.environment[1]}'
   location: clientVar.location
   tags:tags
-  properties: {
-    ipConfigurations: [
-      {
-        name: 'ipConfigWeb${i}'
-        properties: {
-          privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: {
-            id: pubIp[i].id
-          }
-          subnet: {
-            id: '${vnet[i].id}/subnets/subnet${i}'
-          }
-        }
+  properties:{
+    securityRules: [
+    {
+      name: 'rdp'
+      properties: {
+        description: 'rdp-rule'
+        protocol: 'Tcp'
+        sourcePortRange: '*'
+        destinationPortRange: '3389'
+        sourceAddressPrefix: privIp
+        destinationAddressPrefix: '*'
+        access: 'Allow'
+        priority: 100
+        direction: 'Inbound'
       }
+    }
+    {
+      name: 'ssh'
+      properties: {
+        description: 'ssh-rule'
+        protocol: 'Tcp'
+        sourcePortRange: '*'
+        destinationPortRange: '22'
+        sourceAddressPrefix: privIp
+        destinationAddressPrefix: '*'
+        access: 'Allow'
+        priority: 110
+        direction: 'Inbound'
+      }
+    }
     ]
-  }
-}]
-
-////////////////////////   Data Disk   ///////////////////////////////////
-resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
-  name: 'xt_DataDisk'
-  location: clientVar.location
-  tags:tags
-  properties: {
-    diskSizeGB: vmVar.diskSizeGB
-    creationData: {
-      createOption: 'Empty'
-    }
-    encryption:{
-      type: 'EncryptionAtRestWithCustomerKey'
-      diskEncryptionSetId: dskEncrKey.id
-    }
-    networkAccessPolicy: 'DenyAll'
-    osType: 'Linux'
-    }
-  
-  sku: {
-    name: vmVar.diskSku
-  }
-  zones:[
-    '1'
-  ]
-}
-////////////////////////   Webserver  /////////////////////////////////////
-resource webvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
-  name: 'Web_Server'
-  location: clientVar.location
-  tags:tags
-  zones:[
-    '1'
-  ]
-  identity:{
-    type:'UserAssigned'
-    userAssignedIdentities:{
-      '${mngId.id}' : {}
-    }
-  }
-  properties: {
-    hardwareProfile: {
-      vmSize: vmVar.vmSizeL
-    }
-    osProfile: {
-      computerName: 'Web-Server'
-      adminUsername: clientVar.user
-      adminPassword: adpw
-      allowExtensionOperations: true
-      customData: loadFileAsBase64('../etc/apache_install.sh')
-      linuxConfiguration: {
-        disablePasswordAuthentication: false
-        ssh: {
-          publicKeys: [
-            {
-              keyData: sshK
-              path: '/home/${clientVar.user}/.ssh/authorized_keys'
-            }
-          ]
-        }
-      }  
-    }
-    storageProfile: {
-      imageReference: {
-        publisher: 'canonical'
-        offer: '0001-com-ubuntu-server-focal'
-        sku: vmVar.vmSkuL
-        version: 'latest'
-      }
-      osDisk: {
-      deleteOption:'Detach'
-        osType: 'Linux'
-        name: 'Web_OSDisk'
-        diskSizeGB: 32
-        caching: 'ReadWrite'
-        createOption: 'FromImage'
-        managedDisk: {
-          storageAccountType:'Standard_LRS'
-          diskEncryptionSet:{
-            id: dskEncrKey.id
-          }
-        }
-      }
-      dataDisks: [
-        {
-          createOption: 'Attach'
-          lun: 0
-          managedDisk: {
-            storageAccountType: vmVar.diskSku
-            diskEncryptionSet: {
-              id: dskEncrKey.id
-            }
-            id: datadisk.id
-          }
-        }
-      ]
-      
-    }
-    networkProfile: {
-      networkInterfaces: [
-        {
-          id: nic[0].id
-        }
-      ]
-    }
   }
 }
 
@@ -179,10 +88,16 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       computerName: 'Admin-Server'
       adminUsername: clientVar.user
       adminPassword: adpw
-      //allowExtensionOperations: true
+      allowExtensionOperations: true
       windowsConfiguration:{
         provisionVMAgent:true
       }
+      // customData:'''
+      // $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+      // Set-ItemProperty $RegPath "AutoAdminLogon" -Value "1" -type String 
+      // Set-ItemProperty $RegPath "DefaultUsername" -Value "$username" -type String 
+      // Set-ItemProperty $RegPath "DefaultPassword" -Value "$password" -type String
+      // '''
     }
     licenseType: 'Windows_Client'
     storageProfile: {
@@ -208,7 +123,7 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     networkProfile: {
       networkInterfaces: [
         {
-          id: nic[1].id
+          id: nic2.id
         }
       ]
     }
@@ -217,3 +132,104 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     '1'
   ]
 }
+
+//- Set up NIC 
+resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
+  name: 'adm-prd-vnet-nic'
+  location: clientVar.location
+  tags:tags
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipConfigAdm'
+        properties: {
+          publicIPAddress: {
+            id: pubIp[1].id
+          }
+          subnet: {
+            id: '${vnet[1].id}/subnets/subnet2'
+          }
+        }
+      }
+    ]
+    networkSecurityGroup:{
+      id: nsg2.id
+    }
+  }
+}
+
+// resource dlPrivKey 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+//   kind: 'AzureCLI'
+//   location: clientVar.location
+//   identity:{
+//     type:'UserAssigned'
+//     userAssignedIdentities:{
+//       '${mngId.id}':{}
+//     }
+//   }
+//   name: 'dl_priv_key_cli'
+//   tags: tags
+//   properties:{
+//     retentionInterval: 'P1D'
+//     azCliVersion: '2.34.1'
+
+//     environmentVariables: [
+//       {
+//         name: 'kvname'
+//         value: string(kvVar.kvName)
+//       }
+//       {
+//         name: 'secr'
+//         value: 'privSSH'
+//       }
+//       {
+//         name: 'path'
+//         value: 'C://Users/XYZ/Documents/priv.ppk'
+//       }
+//     ]
+//     scriptContent:'''
+//     Param([string]) $kvName)
+//     Param([string]) $Secr)
+//     Param([string]) $Path)
+//     Connect-AzAccount -Identity
+//     Install-PackageProvider -Name NuGet -Confirm:$false -Force
+//     Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -Confirm:$False
+//     az keyvault secret download –vault-name kvXYZ29007 –name privSSH –file c:/priv.ppk
+//     //echo az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
+//     '''
+//     timeout: 'PT10M'
+//     cleanupPreference: 'Always'
+//   }
+//   dependsOn:[
+//     admvm
+//   ]
+// }
+
+// EXTRA TO DO: Auto login & KV
+
+//Install-Module -Name PowerShellGet -Force -Scope CurrentUser
+//az keyvault secret download -vault-name kvXYZ10331 -name privSSH -file c:/priv.ppk
+// resource autoLogin 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+//   kind:'AzurePowerShell'
+//   location: clientVar.location
+//   name: 'autoLoginScript'
+//   identity:{
+//     type:'UserAssigned'
+//     userAssignedIdentities:{
+//       '${mngId.id}':{}
+//     }
+//   }
+//   properties:{
+//     retentionInterval: 'P1D'
+//     azPowerShellVersion: '7.2.2'
+//     scriptContent: '''
+//     $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+//     Set-ItemProperty $RegPath "AutoAdminLogon" -Value "1" -type String 
+//     Set-ItemProperty $RegPath "DefaultUsername" -Value "$username" -type String 
+//     Set-ItemProperty $RegPath "DefaultPassword" -Value "$password" -type String
+//     '''
+//   }
+//   dependsOn:[
+//     admvm
+//   ]
+// }

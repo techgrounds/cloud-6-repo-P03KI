@@ -1,14 +1,14 @@
 targetScope = 'resourceGroup'
 
+//param vmVar object
 param kvVar object
 param vnetVar object
 param clientVar object
 param tags object
-// param vnetId0 string 
-// param vnetId1 string
 param stgType string
 param stgName string
 param filename string = 'Bootscript_Linux.sh'
+param filename2 string = 'website.zip'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
@@ -18,6 +18,9 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' exi
 }
 resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
+}
+resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' existing = {
+  name: 'dskEncrKey-${clientVar.client}'
 }
 
 //////////////////// STORAGE /////////////////////////////////
@@ -75,6 +78,41 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-08-01'={
   }
 }
 
+// resource dskAccess 'Microsoft.Compute/diskAccesses@2021-12-01' ={
+//   location: clientVar.location
+//   name: 'diskAccess'
+//   tags: tags
+// }
+
+// resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
+//   name: 'LNX_DataDisk'
+//   location: clientVar.location
+//   tags:tags
+//   properties: {
+//     diskSizeGB: vmVar.diskSizeGB
+//     creationData: {
+//       createOption: 'Empty'
+//     }
+//     encryption:{
+//       type: 'EncryptionAtRestWithCustomerKey'
+//       diskEncryptionSetId: dskEncrKey.id
+//     }
+//     networkAccessPolicy: 'AllowAll'
+//     publicNetworkAccess:'Enabled'
+//     maxShares: 3
+//     burstingEnabled: true
+//     diskAccessId: dskAccess.id
+//     osType: 'Linux'
+//     }
+  
+//   sku: {
+//     name: vmVar.diskSku
+//   }
+//   zones:[
+//     '1'
+//   ]
+// }
+
 resource stgblob 'Microsoft.Storage/storageAccounts/blobServices@2021-08-01'= {
   parent: sa
   name: 'default'
@@ -108,14 +146,75 @@ resource stgblobcnt 'Microsoft.Storage/storageAccounts/blobServices/containers@2
   }
 }
 
-resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  name: 'upSsh'
+resource stgblobcnt2 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-08-01'={
+  parent: stgblob
+  name: 'website'
+  properties: {
+    publicAccess: 'Container'
+  }
+}
+
+resource uplWebsite 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'uploadWebsite'
   location: clientVar.location
   kind: 'AzureCLI'
   properties: {
     azCliVersion: '2.26.1'
     timeout: 'P1D'
     retentionInterval: 'P1D'
+    cleanupPreference: 'Always'
+    environmentVariables: [
+      {
+        name: 'AZURE_STORAGE_ACCOUNT'
+        value: stgName
+      }
+      {
+        name: 'AZURE_STORAGE_KEY'
+        secureValue: sa.listKeys().keys[0].value
+      }
+      {
+        name: 'CONTENT'
+        value: loadFileAsBase64('../etc/website/website.zip')
+      }
+    ]
+    scriptContent: 'echo "$CONTENT" | base64 -d > ${filename2} && az storage blob upload -f ${filename2} -c website -n ${filename2}' 
+  }
+}
+
+// resource diskAccess 'Microsoft.Compute/diskAccesses@2021-12-01' = {
+//   location: clientVar.location
+//   name: 'diskAccess' 
+// }
+
+//  resource diskWebFiles 'Microsoft.Compute/disks@2021-12-01' = {
+//    location: clientVar.location
+//    sku:{
+//      name:'StandardSSD_LRS'
+//    }
+//    tags: tags
+//    zones:[
+//      '1'
+//    ]
+//    name: 'webSite'
+//    properties:{
+//      creationData: {
+//        createOption: 'Import'
+//        sourceResourceId: stgblobcnt.id
+//        storageAccountId: sa.id
+//      }
+//    }
+//  }
+
+
+resource uplBootScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'uploadBootScript'
+  location: clientVar.location
+  kind: 'AzureCLI'
+  properties: {
+    azCliVersion: '2.26.1'
+    timeout: 'P1D'
+    retentionInterval: 'P1D'
+    cleanupPreference: 'Always'
     environmentVariables: [
       {
         name: 'AZURE_STORAGE_ACCOUNT'
@@ -133,3 +232,10 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     scriptContent: 'echo "$CONTENT" | base64 -d > ${filename} && az storage blob upload -f ${filename} -c bootstrapdata -n ${filename}' 
   }
 }
+//- Make a VHD for website
+
+// $vhdSizeBytes = (Get-Item "<fullFilePathHere>").length
+
+// $diskconfig = New-AzDiskConfig -SkuName 'Standard_LRS' -OsType 'Windows' -UploadSizeInBytes $vhdSizeBytes -Location '<yourregion>' -CreateOption 'Upload'
+
+// New-AzDisk -ResourceGroupName '<yourresourcegroupname>' -DiskName '<yourdiskname>' -Disk $diskconfig

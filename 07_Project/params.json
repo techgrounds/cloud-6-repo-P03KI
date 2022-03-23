@@ -13,7 +13,7 @@
       "value": {
         "location": "westeurope",
         "client": "XYZ",
-        "rgName": "s1",
+        "rgName": "dt4",
         "deploy": "dev",
         "user": "XYZ"
       }
@@ -49,7 +49,7 @@
       "value":{
         "diskSku": "StandardSSD_LRS",
         "diskSizeGB": 50,
-        "stgType": "Standard_ZRS",
+        "stgType": "Standard_LRS",
         "vmSkuL": "20_04-lts-gen2",
         "vmSizeL": "Standard_B2s",
         "vmSizeW": "Standard_B2s",

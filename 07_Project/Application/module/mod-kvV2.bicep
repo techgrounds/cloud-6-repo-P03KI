@@ -2,68 +2,15 @@ param clientVar object
 param kvVar object
 param tags object
 param vnetVar object
-@secure()
-param pwd string
 
 //- Reference
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
 }]
-
 //- Deploying KV
-resource kv 'Microsoft.KeyVault/vaults@2021-10-01' = {
+resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
-  location: kvVar.location
-  tags:tags
-  properties:{
-    enabledForDeployment: true
-    enabledForDiskEncryption: true
-    enabledForTemplateDeployment: true
-    enableRbacAuthorization: false
-    tenantId:  kvVar.tenantId
-    ////////// Temporary for testdeployments ///////////////////////
-    enablePurgeProtection: true
-    enableSoftDelete: true
-    //////////////////////////////////////////////////////////////
-    accessPolicies:[
-      {
-        objectId: kvVar.objectId
-        tenantId: kvVar.tenantId
-        permissions:{
-          keys:[
-            'all'
-          ]
-          secrets:[
-            'all'
-          ]
-          storage:[
-            'all'
-          ]
-          certificates:[
-            'all'
-          ]
-        }
-      }
-    ]
-    sku:{
-      name: 'standard'
-      family: 'A'
-    }
-    networkAcls: {
-      defaultAction: 'Allow'
-      bypass: 'AzureServices'
-      virtualNetworkRules:[
-        {
-            id: '${vnet[0].id}/subnets/subnet0'
-        }       
-        {
-            id: '${vnet[1].id}/subnets/subnet1'      
-        }
-    ]
-    }
-  }
 }
-
 //- Create managed ID
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: clientVar.client
@@ -72,16 +19,6 @@ resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   dependsOn:[
     kv
   ]
-}
-
-//- Create Keys
-resource secret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
-  parent: kv
-  tags: tags
-  name: 'genPass'
-  properties: {
-    value: pwd
-  }
 }
 resource RSAKey 'Microsoft.KeyVault/vaults/keys@2021-10-01' = {
   name: 'RSAKey'
@@ -121,7 +58,6 @@ resource dskEncrKey 'Microsoft.Compute/diskEncryptionSets@2021-08-01' = {
     encryptionType: 'EncryptionAtRestWithCustomerKey'
   }
 }
-
 //- Define policy
 resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
   name: 'add'
@@ -141,20 +77,22 @@ resource kvPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-10-01'= {
           secrets:[
             'all'
           ]
-        }
-        
+        } 
       }
       {
         tenantId: kvVar.tenantId
         objectId: mngId.properties.principalId
         permissions: {
           keys: [
-           'all'
+            'all'
           ]
           storage: [
             'all'
           ]
           secrets:[
+            'all'
+          ]
+          certificates:[
             'all'
           ]
         }    

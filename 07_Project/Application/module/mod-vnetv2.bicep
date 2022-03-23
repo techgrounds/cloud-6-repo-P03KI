@@ -1,96 +1,29 @@
 targetScope = 'resourceGroup'
 
-//--------- Import Var -----------------------------------------------------
+//- Import Var
 param vnetVar object
 param clientVar object
 param i int
 param tags object
-param privIp string
 
-//-------------- Create Public IP's --------------------------------------------
+//- Create Public IP's
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-05-01' = { 
-  name:'pubIp${i+1}'
+  name: 'pubIp-${vnetVar.environment[i]}'
   location: clientVar.location
   tags:tags
+  sku: {
+    name: 'Standard'
+    tier:'Regional'
+  }
   zones: [
     '1'
+    '2'
   ]
   properties: {
     publicIPAllocationMethod: 'Static'
   }
 }
-
-//----------------- Create NSG's ------------------------------------------------
-resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
-  name: string('nsg${i+1}')
-  location: clientVar.location
-  tags:tags
-  properties: i == 0 ? {
-    securityRules: [
-      {
-        name: 'HTTP'
-        properties: {
-          description: 'HTTP-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '80'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 100
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'HTTPS'
-        properties: {
-          description: 'HTTPS-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '443'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 110
-          direction: 'Inbound'
-        }
-      }
-    ]
-  }:{
-    securityRules: [
-      {
-        name: 'rdp'
-        properties: {
-          description: 'rdp-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '3389'
-          sourceAddressPrefix: privIp
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 100
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'ssh'
-        properties: {
-          description: 'ssh-rule'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '22'
-          sourceAddressPrefix: privIp
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 110
-          direction: 'Inbound'
-        }
-      }
-      
-    ]
-  }
-}
-//------------------- Create VNET's ---------------------------------------------
+//- Create V-Net
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: vnetVar.vnetName[i]
   location: clientVar.location
@@ -101,34 +34,22 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         vnetVar.vnetPrefix[i]
       ]
     }
-    subnets: [
-      {
-        name: 'subnet${i}'
-        properties: {
-          addressPrefix: vnetVar.vnetPrefix[i]
-          networkSecurityGroup: {
-            id: nsg.id
-          }
-          serviceEndpoints: [
-            { 
-              service: 'Microsoft.KeyVault'
-            }
-            {  
-              service: 'Microsoft.Storage'
-            }
-          ]
-        }         
-      }      
-    ]
   }
 }
-
-output vnetId array = [
-  vnet.id
-] 
-output pubIpId array = [
-  pubIp.id
-]
-output subnetId array = [
-  '${vnet.id}/subnets/subnet${i}'
-]
+//- Create Subnet
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {
+  name: 'subnet${i+1}'
+  parent: vnet
+  properties: {
+    addressPrefix: vnetVar.snet1Prefix[i]
+    privateEndpointNetworkPolicies: 'Enabled'
+    serviceEndpoints: [
+      { 
+        service: 'Microsoft.KeyVault'
+      }
+      {  
+        service: 'Microsoft.Storage'
+      }
+    ]
+  }        
+}

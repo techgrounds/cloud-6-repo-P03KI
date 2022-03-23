@@ -5,8 +5,8 @@ param tags object
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
-var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
-var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+// var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
+// var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
 
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
   name: clientVar.client
@@ -76,15 +76,15 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2021-12-
   }
 }
 
-resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
-  name: '${recVltName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
-  tags: tags
-  properties: {
-    protectedItemType: 'Microsoft.Compute/virtualMachines'
-    policyId: backuppolicy.id
-    sourceResourceId: webvm.id
-  }
-}
+// resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
+//   name: '${recVltName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
+//   tags: tags
+//   properties: {
+//     protectedItemType: 'Microsoft.Compute/virtualMachines'
+//     policyId: backuppolicy.id
+//     sourceResourceId: webvm.id
+//   }
+// }
 
 resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
   name: '${recoveryvault.name}/${backupFabric}/${protectionContainer}/${protectedItem}'
@@ -94,7 +94,7 @@ resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protection
     policyId: backuppolicy.id
     sourceResourceId: admvm.id
   }
-   dependsOn:[
-   backupWeb
-   ]
+  //  dependsOn:[
+  //  backupWeb
+  //  ]
 } 

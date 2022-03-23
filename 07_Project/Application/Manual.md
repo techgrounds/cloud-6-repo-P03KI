@@ -12,6 +12,7 @@ Voor het uitvoeren van het script dient u gebruik te maken van Powershell
     --version
 
 ### Installeer bicep in Powershell
+
 Set policy
 
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -23,6 +24,9 @@ Install bicep
     -Scope CurrentUser 
     -Repository PSGallery 
     -Force
+## Azure CLI
+
+[Install URL](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 ### Installeer Project v1.0
 

@@ -1,18 +1,19 @@
 targetScope = 'resourceGroup'
 
 param vnetVar object
-param vnetId0 string 
-param vnetId1 string
 
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
 }]
 
-param tempArr array = [
-  vnetId1
-  vnetId0
+var tempArr = [
+  vnet[1].id
+  vnet[0].id
 ]
 
+
+//- TO-DO PRIO_5: via ref of output(string + i).
+//- complexere functie voor outscaling vnet en peering 
 resource vNetPeering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2021-05-01' = [for (vnetName, i) in vnetVar.vnetName: {
   name: '${vnetVar.vnetName[i]}-peering'
   parent: vnet[i]
