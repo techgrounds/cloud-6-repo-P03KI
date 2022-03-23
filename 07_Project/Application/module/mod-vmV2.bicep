@@ -192,7 +192,7 @@ resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
 //     Param([string]) $Secr)
 //     Param([string]) $Path)
 //     Connect-AzAccount -Identity
-//     az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
+//     echo az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
 //     '''
 //     timeout: 'PT10M'
 //     cleanupPreference: 'Always'

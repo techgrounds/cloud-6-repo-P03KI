@@ -160,7 +160,7 @@ resource uplWebsite 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   kind: 'AzureCLI'
   properties: {
     azCliVersion: '2.26.1'
-    timeout: 'P10M'
+    timeout: 'P1D'
     retentionInterval: 'P1D'
     cleanupPreference: 'Always'
     environmentVariables: [
@@ -212,7 +212,7 @@ resource uplBootScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   kind: 'AzureCLI'
   properties: {
     azCliVersion: '2.26.1'
-    timeout: 'P10M'
+    timeout: 'P1D'
     retentionInterval: 'P1D'
     cleanupPreference: 'Always'
     environmentVariables: [
