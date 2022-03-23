@@ -28,9 +28,6 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
   scope: resourceGroup('resGr')
 }
-// resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' existing = {
-//   name: 'nsg-${vnetVar.environment[1]}'
-// }
 
 //- Create NSG
 resource nsg2 'Microsoft.Network/networkSecurityGroups@2021-05-01' =  {
@@ -161,44 +158,51 @@ resource nic2 'Microsoft.Network/networkInterfaces@2021-05-01' = {
   }
 }
 
-resource dlPrivKey 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  kind:'AzurePowerShell'
-  location: clientVar.location
-  identity:{
-    type:'UserAssigned'
-    userAssignedIdentities:{
-      '${mngId.id}':{}
-    }
-  }
-  name: 'dl_priv_key_cli'
-  tags: tags
-  properties:{
-    retentionInterval: 'P1D'
-    azPowerShellVersion: '5.1.20348.558'
-    environmentVariables: [
-      {
-        name: 'kvname'
-        value: kvVar.kvName
-      }
-      {
-        name: 'secr'
-        value: 'privSSH'
-      }
-      {
-        name: 'path'
-        value: 'c:/priv.ppk'
-      }
-    ]
-    scriptContent:'az keyvault secret download -vault-name $env:kvname -name $env:secr -file $env:path' 
-    timeout: 'PT10M'
-    cleanupPreference: 'OnSuccess'
-  }
-  dependsOn:[
-    admvm
-  ]
-}
+// resource dlPrivKey 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+//   kind: 'AzureCLI'
+//   location: clientVar.location
+//   identity:{
+//     type:'UserAssigned'
+//     userAssignedIdentities:{
+//       '${mngId.id}':{}
+//     }
+//   }
+//   name: 'dl_priv_key_cli'
+//   tags: tags
+//   properties:{
+//     retentionInterval: 'P1D'
+//     azCliVersion: '2.34.1'
 
-//
+//     environmentVariables: [
+//       {
+//         name: 'kvname'
+//         value: string(kvVar.kvName)
+//       }
+//       {
+//         name: 'secr'
+//         value: 'privSSH'
+//       }
+//       {
+//         name: 'path'
+//         value: 'c:/priv.ppk'
+//       }
+//     ]
+//     scriptContent:'''
+//     Param([string]) $kvName)
+//     Param([string]) $Secr)
+//     Param([string]) $Path)
+//     Connect-AzAccount -Identity
+//     az keyvault secret download -vault-name $kVname -name $Secr -file $Path 
+//     '''
+//     timeout: 'PT10M'
+//     cleanupPreference: 'Always'
+//   }
+//   dependsOn:[
+//     admvm
+//   ]
+// }
+
+// EXTRA TO DO: Auto login & KV
 
 //Install-Module -Name PowerShellGet -Force -Scope CurrentUser
 //az keyvault secret download -vault-name kvXYZ10331 -name privSSH -file c:/priv.ppk

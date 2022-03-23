@@ -160,8 +160,9 @@ resource uplWebsite 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   kind: 'AzureCLI'
   properties: {
     azCliVersion: '2.26.1'
-    timeout: 'P1D'
+    timeout: 'P10M'
     retentionInterval: 'P1D'
+    cleanupPreference: 'Always'
     environmentVariables: [
       {
         name: 'AZURE_STORAGE_ACCOUNT'
@@ -211,8 +212,9 @@ resource uplBootScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   kind: 'AzureCLI'
   properties: {
     azCliVersion: '2.26.1'
-    timeout: 'P1D'
+    timeout: 'P10M'
     retentionInterval: 'P1D'
+    cleanupPreference: 'Always'
     environmentVariables: [
       {
         name: 'AZURE_STORAGE_ACCOUNT'
