@@ -22,9 +22,10 @@ ufw allow 3389
 ufw allow 'Apache Full'
 service ufw start
 
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
 # enable autostart on reboot
 systemctl enable apache2
-
+a2enmod ssl
 # restart Apache
 systemctl restart apache2
 #apachectl restart
