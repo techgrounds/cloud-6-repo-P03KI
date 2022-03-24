@@ -12,8 +12,9 @@
     "clientVar":{
       "value": {
         "location": "westeurope",
+        "location2": "northeurope",
         "client": "XYZ",
-        "rgName": "s1",
+        "rgName": "tt",
         "deploy": "dev",
         "user": "XYZ"
       }

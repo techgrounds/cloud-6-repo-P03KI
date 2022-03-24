@@ -113,7 +113,6 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
   scope: resGr
   name: 'StorageAccount_Deployment'
   params:{
-    //vmVar: vmVar
     kvVar: kvVar
     vnetVar: vnetVar
     tags: tags
@@ -167,6 +166,8 @@ module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
   scope: resGr
   name: 'RecoveryVault_Deployment'
   params: {
+    stgType: vmVar.stgType
+    stgName: stgName
     kvVar: kvVar
     recVltName: recVltName
     tags: tags
