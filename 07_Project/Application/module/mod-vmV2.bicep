@@ -92,12 +92,6 @@ resource admvm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       windowsConfiguration:{
         provisionVMAgent:true
       }
-      // customData:'''
-      // $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-      // Set-ItemProperty $RegPath "AutoAdminLogon" -Value "1" -type String 
-      // Set-ItemProperty $RegPath "DefaultUsername" -Value "$username" -type String 
-      // Set-ItemProperty $RegPath "DefaultPassword" -Value "$password" -type String
-      // '''
     }
     licenseType: 'Windows_Client'
     storageProfile: {

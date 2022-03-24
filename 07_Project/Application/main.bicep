@@ -175,4 +175,3 @@ module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
     vm
   ]
 }
-
