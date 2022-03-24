@@ -86,25 +86,25 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
               }
             }
           }
-          {
-            name: 'KeyVaultForLinux'
-            properties: {
-              publisher: 'Microsoft.Azure.KeyVault'
-              type: 'KeyVaultForLinux'
-              typeHandlerVersion: '2.0'
-              autoUpgradeMinorVersion: true
-              settings:{
-                secretsManagementSettings: {
-                  pollingIntervalInS: '6000'
-                  certificateStoreLocation: '/etc/ssl/certs'
-                  requireInitialSync: true
-                  observedCertificates: [
-                    'https://${toLower(kvVar.kvName)}${environment().suffixes.keyvaultDns}/secrets/SSLcert'
-                   ] 
-                }
-              }
-            }
-          }
+          // {
+          //   name: 'KeyVaultForLinux'
+          //   properties: {
+          //     publisher: 'Microsoft.Azure.KeyVault'
+          //     type: 'KeyVaultForLinux'
+          //     typeHandlerVersion: '2.0'
+          //     autoUpgradeMinorVersion: true
+          //     settings:{
+          //       secretsManagementSettings: {
+          //         pollingIntervalInS: '6000'
+          //         certificateStoreLocation: '/etc/ssl/certs'
+          //         requireInitialSync: true
+          //         observedCertificates: [
+          //           'https://${toLower(kvVar.kvName)}${environment().suffixes.keyvaultDns}/secrets/SSLcert'
+          //          ] 
+          //       }
+          //     }
+          //   }
+          // }
           // TO DO EXTRA: POST BOOT script/functions
           // {
           //   name: 'config-app'
