@@ -9,16 +9,6 @@ param kvVar object
 @secure()
 param SSH string
 
-//https://storxyz2022i.blob.core.windows.net/website/website.zip
-// var url = '''
-// #!/bin/bash
-// sudo su
-// wget -P /var/www/html/ https://1drv.ms/u/s!AlB9B25c4TSBj-8pPJ9z1cKbYuu24w?e=v1ekB5   
-// apt install unzip
-// unzip -q /var/www/html/website.zip
-// wget -P /usr/local/share/ca-certificates/ https://1drv.ms/u/s!AlB9B25c4TSBj-5GA3GqAmOQVO6tqQ?e=69SObN
-// '''
-
 //-Reference
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]

@@ -14,7 +14,7 @@
         "location": "westeurope",
         "location2": "northeurope",
         "client": "XYZ",
-        "rgName": "tt",
+        "rgName": "demo",
         "deploy": "dev",
         "user": "XYZ"
       }
