@@ -39,7 +39,7 @@ param deploy object ={
   sa: true
   ss: true
   vm: true
-  rv: true
+  rv: false
 }
 
 //- init-based params
@@ -166,8 +166,6 @@ module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
   scope: resGr
   name: 'RecoveryVault_Deployment'
   params: {
-    stgType: vmVar.stgType
-    stgName: stgName
     kvVar: kvVar
     recVltName: recVltName
     tags: tags

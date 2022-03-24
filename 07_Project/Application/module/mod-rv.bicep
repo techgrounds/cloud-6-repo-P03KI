@@ -2,8 +2,6 @@ param kvVar object
 param clientVar object
 param recVltName string
 param tags object
-param stgType string
-param stgName string
 
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
