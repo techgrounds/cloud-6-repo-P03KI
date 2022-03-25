@@ -161,17 +161,6 @@ resource appGateway 'Microsoft.Network/applicationGateways@2021-05-01' = {
         }
       }
     ]
-    // sslProfiles:[
-    //   {
-    //     name: 'SSLProfile'
-    //     properties:{
-    //       sslPolicy:{
-    //         policyType:'Predefined'
-    //         policyName:'AppGwSslPolicy20170401S'
-    //       }
-    //     }
-    //   }
-    // ]
     sslCertificates:[
       {
         name: 'appGatewaySslCert'

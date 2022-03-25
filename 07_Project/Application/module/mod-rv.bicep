@@ -2,11 +2,10 @@ param kvVar object
 param clientVar object
 param recVltName string
 param tags object
+
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${admvm.name}'
-var protectionContainer2 = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
-var protectedItem2 = 'vm;iaasvmcontainerv2;${resourceGroup().name};${webvm.name}'
 
 resource mngId 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
   name: clientVar.client
@@ -21,6 +20,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
   name: kvVar.kvName
 }
 
+//- Creating Recovery Vault with policies for backup
 resource recoveryvault 'Microsoft.RecoveryServices/vaults@2021-11-01-preview' = {
   name: recVltName
   location: clientVar.location
@@ -76,16 +76,6 @@ resource backuppolicy 'Microsoft.RecoveryServices/vaults/backupPolicies@2021-12-
   }
 }
 
-resource backupWeb 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
-  name: '${recVltName}/${backupFabric}/${protectionContainer2}/${protectedItem2}'
-  tags: tags
-  properties: {
-    protectedItemType: 'Microsoft.Compute/virtualMachines'
-    policyId: backuppolicy.id
-    sourceResourceId: webvm.id
-  }
-}
-
 resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2021-12-01' = {
   name: '${recoveryvault.name}/${backupFabric}/${protectionContainer}/${protectedItem}'
   tags: tags
@@ -94,7 +84,4 @@ resource backupAdmin 'Microsoft.RecoveryServices/vaults/backupFabrics/protection
     policyId: backuppolicy.id
     sourceResourceId: admvm.id
   }
-   dependsOn:[
-   backupWeb
-   ]
 } 

@@ -1,2 +1,0 @@
-$vnet = Get-AzVirtualNetwork -Name app-prd-vnet -ResourceGroupName x7
-Get-AzVirtualNetworkSubnetConfig -Name subnetGW -VirtualNetwork $vnet
