@@ -9,16 +9,6 @@ param kvVar object
 @secure()
 param SSH string
 
-//https://storxyz2022i.blob.core.windows.net/website/website.zip
-// var url = '''
-// #!/bin/bash
-// sudo su
-// wget -P /var/www/html/ https://1drv.ms/u/s!AlB9B25c4TSBj-8pPJ9z1cKbYuu24w?e=v1ekB5   
-// apt install unzip
-// unzip -q /var/www/html/website.zip
-// wget -P /usr/local/share/ca-certificates/ https://1drv.ms/u/s!AlB9B25c4TSBj-5GA3GqAmOQVO6tqQ?e=69SObN
-// '''
-
 //-Reference
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = [for (vnetName, i) in vnetVar.vnetName: {
   name: vnetVar.vnetName[i]
@@ -58,11 +48,16 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
   tags: tags
   properties: {
     virtualMachineProfile: {
+      diagnosticsProfile:{
+        bootDiagnostics:{
+          enabled: true
+        }
+      }
       osProfile: {
         allowExtensionOperations:true
         computerNamePrefix: 'web-server'
         adminUsername: clientVar.client
-        customData: loadFileAsBase64('../etc/apache_install.sh')
+        customData: clientVar.deploy == 'dev' ? loadFileAsBase64('../etc/apache_install.sh') : loadFileAsBase64('../etc/apache_install2.sh')
         linuxConfiguration: {
           disablePasswordAuthentication: true
           ssh:{
@@ -71,10 +66,6 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
                 path: '/home/${clientVar.client}/.ssh/authorized_keys'
                 keyData: SSH
               }
-              // {
-              //   path: '/usr/local/share/ca-certificates/'
-              //   keyData: loadFileAsBase64('../etc/SSLDUMMY.PEM')
-              // }
             ]
           }
         }
@@ -111,14 +102,11 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
                     'https://${toLower(kvVar.kvName)}${environment().suffixes.keyvaultDns}/secrets/SSLcert'
                    ] 
                 }
-                // authenticationSettings: { 
-                //   //msiEndpoint:  <Optional MSI endpoint e.g.: "http://169.254.169.254/metadata/identity">,
-                //   msiClientId: mngId.id
-                // }
               }
             }
           }
-          // 
+          // TO DO EXTRA: POST BOOT script/functions
+          // {
           //   name: 'config-app'
           //   properties:{
           //     publisher: 'Microsoft.Azure.Extensions'
@@ -160,7 +148,6 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
         networkInterfaceConfigurations: [
           {
             name: 'app-prd-vnet-nic'
-            //id: nic1.id
             properties:{
               networkSecurityGroup:{
                 id: nsg1.id

@@ -32,6 +32,7 @@ param iVar object
 param privIp string
 
 //- deployment booleans test/debug
+param extDisk bool = false
 param deploy object ={
   vn: true
   pr: true
@@ -39,13 +40,13 @@ param deploy object ={
   sa: true
   ss: true
   vm: true
-  rv: false
+  rv: true
 }
 
-//- init-based params
-param recVltName string = 'rv${toLower(uniqueString(utcNow()))}'
+//- init-based params for development with boolean for final deployment
+param recVltName string = clientVar.deploy == 'dev' ? 'rv${toLower(uniqueString(utcNow()))}' : 'recvaultxyz24032022'
 param tenantId string = subscription().tenantId
-param stgName string = 'sto${toLower(uniqueString(utcNow()))}'
+param stgName string = clientVar.deploy == 'dev' ? 'sto${toLower(uniqueString(utcNow()))}' : 'storagexyz24032022' 
 
 //- Reference
 resource resGr 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
@@ -113,8 +114,9 @@ module stgM './module/mod-stgV2.bicep' = if(bool(deploy.sa)){
   scope: resGr
   name: 'StorageAccount_Deployment'
   params:{
-    //vmVar: vmVar
+    extDisk: extDisk
     kvVar: kvVar
+    vmVar: vmVar
     vnetVar: vnetVar
     tags: tags
     clientVar: clientVar
@@ -176,4 +178,3 @@ module rv './module/mod-rv.bicep' = if(bool(deploy.rv)){
     vm
   ]
 }
-

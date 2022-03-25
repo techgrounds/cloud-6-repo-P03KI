@@ -1,6 +1,6 @@
 Write-Host "--> AutoDeployment XYZ CloudInfra v1.1" -ForegroundColor Green
 Write-Host "--> Entering the cloud" -ForegroundColor Green
-#Login-AzAccount
+Login-AzAccount
 Write-Host "--> Importing current ObjectId" -ForegroundColor Green
 $output = az ad signed-in-user show --query objectId
 
