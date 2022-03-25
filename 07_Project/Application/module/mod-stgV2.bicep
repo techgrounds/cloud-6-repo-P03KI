@@ -5,7 +5,9 @@ param kvVar object
 param vnetVar object
 param clientVar object
 param tags object
+param vmVar object
 param stgType string
+param extDisk bool
 param stgName string
 param filename string = 'Bootscript_Linux.sh'
 param filename2 string = 'website.zip'
@@ -173,37 +175,37 @@ resource uplBootScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   }
 }
 
-// resource dskAccess 'Microsoft.Compute/diskAccesses@2021-12-01' ={
-//   location: clientVar.location
-//   name: 'diskAccess'
-//   tags: tags
-// }
+resource dskAccess 'Microsoft.Compute/diskAccesses@2021-12-01' = if (extDisk){
+  location: clientVar.location
+  name: 'diskAccess'
+  tags: tags
+}
 
-// resource datadisk 'Microsoft.Compute/disks@2021-08-01' = {
-//   name: 'LNX_DataDisk'
-//   location: clientVar.location
-//   tags:tags
-//   properties: {
-//     diskSizeGB: vmVar.diskSizeGB
-//     creationData: {
-//       createOption: 'Empty'
-//     }
-//     encryption:{
-//       type: 'EncryptionAtRestWithCustomerKey'
-//       diskEncryptionSetId: dskEncrKey.id
-//     }
-//     networkAccessPolicy: 'AllowAll'
-//     publicNetworkAccess:'Enabled'
-//     maxShares: 3
-//     burstingEnabled: true
-//     diskAccessId: dskAccess.id
-//     osType: 'Linux'
-//     }
+resource datadisk 'Microsoft.Compute/disks@2021-08-01' = if (extDisk){
+  name: 'LNX_DataDisk'
+  location: clientVar.location
+  tags:tags
+  properties: {
+    diskSizeGB: vmVar.diskSizeGB
+    creationData: {
+      createOption: 'Empty'
+    }
+    encryption:{
+      type: 'EncryptionAtRestWithCustomerKey'
+      diskEncryptionSetId: dskEncrKey.id
+    }
+    networkAccessPolicy: 'AllowPrivate'
+    publicNetworkAccess:'Enabled'
+    maxShares: 3
+    burstingEnabled: true
+    diskAccessId: dskAccess.id
+    osType: 'Linux'
+    }
   
-//   sku: {
-//     name: vmVar.diskSku
-//   }
-//   zones:[
-//     '1'
-//   ]
-// }
+  sku: {
+    name: vmVar.diskSku
+  }
+  zones:[
+    '1'
+  ]
+}

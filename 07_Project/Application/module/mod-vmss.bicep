@@ -57,7 +57,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-11-01' = {
         allowExtensionOperations:true
         computerNamePrefix: 'web-server'
         adminUsername: clientVar.client
-        customData: loadFileAsBase64('../etc/apache_install.sh')
+        customData: clientVar.deploy == 'dev' ? loadFileAsBase64('../etc/apache_install.sh') : loadFileAsBase64('../etc/apache_install2.sh')
         linuxConfiguration: {
           disablePasswordAuthentication: true
           ssh:{
