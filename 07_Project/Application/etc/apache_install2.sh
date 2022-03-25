@@ -11,8 +11,8 @@ apt-get -y install mysql-server
 apt-get -y install php libapache2-mod-php php-mysql
 echo \<center\>\<h1\>--- Web-Server geinstalleerd ---\</h1\>\<br/\>\</center\> > /var/www/html/index.html
 
-wget https://storagexyz24032022.blob.core.windows.net/website/website.zip
-unzip website.zip -d /var/www/html/
+sudo wget https://storagexyz24032022.blob.core.windows.net/website/website.zip
+sudo unzip website.zip -d /var/www/html/
 
 # firewall
 ufw allow 22
