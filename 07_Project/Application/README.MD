@@ -1,7 +1,6 @@
-# Project: Sentia 1.0
-## XYZ: Azure Webserver Deployment
-
-15/02/2022 - 08/04/2022
+# Techgrounds/Sentia Project 1.1
+### Made by: Suheri Koes 
+### Date: 24/03/2022
 
 ## Inhoudsopgave
 
@@ -135,9 +134,11 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 
 #### VNET #1
 - Benaming: "app-prd-vnet"
-- Bereik: 10.10.10.0/24
-- 1 subnet
-- 1 publiek IP voor toegang tot de website 
+- Bereik: 10.10.0.0/16
+- 2 subnets
+    - 10.10.10.0/24 (subnet1 - VM ScaleSet)
+    - 10.10.20.0/24 (Application Gateway)
+- 1 statisch publiek IP voor toegang tot de website via de Application Gateway
 
 #### VNET #2
 - Benaming: "management-prd-vnet"  
@@ -146,7 +147,7 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 - 1 publiek ip voor admin toegang
 
 #### Peering
-Er worden twee peering resources aangemaakt waardoor de twee virtuele netwerken volledige verbinding hebben met elkaar.
+Er worden twee peering resources aangemaakt waardoor de twee virtuele netwerken volledige verbinding hebben met elkaar. In de IaC is de resource gescheiden van de v-nets vanwege de modulariteit en de dependencies. 
 
 ### 4 Microsoft Azure Storage
 

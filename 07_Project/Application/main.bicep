@@ -40,7 +40,7 @@ param deploy object ={
   sa: true
   ss: true
   vm: true
-  rv: false
+  rv: true
 }
 
 //- init-based params for development with boolean for final deployment
