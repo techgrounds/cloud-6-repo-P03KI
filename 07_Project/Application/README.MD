@@ -99,13 +99,18 @@ Volgorde van deployment:
 
 ResourceGroup > vNet > Keyvault > VM's > Recoveryvault  
 
+
 ![img](../../00_includes/PRJ/script-dependancies.png)
+*v1.0*
 
+Met de wijzigingen van v1.1 wordt zijn dit de gemaakte dependacies en deploy-volgorde:
 
-Zoals op de afbeelding te zien zijn de resources in opgedeeld in modules. 
+![img](../../00_includes/PRJ/vsc_dependancies.png)
+*v1.1*
+Naar mate ik wat meer inzicht in de stof begon te krijgen, ben ik deze ook beter toe gaan passen. Door het efficienter indelen van de resources is de deployment tijd verminderd naar +/- 7 minuten met alle extra resources benodigd voor v1.1.
 
-Modules worden gebruikt om resources makkelijker op scopes te deployen. 
-
+Zoals op de afbeeldingen te zien zijn de resources in opgedeeld in modules. 
+Modules worden gebruikt om resources makkelijker op scopes te deployen. Zijn modulair en kunnen dus hergebruikt worden wat scheelt in toekomstige wijzigingen.  
 
 #### Subscription
 De bicep wordt uitgevoerd op subscriptie-niveau voor de vereenvoudigde deployment. De deployment kan worden uitgevoerd op Azure account van de klant mits de juiste variabelen worden meegegeven in de 'params.json'.
@@ -144,7 +149,7 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 - Benaming: "management-prd-vnet"  
 - Bereik: 10.20.20.0/24
 - 1 subnet
-- 1 publiek ip voor admin toegang
+- 1 statisch publiek ip voor admin toegang
 
 #### Peering
 Er worden twee peering resources aangemaakt waardoor de twee virtuele netwerken volledige verbinding hebben met elkaar. In de IaC is de resource gescheiden van de v-nets vanwege de modulariteit en de dependencies. 
@@ -161,34 +166,27 @@ Tijdens de deployment wordt het init script voor de webserver in de blobcontaine
 #### Hard Disk
 De volgende harde schijven zijn in het huidige model geimplementeerd:
 - Lokaal redundant standaard SSD 30 GB voor de Web Server
-- Lokaal redundant standaard SSD 50 GB voor de data schijf van de Web Server
-- Lokaal redundant standaard SSD 120 GB voor de Admin Server (Minimum van Windows 11 SKU)
+- Lokaal redundant standaard SSD 50 GB voor de data schijf van de Web Server (Deze staat momenteel niet geactiveerd. Gezien de webserver lokaal wordt gedraaid op elke VM, is er geen behoefte aan een externe snelle disk. Indien er toch meer performance nodig is voor de webfiles is het mogelijk de dataschijf aan te zetten. Om deze te activeren tijdens de deployment, wijzig de parameter 'extDisk' naar 'true')
+- Lokaal redundant standaard SSD 120 GB voor de Admin Server (Minimum van Windows SKU)
 
 ### 5 Microsoft Azure Compute
 
 #### Webserver
 - Opgezet in West Europa met 'Availability Zoning' in zone 1. 
-- Instellingen worden extra veilig ingesteld
+- Instellingen worden extra veilig ingesteld. SSH en RDP alleen via de Admin-server en publiek verkeer alleen op TLS via de loadbalancer. De schaling staat ingesteld op hoeveelheid van inkomende verbindingen en de gemeten CPU-load van de VM('s).
 - Grootte VM: Standard_B2s = 2 vCPU/4GB RAM ($35.04/maand) --> Bij reservering 1jr $20.49/maand en 3jr $13.19/maand
-- OS = Ubuntu 11.04 LTS
+- OS = Ubuntu 20.04 LTS
 
 Instap VM-grootte gekozen en  gelet op de prijs. Indien er meer capaciteit nodig is, is het mogelijk om horizontaal en verticaal te schalen.
-Bij installatie wordt er Apachev2 geinstalleerd als webserver. Dit bootscript wordt ook in de cloud gezet in de 'bootstrapdata' container.
-
-
+Bij installatie wordt er Apachev2 geinstalleerd als webserver. Dit bootscript wordt als eerst centraal in een blob container bewaard, waarna elke VM dit script kan bereiken. Ook wordt tijdens de deployment de web files opgehaald van een interne of externe URI. Elke VM draait dus de laatste versie van de website. Bij downscaling wordt de oudste VM als eerste verwijderd, zodoende is er rotatie en geen behoefte aan een cron-script.
 
 #### Administratieserver 
 - Opgezet in West Europa met 'Availability Zoning' in zone 1. 
 - Instellingen worden extra veilig ingesteld
 - Grootte VM: Standard_D2s_v3 = 2 vCPU/8GB geheugen ($20.27/maand SPOT)
-- OS = Ubuntu 10
+- OS = Windows 2022 Datacenter Azure
 
-Gezien de Admin Server niet continue aan hoeft te staan, is er gekozen voor een wat zwaarder exemplaar met SPOT. SPOT geeft in ruil voor een hoge korting een lagere prioriteit in de cloud. 
-Het is theoretisch mogelijk dat de VM niet beschikbaar is. Indien het toch als hinderlijk ervaren wordt, is het mogelijk de VM te downscalen. 
-De Admin Server draait op windows 11. Dit heeft een aantal redenen. 
-1. Comfortabele omgeving voor de Administrator
-2. Geen extra licentiekosten voor Server-versies.
-3. Gekoppeld met redelijke hardware zodat de gebruiker geen haperingen in zijn workflow ondervindt door cpu-capaciteit en/of latency problemen.
+Minimale virtuele windows server opgezet in de cloud. Deze VM is alleen te bereiken via SSH en RDP. Ook is het mogelijk dat er maar vanaf een ip kan worden ingelogd (Zie manual.md]). Alleen via deze VM is de webserver te bereiken via SSH en RDP en is er volledige toegang mogelijk tot alle VM's waar nodig.
 
 ### 6 Microsoft Azure Identity
 
