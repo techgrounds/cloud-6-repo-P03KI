@@ -1,5 +1,5 @@
 # Handleiding Techgrounds/Sentia Project 1.1
-### Made by: Suheri Koes 
+### Author: Suheri Koes 
 ### Date: 24/03/2022
 
 Voor het uitvoeren van het script dient u gebruik te maken van Powershell
