@@ -106,6 +106,7 @@ Versie 1.1 brengt nog enkele extra diensten in de IaC.
 Er wordt een Application Gateway gebruikt om het verkeer te verdelen over de virtual machine scaleset. Ook beveiligt deze 'normaal' http verkeer naar TLS. 
 
 ![img](../../00_includes/PRJ/sketch1.1.png)
+*Sketch overview*
 
 Met de wijzigingen van v1.1 wordt zijn dit de gemaakte dependacies en deploy-volgorde van de gemaakte modules:
 
@@ -135,6 +136,7 @@ Er wordt in de deployment ook een keyvault aangemaakt via de Powershell. De encr
 SSL cerificaatwordt uitgelezen indien aangeleverd en tijdens de deployment wordt om het bijhorende wachtwoord gevraagd. Indien niet aanwezig wordt er een placeholder certificaat gegenereerd. Welke uiteraard naderhand te vervangen is.
 
 ![img](../../00_includes/PRJ/sketchdeployment.png)
+*Sketch deployment*
 
 
 #### Regio
@@ -155,6 +157,7 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 - 1 statisch publiek IP voor toegang tot de website via de Application Gateway via poort 80 en 443. 80 wordt automatisch omgeleid naar 443. 
 
 ![img](../../00_includes/PRJ/sketchtraff.png)
+*Sketch traffic*
 
 #### VNET #2
 - Benaming: "management-prd-vnet"  
