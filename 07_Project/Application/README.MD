@@ -109,10 +109,12 @@ Er wordt een Application Gateway gebruikt om het verkeer te verdelen over de vir
 
 *Sketch overview*
 
+
 Met de wijzigingen van v1.1 wordt zijn dit de gemaakte dependacies en deploy-volgorde van de gemaakte modules:
 
 ![img](../../00_includes/PRJ/vsc_dependancies.png)
 *v1.1*
+
 Naar mate ik wat meer inzicht in de stof begon te krijgen, ben ik deze ook beter toe gaan passen. Door het efficienter indelen van de resources is de deployment tijd verminderd naar +/- 7 minuten met alle extra resources benodigd voor v1.1.
 
 Zoals op de afbeeldingen te zien zijn de resources in opgedeeld in modules. 
@@ -161,6 +163,7 @@ Er wordt een admin rol aan de deployment-account toegewezen. Indien er meerdere 
 ![img](../../00_includes/PRJ/sketchtraff.png)
 
 *Sketch traffic*
+
 
 #### VNET #2
 - Benaming: "management-prd-vnet"  
